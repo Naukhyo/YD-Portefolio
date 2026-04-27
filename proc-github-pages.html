@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Installation Windows Server — Yvan Dupuit</title>
+<title>Hébergement GitHub Pages — Yvan Dupuit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
@@ -19,7 +19,7 @@
   .nav-links a:hover { background: #f0f0f0; }
   .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
   @media (max-width: 768px) {
-    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #f6f6f6; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
     .nav-links.open { display: flex; }
     .nav-toggle { display: block; }
   }
@@ -37,16 +37,14 @@
   .img-block { margin: 20px 0; }
   .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
   .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
-  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
-  .three-imgs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
-  @media (max-width: 600px) { .two-imgs, .three-imgs { grid-template-columns: 1fr; } }
   .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
-  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
   .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
   .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
   footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
   .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
   .back-link:hover { text-decoration: underline; }
+  ol.steps { padding-left: 20px; font-size: 15px; }
+  ol.steps li { margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -70,9 +68,15 @@
 
 <div class="page-hero">
   <div class="container">
-    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Installation Windows Server</div>
-    <h1>Installation Windows Server 2022</h1>
-    <p>Procédure d'installation de Windows Server 2022 depuis l'ISO jusqu'au premier démarrage et configuration initiale.</p>
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › GitHub Pages</div>
+    <h1>Hébergement d'un site avec GitHub Pages</h1>
+    <p>Mise en ligne d'un site statique sur GitHub Pages via GitHub Desktop — sans serveur, sans abonnement, accessible 24h/24.</p>
+    <div class="tag-list">
+      <span class="tag">GitHub</span>
+      <span class="tag">GitHub Desktop</span>
+      <span class="tag">Hébergement</span>
+      <span class="tag">Site statique</span>
+    </div>
   </div>
 </div>
 
@@ -82,86 +86,102 @@
     <a href="procedures.html" class="back-link">← Retour aux procédures</a>
 
     <div class="section-block">
-      <h2>Avant de commencer</h2>
-      <p>Windows Server 2022 est le système d'exploitation serveur de Microsoft. Dans mon infra, j'ai déployé deux VM Windows Server 2022 sur Proxmox : <strong>Milky-Way</strong> (DC principal, 192.168.10.3) et <strong>Andromède</strong> (DC secondaire, 192.168.10.4).</p>
-      <p>Avant l'installation, il faut s'assurer que la VM a au moins 2 vCPU, 4 Go de RAM et 40 Go de disque. On démarre depuis l'ISO Windows Server 2022.</p>
+      <h2>Présentation</h2>
+      <p>GitHub Pages permet d'héberger gratuitement un site statique (HTML/CSS/JS) directement depuis un repo GitHub public. Le site est hébergé sur les serveurs de GitHub — le PC peut être éteint, le site reste en ligne.</p>
+      <div class="info-box">GitHub Pages est gratuit pour les repos publics. L'URL générée est du type <strong>pseudo.github.io/nom-du-repo</strong>.</div>
     </div>
 
     <div class="section-block">
-      <h2>Sélection de la version</h2>
-      <p>L'installeur propose plusieurs éditions. Pour un usage en production avec interface graphique, on choisit <strong>Windows Server 2022 Standard Evaluation (avec Expérience de bureau)</strong>. La version Core n'a pas d'interface graphique — c'est plus léger mais plus complexe à administrer.</p>
-
+      <h2>1. Créer un compte et un repo</h2>
+      <p>Se connecter sur <strong>github.com</strong>, cliquer sur le <strong>+</strong> en haut à droite puis <strong>New repository</strong>.</p>
       <div class="img-block">
-        <img src="img/winserv-install-select-os.png" alt="Sélection de la version Windows Server 2022 à installer" loading="lazy" />
-        <div class="img-caption"><span class="step-num">1</span> Sélection de l'édition — Standard avec Expérience de bureau</div>
+        <img src="img/github-new-repo-menu.png" alt="Menu GitHub — New repository" loading="lazy" />
+        <p class="img-caption">Menu GitHub — New repository</p>
       </div>
-    </div>
-
-    <div class="section-block">
-      <h2>Contrat de licence et type d'installation</h2>
-      <p>On accepte le contrat de licence Microsoft. Ensuite, on choisit le type d'installation : <strong>Personnalisée</strong> pour une installation propre, ou Mise à niveau si on upgrade depuis une version existante. Ici, on fait toujours une installation propre.</p>
-
-      <div class="two-imgs">
-        <div class="img-block">
-          <img src="img/winserv-install-licence.png" alt="Contrat de licence Windows Server" loading="lazy" />
-          <div class="img-caption"><span class="step-num">2</span> Acceptation du contrat de licence</div>
-        </div>
-        <div class="img-block">
-          <img src="img/winserv-install-type.png" alt="Choix du type d'installation — personnalisée" loading="lazy" />
-          <div class="img-caption"><span class="step-num">3</span> Type d'installation — Personnalisée</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-block">
-      <h2>Partition et installation</h2>
-      <p>On sélectionne le disque cible et on laisse l'installeur créer les partitions automatiquement. L'installation copie les fichiers, installe les fonctionnalités, puis redémarre plusieurs fois. Ça prend entre 10 et 20 minutes selon les performances de la machine.</p>
-
+      <p>Remplir le nom du repo, sélectionner <strong>Public</strong> et cliquer <strong>Create repository</strong>.</p>
       <div class="img-block">
-        <img src="img/winserv-install-type2.png" alt="Sélection du disque d'installation Windows Server" loading="lazy" />
-        <div class="img-caption"><span class="step-num">4</span> Sélection du disque cible</div>
+        <img src="img/github-create-repo.png" alt="Création du repo — visibilité Public" loading="lazy" />
+        <p class="img-caption">Création du repo — visibilité Public obligatoire pour GitHub Pages gratuit</p>
+      </div>
+      <div class="img-block">
+        <img src="img/github-my-repos.png" alt="Repo créé visible dans My repositories" loading="lazy" />
+        <p class="img-caption">Le repo apparaît dans My repositories</p>
       </div>
     </div>
 
     <div class="section-block">
-      <h2>Première connexion et Gestionnaire de serveur</h2>
-      <p>Au premier démarrage, Windows demande de définir le mot de passe administrateur. Ensuite, on arrive sur le bureau avec le Gestionnaire de serveur qui se lance automatiquement. C'est à partir de là qu'on va ajouter des rôles (AD DS, DNS, DHCP, etc.).</p>
-
-      <div class="two-imgs">
-        <div class="img-block">
-          <img src="img/winserv-install-bureau.png" alt="Premier démarrage Windows Server — bureau et barre des tâches" loading="lazy" />
-          <div class="img-caption"><span class="step-num">5</span> Première connexion — bureau Windows Server</div>
-        </div>
-        <div class="img-block">
-          <img src="img/winserv-install-gestionnaire.png" alt="Gestionnaire de serveur Windows Server" loading="lazy" />
-          <div class="img-caption"><span class="step-num">6</span> Gestionnaire de serveur — prêt pour l'ajout de rôles</div>
-        </div>
+      <h2>2. Pourquoi GitHub Desktop</h2>
+      <p>L'interface web de GitHub limite l'upload à 100 fichiers max. Pour un site avec beaucoup d'images, il faut passer par <strong>GitHub Desktop</strong> qui n'a pas de limite.</p>
+      <div class="img-block">
+        <img src="img/github-repo-vide.png" alt="Repo vide — page Quick setup de GitHub" loading="lazy" />
+        <p class="img-caption">Repo vide après création — on utilise GitHub Desktop pour uploader</p>
       </div>
-
-      <div class="info-box">
-        Après l'installation, avant tout le reste : faire les mises à jour Windows (Windows Update) et installer les drivers VMware/Hyper-V si c'est une VM. Ça évite des problèmes plus tard.
+      <div class="img-block">
+        <img src="img/github-upload-zip.png" alt="Erreur upload interface web — trop de fichiers" loading="lazy" />
+        <p class="img-caption">L'interface web bloque à 100 fichiers — GitHub Desktop contourne cette limite</p>
       </div>
     </div>
 
-    <div class="tag-list">
-      <span class="tag">Windows Server 2022</span>
-      <span class="tag">Installation</span>
-      <span class="tag">Microsoft</span>
-      <span class="tag">Proxmox</span>
-      <span class="tag">VM</span>
+    <div class="section-block">
+      <h2>3. Installer et configurer GitHub Desktop</h2>
+      <p>Télécharger <strong>GitHub Desktop</strong> sur <strong>desktop.github.com</strong>, l'installer et se connecter avec le compte GitHub.</p>
+      <div class="img-block">
+        <img src="img/github-desktop-start.png" alt="GitHub Desktop — écran d'accueil" loading="lazy" />
+        <p class="img-caption">GitHub Desktop — écran d'accueil après connexion</p>
+      </div>
+      <p>Cliquer <strong>Clone a repository from the Internet</strong>, sélectionner le repo et choisir le dossier local où il sera cloné.</p>
+      <div class="img-block">
+        <img src="img/github-desktop-clone.png" alt="Clone du repo YD-Portefolio" loading="lazy" />
+        <p class="img-caption">Sélection du repo à cloner et du chemin local</p>
+      </div>
     </div>
+
+    <div class="section-block">
+      <h2>4. Uploader les fichiers</h2>
+      <p>Une fois le repo cloné, cliquer <strong>Show in Explorer</strong> pour ouvrir le dossier local. Copier-coller tous les fichiers du site dedans (HTML, CSS, images).</p>
+      <p>GitHub Desktop détecte automatiquement les nouveaux fichiers. Renseigner un message dans <strong>Summary</strong> et cliquer <strong>Commit to main</strong>.</p>
+      <div class="img-block">
+        <img src="img/github-desktop-commit.jpeg" alt="Commit de 178 fichiers dans GitHub Desktop" loading="lazy" />
+        <p class="img-caption">178 fichiers détectés — commit avant envoi</p>
+      </div>
+      <p>Cliquer ensuite <strong>Publish branch</strong> pour envoyer les fichiers sur GitHub.</p>
+      <div class="img-block">
+        <img src="img/github-desktop-publish.png" alt="Publish branch — envoi vers GitHub" loading="lazy" />
+        <p class="img-caption">Publish branch — les fichiers sont envoyés sur les serveurs GitHub</p>
+      </div>
+      <div class="img-block">
+        <img src="img/github-desktop-push.png" alt="Push en cours — progression" loading="lazy" />
+        <p class="img-caption">Push en cours — progression visible en haut de GitHub Desktop</p>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>5. Activer GitHub Pages</h2>
+      <p>Sur github.com, aller dans le repo → <strong>Settings → Pages</strong>. Sous Branch, sélectionner <strong>main</strong> et <strong>/(root)</strong> puis cliquer <strong>Save</strong>.</p>
+      <div class="img-block">
+        <img src="img/github-pages-branch.png" alt="GitHub Pages — configuration branch main root" loading="lazy" />
+        <p class="img-caption">Configuration GitHub Pages — branch main, dossier root</p>
+      </div>
+      <p>Le site est en ligne en 2-3 minutes à l'adresse <strong>pseudo.github.io/nom-du-repo</strong>. Pour mettre à jour le site, il suffit de modifier les fichiers dans le dossier local, faire un nouveau commit et push depuis GitHub Desktop.</p>
+      <div class="info-box">Le site reste en ligne même si le PC est éteint. GitHub Pages est hébergé sur les serveurs de GitHub, pas en local.</div>
+    </div>
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
 
   </div>
 </div>
 
 <footer>
-  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+  <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
+  <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+  <p>© 2026</p>
 </footer>
 
 <script>
-  document.getElementById('navToggle').addEventListener('click', function() {
-    document.getElementById('navLinks').classList.toggle('open');
-  });
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 </script>
 
 <script data-pplx-inline-edit>
