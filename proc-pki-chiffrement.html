@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PKI &amp; Chiffrement — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › PKI &amp; Chiffrement</div>
+    <h1>PKI &amp; Chiffrement</h1>
+    <p>Principes du chiffrement symétrique et asymétrique, hachage, PKI et certificats TLS.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Chiffrement symétrique vs asymétrique</h2>
+      <p>Le chiffrement symétrique utilise la même clé pour chiffrer et déchiffrer. C'est rapide mais ça pose un problème : comment envoyer la clé à l'autre personne sans risque ? Le chiffrement asymétrique résout ça avec deux clés : une publique (partageable) et une privée (secrète). Ce qu'on chiffre avec l'une ne se déchiffre qu'avec l'autre.</p>
+
+      <div class="img-block">
+        <img src="img/pki-schema-chiffrement.png" alt="Schéma du chiffrement — clé secrète, texte chiffré, texte clair" loading="lazy" />
+        <div class="img-caption">Principe du chiffrement : Alice envoie un message chiffré à Bob</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Le hachage</h2>
+      <p>Le hachage transforme une donnée en une empreinte de taille fixe. Même une toute petite modification dans le fichier original change complètement le hash. On s'en sert pour vérifier l'intégrité d'un fichier ou stocker des mots de passe. Les fonctions courantes : MD5, SHA-1, SHA-256.</p>
+
+      <div class="img-block">
+        <img src="img/pki-hachage-exemple.png" alt="Exemple de hachage — entrées différentes, hash différents" loading="lazy" />
+        <div class="img-caption">Exemple de fonction de hachage — chaque entrée donne un hash unique</div>
+      </div>
+
+      <div class="info-box">
+        MD5 et SHA-1 sont maintenant considérés comme faibles. Pour les usages sérieux, on utilise SHA-256 ou SHA-3.
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Clés publiques et privées</h2>
+      <p>Dans un système asymétrique, chaque utilisateur a une paire de clés. La clé publique peut être distribuée librement. La clé privée ne quitte jamais la machine. Pour chiffrer un message destiné à quelqu'un, on utilise sa clé publique — seule sa clé privée pourra le déchiffrer.</p>
+
+      <div class="img-block">
+        <img src="img/pki-schema-cle-pub-privee.png" alt="Schéma paire de clés publique et privée" loading="lazy" />
+        <div class="img-caption">Fonctionnement des clés asymétriques — chiffrement et déchiffrement</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Chiffrement de dossier sous Windows</h2>
+      <p>Windows propose de chiffrer un dossier directement depuis les propriétés, via l'option EFS (Encrypting File System). Ça chiffre le contenu avec la clé de l'utilisateur Windows. Si le compte est supprimé sans export de la clé, les fichiers deviennent inaccessibles.</p>
+
+      <div class="img-block">
+        <img src="img/pki-windows-chiffrer-dossier.png" alt="Option de chiffrement de dossier dans les propriétés Windows" loading="lazy" />
+        <div class="img-caption">Attributs avancés Windows — option de chiffrement EFS</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>PKI — Infrastructure à clés publiques</h2>
+      <p>Une PKI (Public Key Infrastructure) est un ensemble de systèmes qui gèrent les certificats numériques. Au centre, il y a une Autorité de Certification (CA) qui signe les certificats et garantit l'identité des entités. C'est ce qui permet à ton navigateur de faire confiance à un site HTTPS.</p>
+
+      <div class="img-block">
+        <img src="img/pki-autorite-certification.png" alt="Schéma d'une autorité de certification PKI" loading="lazy" />
+        <div class="img-caption">Architecture PKI — l'autorité de certification au centre de la confiance</div>
+      </div>
+
+      <div class="info-box">
+        Dans une entreprise, on peut déployer sa propre CA interne avec Windows Server Certificate Services (AD CS). Tous les postes du domaine font alors confiance aux certificats signés par cette CA.
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">PKI</span>
+      <span class="tag">Chiffrement</span>
+      <span class="tag">TLS</span>
+      <span class="tag">Hachage</span>
+      <span class="tag">Certificats</span>
+      <span class="tag">Sécurité</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Installation Windows Server — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .three-imgs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs, .three-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Installation Windows Server</div>
+    <h1>Installation Windows Server 2022</h1>
+    <p>Procédure d'installation de Windows Server 2022 depuis l'ISO jusqu'au premier démarrage et configuration initiale.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Avant de commencer</h2>
+      <p>Windows Server 2022 est le système d'exploitation serveur de Microsoft. Dans mon infra, j'ai déployé deux VM Windows Server 2022 sur Proxmox : <strong>Milky-Way</strong> (DC principal, 192.168.10.3) et <strong>Andromède</strong> (DC secondaire, 192.168.10.4).</p>
+      <p>Avant l'installation, il faut s'assurer que la VM a au moins 2 vCPU, 4 Go de RAM et 40 Go de disque. On démarre depuis l'ISO Windows Server 2022.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Sélection de la version</h2>
+      <p>L'installeur propose plusieurs éditions. Pour un usage en production avec interface graphique, on choisit <strong>Windows Server 2022 Standard Evaluation (avec Expérience de bureau)</strong>. La version Core n'a pas d'interface graphique — c'est plus léger mais plus complexe à administrer.</p>
+
+      <div class="img-block">
+        <img src="img/winserv-install-select-os.png" alt="Sélection de la version Windows Server 2022 à installer" loading="lazy" />
+        <div class="img-caption"><span class="step-num">1</span> Sélection de l'édition — Standard avec Expérience de bureau</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Contrat de licence et type d'installation</h2>
+      <p>On accepte le contrat de licence Microsoft. Ensuite, on choisit le type d'installation : <strong>Personnalisée</strong> pour une installation propre, ou Mise à niveau si on upgrade depuis une version existante. Ici, on fait toujours une installation propre.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/winserv-install-licence.png" alt="Contrat de licence Windows Server" loading="lazy" />
+          <div class="img-caption"><span class="step-num">2</span> Acceptation du contrat de licence</div>
+        </div>
+        <div class="img-block">
+          <img src="img/winserv-install-type.png" alt="Choix du type d'installation — personnalisée" loading="lazy" />
+          <div class="img-caption"><span class="step-num">3</span> Type d'installation — Personnalisée</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Partition et installation</h2>
+      <p>On sélectionne le disque cible et on laisse l'installeur créer les partitions automatiquement. L'installation copie les fichiers, installe les fonctionnalités, puis redémarre plusieurs fois. Ça prend entre 10 et 20 minutes selon les performances de la machine.</p>
+
+      <div class="img-block">
+        <img src="img/winserv-install-type2.png" alt="Sélection du disque d'installation Windows Server" loading="lazy" />
+        <div class="img-caption"><span class="step-num">4</span> Sélection du disque cible</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Première connexion et Gestionnaire de serveur</h2>
+      <p>Au premier démarrage, Windows demande de définir le mot de passe administrateur. Ensuite, on arrive sur le bureau avec le Gestionnaire de serveur qui se lance automatiquement. C'est à partir de là qu'on va ajouter des rôles (AD DS, DNS, DHCP, etc.).</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/winserv-install-bureau.png" alt="Premier démarrage Windows Server — bureau et barre des tâches" loading="lazy" />
+          <div class="img-caption"><span class="step-num">5</span> Première connexion — bureau Windows Server</div>
+        </div>
+        <div class="img-block">
+          <img src="img/winserv-install-gestionnaire.png" alt="Gestionnaire de serveur Windows Server" loading="lazy" />
+          <div class="img-caption"><span class="step-num">6</span> Gestionnaire de serveur — prêt pour l'ajout de rôles</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        Après l'installation, avant tout le reste : faire les mises à jour Windows (Windows Update) et installer les drivers VMware/Hyper-V si c'est une VM. Ça évite des problèmes plus tard.
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Windows Server 2022</span>
+      <span class="tag">Installation</span>
+      <span class="tag">Microsoft</span>
+      <span class="tag">Proxmox</span>
+      <span class="tag">VM</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

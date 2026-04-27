@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Procédures — Yvan Dupuit</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .content-wrap { max-width: 860px; }
+
+  section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
+  .page-header {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f9f9f9;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333333;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #666666;
+    margin: 0;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: #333333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3b5bdb;
+    display: inline-block;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #3b5bdb;
+    background: #eef1ff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .body-text {
+    font-size: 15px;
+    color: #444444;
+    margin: 14px 0 0;
+    max-width: 720px;
+  }
+
+  .step-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    max-width: 720px;
+  }
+  .step-list li {
+    font-size: 15px;
+    color: #444444;
+    margin-bottom: 8px;
+    padding-left: 6px;
+  }
+
+  .cmd-block {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0;
+    overflow-x: auto;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+  .cmd-block .comment { color: #6c7086; }
+  code {
+    background: #f0f0f0;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #333;
+  }
+
+  .img-wrap { margin: 20px 0 0; }
+  .img-wrap img {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-height: 340px;
+    object-fit: contain;
+    background: #fafafa;
+  }
+  .img-caption {
+    font-size: 12px;
+    color: #888888;
+    font-style: italic;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .img-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0 0;
+    max-width: 860px;
+  }
+  .img-row .img-wrap { margin: 0; }
+
+  .note-info {
+    background: #eef1ff;
+    border-left: 3px solid #3b5bdb;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: #444;
+    margin: 16px 0 0;
+    max-width: 720px;
+  }
+  .note-warn {
+    background: #fff8e6;
+    border-left: 3px solid #f59f00;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: #444;
+    margin: 16px 0 0;
+    max-width: 720px;
+  }
+
+  .params-table {
+    width: 100%;
+    max-width: 680px;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 16px 0 0;
+  }
+  .params-table th {
+    background: #f0f0f0;
+    color: #333;
+    font-weight: 600;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  .params-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eeeeee;
+    color: #444;
+  }
+  .params-table code {
+    background: none;
+    font-size: 13px;
+    padding: 0;
+    color: #1a73e8;
+  }
+
+  footer {
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    padding: 36px 0 24px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 26px; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+    .img-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>Procédures et travaux pratiques</h1>
+    <p>Compte rendus de TP et procédures réalisés en cours de BTS SIO SISR — réseau, sécurité, systèmes et cybersécurité</p>
+  </div>
+</div>
+
+<div style="background:#f8f9fa;border-bottom:1px solid #e0e0e0;padding:40px 24px;">
+  <div class="container">
+    <p style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#888;margin:0 0 20px;font-weight:600;">Toutes les procédures</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+      <a href="#cisco" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Cisco Packet Tracer</div>
+      </a>
+      <a href="#vlan" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">VLANs Cisco</div>
+      </a>
+      <a href="#pfsense" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Firewall</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">pfSense VLAN &amp; Firewall</div>
+      </a>
+      <a href="#glpi" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Helpdesk</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">GLPI</div>
+      </a>
+      <a href="#veeam" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Backup</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Veeam Backup</div>
+      </a>
+      <a href="#linux" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Linux</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Linux — Droits &amp; commandes</div>
+      </a>
+      <a href="#wireshark" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Wireshark</div>
+      </a>
+      <a href="#gpg" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Chiffrement</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">GPG / Chiffrement</div>
+      </a>
+      <a href="#winserver" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Windows Server</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Rôles &amp; fonctionnalités</div>
+      </a>
+      <a href="proc-cookies.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Web / RGPD</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Cookies &amp; vie privée →</div>
+      </a>
+      <a href="proc-cmd-windows.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Windows</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Commandes CMD →</div>
+      </a>
+      <a href="proc-pki-chiffrement.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Sécurité</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">PKI &amp; Chiffrement →</div>
+      </a>
+      <a href="proc-cyberattaques.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Cybersécurité</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Cyberattaques →</div>
+      </a>
+      <a href="proc-pfsense-install.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Firewall</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">pfSense — Installation →</div>
+      </a>
+      <a href="proc-winserver-install.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Windows Server</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Windows Server install →</div>
+      </a>
+      <a href="proc-tls-https.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Sécurité web</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">TLS &amp; HTTPS →</div>
+      </a>
+      <a href="proc-routeur-cisco.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Configuration routeur →</div>
+      </a>
+      <a href="proc-cisco-routage.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Découverte routage Cisco →</div>
+      </a>
+      <a href="proc-dhcp.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Réseau</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Protocole DHCP →</div>
+      </a>
+      <a href="proc-linux-debian.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Linux</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Linux &amp; Debian →</div>
+      </a>
+      <a href="proc-glasswire.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Monitoring</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">GlassWire →</div>
+      </a>
+      <a href="proc-glpi-debian.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Helpdesk</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">GLPI sur Debian →</div>
+      </a>
+      <a href="proc-linux-acces.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Linux</div>
+        <div style="font-size:14px;font-weight:600;color:#333;">Accès Linux →</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Réseau — Simulation</span>
+      <h2 class="section-title">Cisco Packet Tracer — Adressage IP et routage</h2>
+
+      <p class="body-text">
+        Packet Tracer c'est le simulateur réseau de Cisco. On l'utilise pour monter des topologies réseau, configurer des routeurs et des switches en CLI, et tester la connectivité entre machines — sans avoir de vrai matériel.
+      </p>
+
+      <p class="body-text">
+        Dans ce TP, j'ai mis en place un réseau avec plusieurs sous-réseaux, configuré le routage statique et vérifié la connectivité de bout en bout avec des ping.
+      </p>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/cisco-pt-topologie1.png" alt="Topologie réseau Cisco Packet Tracer — vue d'ensemble" loading="lazy" />
+          <p class="img-caption">Vue d'ensemble de la topologie dans Packet Tracer</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/cisco-pt-topologie2.png" alt="Topologie réseau Cisco — plusieurs sous-réseaux" loading="lazy" />
+          <p class="img-caption">Topologie avec plusieurs sous-réseaux interconnectés</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Configuration d'une interface routeur</h3>
+      <p class="body-text">
+        La configuration d'une interface se fait en mode privilégié puis en mode de configuration d'interface. Exemple pour affecter une IP sur <code>fa0/0</code> :
+      </p>
+
+      <div class="cmd-block">
+        <span class="comment"># Accès en mode config</span><br>
+        Router&gt; enable<br>
+        Router# configure terminal<br><br>
+        <span class="comment"># Config de l'interface</span><br>
+        Router(config)# interface fa0/0<br>
+        Router(config-if)# ip address 192.168.1.1 255.255.255.0<br>
+        Router(config-if)# no shutdown<br>
+        Router(config-if)# exit
+      </div>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/cisco-pt-config.png" alt="Configuration CLI routeur Cisco — interface fa0/0" loading="lazy" />
+          <p class="img-caption">Configuration d'une interface en CLI</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/cisco-pt-routing.png" alt="Configuration route statique Cisco" loading="lazy" />
+          <p class="img-caption">Ajout d'une route statique vers un autre réseau</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Route statique et vérification</h3>
+      <p class="body-text">
+        Pour que deux sous-réseaux puissent communiquer via un routeur, il faut soit du routage dynamique, soit des routes statiques. Dans ce TP on a utilisé des routes statiques — c'est plus simple à comprendre pour commencer.
+      </p>
+
+      <div class="cmd-block">
+        <span class="comment"># Ajouter une route statique</span><br>
+        Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.2<br><br>
+        <span class="comment"># Vérifier la table de routage</span><br>
+        Router# show ip route
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/cisco-pt-result.png" alt="Résultat ping entre deux sous-réseaux — test connectivité" loading="lazy" />
+        <p class="img-caption">Test de connectivité entre deux sous-réseaux après configuration du routage</p>
+      </div>
+
+      <div class="note-info">
+        La commande <code>show ip route</code> affiche la table de routage. Les routes en <strong>S</strong> sont statiques, celles en <strong>C</strong> sont directement connectées. C'est utile pour déboguer quand un ping ne passe pas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Réseau — Switching</span>
+      <h2 class="section-title">VLANs sur switch Cisco</h2>
+
+      <p class="body-text">
+        Les VLANs (Virtual LAN) permettent de segmenter un réseau physique en plusieurs réseaux logiques isolés. Même branché sur le même switch, un poste en VLAN 10 ne peut pas communiquer directement avec un poste en VLAN 20.
+      </p>
+
+      <p class="body-text">
+        Dans ce TP j'ai configuré 3 switches avec 2 VLANs : VLAN 10 pour les postes PC1 à PC3, et VLAN 20 pour les postes PC3 à PC5. Les liens entre switches sont configurés en mode trunk pour laisser passer les deux VLANs.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/vlan-topologie.png" alt="Topologie réseau VLAN — 3 switches, VLAN 10 et VLAN 20" loading="lazy" />
+        <p class="img-caption">Topologie complète — 3 switches interconnectés avec 2 VLANs</p>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/vlan-tableau-adresses.png" alt="Tableau d'adressage — VLAN 10 PC1-PC3 / VLAN 20 PC3-PC5" loading="lazy" />
+        <p class="img-caption">Plan d'adressage — VLAN 10 (192.168.10.x) et VLAN 20 (192.168.20.x)</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Création des VLANs et affectation des ports</h3>
+
+      <div class="cmd-block">
+        <span class="comment"># Créer les VLANs</span><br>
+        Switch# configure terminal<br>
+        Switch(config)# vlan 10<br>
+        Switch(config-vlan)# name VLAN-Users<br>
+        Switch(config-vlan)# exit<br>
+        Switch(config)# vlan 20<br>
+        Switch(config-vlan)# name VLAN-Servers<br>
+        Switch(config-vlan)# exit<br><br>
+        <span class="comment"># Affecter un port en mode access (VLAN 10)</span><br>
+        Switch(config)# interface fa0/1<br>
+        Switch(config-if)# switchport mode access<br>
+        Switch(config-if)# switchport access vlan 10<br>
+        Switch(config-if)# exit<br><br>
+        <span class="comment"># Configurer un port trunk entre switches</span><br>
+        Switch(config)# interface fa0/24<br>
+        Switch(config-if)# switchport mode trunk
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/vlan-config-cli.png" alt="Configuration VLAN en CLI — interface VLAN10 avec IP 192.168.10.254" loading="lazy" />
+        <p class="img-caption">Configuration de l'interface VLAN 10 avec l'IP de management</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Vérification de l'isolation</h3>
+      <p class="body-text">
+        Après la configuration, un ping entre deux postes du même VLAN doit fonctionner. Un ping vers un poste d'un autre VLAN doit échouer — c'est ce qu'on attend. Pour que deux VLANs puissent communiquer, il faut un routeur ou un switch L3.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/vlan-ping-ok.png" alt="Test ping VLAN — ping réussi entre postes du même VLAN" loading="lazy" />
+        <p class="img-caption">Ping réussi entre deux postes du même VLAN — isolation vérifiée</p>
+      </div>
+
+      <div class="note-info">
+        Le mode trunk sur les liens inter-switches est important : sans ça, seul le VLAN natif passe et les autres VLANs sont bloqués. La commande <code>show vlan brief</code> permet de vérifier quels ports appartiennent à quel VLAN.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Réseau — Firewall</span>
+      <h2 class="section-title">pfSense — VLANs et règles de filtrage</h2>
+
+      <p class="body-text">
+        pfSense est un pare-feu open-source basé sur FreeBSD. Dans mon infrastructure (Laniakea), il fait le lien entre le WAN (réseau de l'école) et le LAN interne (192.168.10.0/24). Il gère aussi les VLANs pour séparer le réseau filaire, le WiFi d'entreprise et le WiFi invité.
+      </p>
+
+      <p class="body-text">
+        La configuration des VLANs dans pfSense passe par l'interface web. On crée les VLANs sur l'interface LAN, on leur assigne une interface pfSense, et on configure les règles de filtrage pour définir ce qui peut passer ou non.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/pfsense-vlans-liste.png" alt="Liste des interfaces VLAN pfSense — WAN, LAN, WiFi-Corporate" loading="lazy" />
+        <p class="img-caption">Liste des interfaces VLAN configurées dans pfSense</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Créer un VLAN dans pfSense</h3>
+      <p class="body-text">
+        Depuis l'interface web, aller dans <strong>Interfaces → Assignments → VLANs</strong>. Renseigner l'interface parente (le LAN physique), le tag VLAN et une description. Une fois créé, il faut assigner le VLAN à une interface pfSense et lui donner une IP (ex. <code>192.168.20.1/24</code>).
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/pfsense-vlan-config.png" alt="Configuration VLAN pfSense — VLAN Tag, Parent Interface, Description" loading="lazy" />
+        <p class="img-caption">Création d'un VLAN — tag 10, interface LAN, description "LAN Natif"</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Règles de filtrage</h3>
+      <p class="body-text">
+        Chaque interface VLAN a ses propres règles de pare-feu. Par défaut tout est bloqué — il faut créer des règles explicites pour autoriser le trafic. J'ai créé une règle pour autoriser le VLAN WiFi Corporate à accéder à internet, tout en bloquant l'accès aux autres VLANs.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/pfsense-firewall-rules.png" alt="Règles pare-feu pfSense — ALLOW VLAN to INTERNET" loading="lazy" />
+        <p class="img-caption">Règle de filtrage — autorisation du VLAN WiFi Corporate vers internet</p>
+      </div>
+
+      <div class="note-info">
+        L'ordre des règles dans pfSense est important : elles sont évaluées de haut en bas et la première règle qui correspond est appliquée. Une règle "bloquer tout" en bas sert de filet de sécurité.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Administration — Helpdesk</span>
+      <h2 class="section-title">GLPI — Installation et gestion des tickets</h2>
+
+      <p class="body-text">
+        GLPI (Gestionnaire Libre de Parc Informatique) est un outil open-source pour gérer le parc informatique et les demandes de support. Il permet de centraliser les tickets d'incident, l'inventaire des équipements, et les contrats.
+      </p>
+
+      <p class="body-text">
+        Dans mon infrastructure, GLPI est déployé sur la VM Titan (192.168.10.6). L'installation se fait via un assistant web qui configure la connexion à la base de données MySQL et crée les tables.
+      </p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:0 0 8px;">Installation</h3>
+      <p class="body-text">
+        Après avoir déposé les fichiers GLPI dans le répertoire web du serveur, l'assistant d'installation guide la configuration de la BDD. Il faut renseigner le host MySQL, le nom de la base, et les identifiants.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/glpi-install-bdd.png" alt="Assistant installation GLPI — configuration base de données MySQL" loading="lazy" />
+        <p class="img-caption">Étape 1 de l'installation — configuration de la connexion à la base MySQL</p>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/glpi-login.png" alt="Page de connexion GLPI — identifiant et mot de passe" loading="lazy" />
+        <p class="img-caption">Page de connexion GLPI après installation</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Tableau de bord et tickets</h3>
+      <p class="body-text">
+        Une fois connecté, le tableau de bord donne une vue d'ensemble des tickets en cours, des équipements, et des statistiques. Un technicien peut créer, prendre en charge et résoudre des tickets directement depuis l'interface.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/glpi-dashboard.png" alt="Tableau de bord GLPI — vue tickets et statistiques" loading="lazy" />
+        <p class="img-caption">Tableau de bord GLPI — vue d'ensemble des tickets et du parc</p>
+      </div>
+
+      <div class="note-info">
+        Après l'installation, il faut supprimer le dossier <code>install/</code> pour des raisons de sécurité. GLPI affiche un avertissement si ce dossier est encore présent.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Sauvegarde — Backup</span>
+      <h2 class="section-title">Veeam Agent — Sauvegarde et restauration</h2>
+
+      <p class="body-text">
+        Veeam Agent for Windows est un outil de sauvegarde qui permet de sauvegarder un poste Windows sur un disque local, un partage réseau, ou un dépôt Veeam. Il supporte la sauvegarde complète, incrémentale, et la restauration fichier par fichier ou restauration complète du volume.
+      </p>
+
+      <p class="body-text">
+        Dans ce TP, j'ai configuré un job de sauvegarde en mode "Entire computer" vers un partage réseau, puis j'ai testé la restauration.
+      </p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:0 0 8px;">Créer un job de sauvegarde</h3>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/veeam-new-job-name.png" alt="Veeam — nouveau job de sauvegarde, nom et description" loading="lazy" />
+          <p class="img-caption">Étape 1 — Nommer le job de sauvegarde</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/veeam-new-job-mode.png" alt="Veeam — mode de sauvegarde Entire computer" loading="lazy" />
+          <p class="img-caption">Étape 2 — Mode "Entire computer" (sauvegarde complète)</p>
+        </div>
+      </div>
+
+      <p class="body-text" style="margin-top:16px;">
+        Le mode "Entire computer" sauvegarde tout le système, y compris l'OS et les données. C'est le plus pratique pour une restauration bare metal (remplacer un disque dur en panne par exemple). Le mode "Volume level backup" permet de choisir des volumes spécifiques.
+      </p>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/veeam-new-job-dest.png" alt="Veeam — destination sauvegarde partage réseau SMB" loading="lazy" />
+          <p class="img-caption">Étape 3 — Destination vers un partage réseau</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/veeam-planification.png" alt="Veeam — planification du job sauvegarde" loading="lazy" />
+          <p class="img-caption">Étape 4 — Planification (quotidienne, hebdomadaire...)</p>
+        </div>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/veeam-job-cree.png" alt="Veeam — récapitulatif job créé avec succès" loading="lazy" />
+        <p class="img-caption">Récapitulatif du job créé — mode, destination, planification</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Restauration d'un volume</h3>
+      <p class="body-text">
+        La restauration se lance depuis Veeam Agent → clic droit sur le job → Restore. On sélectionne le point de restauration (date/heure), puis le mode de restauration : volume entier, fichiers individuels, ou restauration bare metal depuis le media de récupération.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/veeam-restore-localselect.png" alt="Veeam Restore — sélection emplacement backup pour restauration" loading="lazy" />
+        <p class="img-caption">Sélection du backup source pour la restauration de volume</p>
+      </div>
+
+      <div class="note-info">
+        Veeam crée aussi un media de récupération (ISO ou clé USB) qui permet de démarrer un PC hors service et de le restaurer directement — même si l'OS est inaccessible. C'est indispensable en cas de panne disque.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Système — Linux</span>
+      <h2 class="section-title">Linux / Debian — Commandes de base et gestion de fichiers</h2>
+
+      <p class="body-text">
+        Ce TP couvre la prise en main de Debian en ligne de commande : navigation dans l'arborescence, gestion des fichiers et dossiers, droits d'accès, et manipulation de texte. L'environnement utilisé est une VM Debian dans VirtualBox.
+      </p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:0 0 8px;">Navigation et gestion de fichiers</h3>
+      <p class="body-text">
+        Les commandes de base pour se déplacer et gérer les fichiers sous Linux :
+      </p>
+
+      <div class="cmd-block">
+        <span class="comment"># Afficher le contenu d'un dossier avec les droits</span><br>
+        yvan@vmdebian:~$ ls -la<br><br>
+        <span class="comment"># Créer un dossier et un fichier</span><br>
+        yvan@vmdebian:~$ mkdir documents<br>
+        yvan@vmdebian:~$ touch documents/essai.txt<br><br>
+        <span class="comment"># Afficher les infos d'un fichier (droits, taille, date)</span><br>
+        yvan@vmdebian:~$ ls -l essai
+      </div>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/linux-ls-la.png" alt="Commande ls -la sous Debian — droits fichiers yvan" loading="lazy" />
+          <p class="img-caption">ls -la — affichage des droits et propriétaires</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/linux-ls-droits.png" alt="ls -l essai — détail droits fichier" loading="lazy" />
+          <p class="img-caption">ls -l — droits du fichier essai, propriétaire yvan</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Manipulation de texte</h3>
+      <p class="body-text">
+        Linux intègre des outils puissants pour traiter des fichiers texte directement en ligne de commande. <code>grep</code> permet de rechercher une chaîne dans un fichier, <code>cat</code> d'afficher son contenu, et <code>diff</code> de comparer deux fichiers.
+      </p>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/linux-commandes-base.png" alt="Commandes Linux — cat, mkdir sous Debian terminal" loading="lazy" />
+          <p class="img-caption">cat et création de fichiers en terminal Debian</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/linux-grep.png" alt="grep sous Linux — recherche dans un fichier texte" loading="lazy" />
+          <p class="img-caption">grep — recherche d'une chaîne dans un fichier</p>
+        </div>
+      </div>
+
+      <div class="cmd-block">
+        <span class="comment"># Rechercher une chaîne dans un fichier</span><br>
+        yvan@vmdebian:~$ grep "sun" res<br>
+        here comes the sun<br>
+        Following the sun<br><br>
+        <span class="comment"># Comparer deux fichiers</span><br>
+        yvan@vmdebian:~$ diff etudiant yvanbis<br>
+        1d0<br>
+        &lt; ceci est mon nom: Dupuit
+      </div>
+
+      <div class="note-info">
+        Les droits sous Linux s'affichent en 3 groupes de 3 : <strong>rwx</strong> pour le propriétaire, le groupe, et les autres. <code>chmod</code> permet de les modifier. Par exemple <code>chmod 644 fichier.txt</code> donne lecture+écriture au propriétaire, lecture seule aux autres.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Réseau — Analyse</span>
+      <h2 class="section-title">Wireshark — Analyse de trames réseau</h2>
+
+      <p class="body-text">
+        Wireshark est un analyseur de protocoles réseau. Il capture tout le trafic qui passe sur une interface réseau et permet de l'analyser trame par trame. C'est un outil indispensable pour comprendre ce qui se passe sur un réseau et pour déboguer des problèmes de connexion.
+      </p>
+
+      <p class="body-text">
+        Dans ce TP, j'ai capturé des échanges HTTP et analysé les trames pour identifier les couches du modèle OSI, les adresses IP et MAC, et les ports utilisés.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/wireshark-liste-paquets.png" alt="Wireshark — liste des paquets capturés avec colonnes" loading="lazy" />
+        <p class="img-caption">Interface Wireshark — liste des paquets capturés avec les colonnes Source, Destination, Protocol, Info</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Analyser une requête HTTP</h3>
+      <p class="body-text">
+        Une requête HTTP implique plusieurs échanges : la résolution DNS, l'établissement de la connexion TCP (handshake en 3 étapes), puis l'envoi de la requête GET et la réception de la réponse. Dans Wireshark, on peut filtrer par protocole pour isoler ce qu'on veut regarder.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/wireshark-capture-http.png" alt="Wireshark — capture HTTP, requête GET avec détails protocole" loading="lazy" />
+        <p class="img-caption">Capture HTTP — échange TCP avec les détails du paquet déplié</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Test de connectivité</h3>
+      <p class="body-text">
+        En parallèle des captures Wireshark, j'ai utilisé des commandes ping pour générer du trafic ICMP et vérifier la connectivité. Les paquets ICMP apparaissent dans Wireshark et permettent de vérifier les temps de réponse.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/wireshark-ping-terminal.png" alt="Terminal — commande ping avec résultats ICMP" loading="lazy" />
+        <p class="img-caption">Ping vers un serveur — les paquets ICMP sont visibles dans Wireshark</p>
+      </div>
+
+      <div class="note-info">
+        Filtres utiles dans Wireshark : <code>http</code> pour n'afficher que le trafic HTTP, <code>tcp.port == 80</code> pour le port 80, <code>ip.addr == 192.168.1.1</code> pour filtrer une IP. Le filtre <code>tcp.flags.syn == 1</code> permet d'isoler les connexions TCP.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Sécurité — Chiffrement</span>
+      <h2 class="section-title">Chiffrement avec GPG</h2>
+
+      <p class="body-text">
+        GPG (GNU Privacy Guard) est un outil de chiffrement qui implémente le standard OpenPGP. Il permet de chiffrer des fichiers avec une clé publique/privée (chiffrement asymétrique) ou avec une passphrase (chiffrement symétrique).
+      </p>
+
+      <p class="body-text">
+        Dans ce TP j'ai généré une paire de clés GPG, chiffré un fichier, et testé le déchiffrement. J'ai aussi exporté la clé publique pour la partager.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/gpg-schema-asym.png" alt="Schéma chiffrement asymétrique GPG — clé publique et clé privée" loading="lazy" />
+        <p class="img-caption">Principe du chiffrement asymétrique — clé publique pour chiffrer, clé privée pour déchiffrer</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Générer une paire de clés</h3>
+
+      <div class="cmd-block">
+        <span class="comment"># Générer une paire de clés (interactive)</span><br>
+        gpg --gen-key<br><br>
+        <span class="comment"># Ou version complète avec plus d'options</span><br>
+        gpg --full-generate-key<br><br>
+        <span class="comment"># Lister les clés du trousseau</span><br>
+        gpg --list-keys
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/gpg-generer-cle.png" alt="GPG — génération clé avec identité nom et adresse mail" loading="lazy" />
+        <p class="img-caption">Génération d'une clé GPG — saisie du nom et de l'email</p>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/gpg-fingerprint.png" alt="GPG — fingerprint de la clé RSA 3072 bits" loading="lazy" />
+        <p class="img-caption">Informations de la clé générée — RSA 3072 bits, empreinte unique</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Chiffrer et déchiffrer un fichier</h3>
+
+      <div class="cmd-block">
+        <span class="comment"># Chiffrement symétrique (avec passphrase)</span><br>
+        gpg --symmetric --armor TPgpg.txt<br><br>
+        <span class="comment"># Résultat : TPgpg.txt.gpg (fichier chiffré)</span><br><br>
+        <span class="comment"># Déchiffrer</span><br>
+        gpg --decrypt TPgpg.txt.gpg
+      </div>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/gpg-fichiers.png" alt="GPG — fichiers clients.txt, clients.txt.gpg, clients.txt.asc" loading="lazy" />
+          <p class="img-caption">Fichier original + version chiffrée (.gpg) + export ASCII (.asc)</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/gpg-dechiffrer.png" alt="GPG Pinentry — saisie passphrase pour déchiffrer" loading="lazy" />
+          <p class="img-caption">Pinentry — saisie de la passphrase pour déchiffrer</p>
+        </div>
+      </div>
+
+      <div class="note-info">
+        Le fichier <code>.asc</code> est une version en ASCII armor de la clé ou du message chiffré — utile pour partager par email ou copier-coller. L'option <code>--armor</code> produit ce format. Sans cette option, GPG génère un binaire <code>.gpg</code>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <span class="section-tag">Système — Windows Server</span>
+      <h2 class="section-title">Windows Server — Ajout de rôles</h2>
+
+      <p class="body-text">
+        L'ajout de rôles sous Windows Server se fait via le Gestionnaire de serveur. Un rôle c'est une fonctionnalité serveur : AD DS (Active Directory), DNS, DHCP, IIS... Chaque rôle a ses propres prérequis et son assistant de configuration post-installation.
+      </p>
+
+      <p class="body-text">
+        Ce TP montre la procédure complète d'ajout de rôles, du lancement de l'assistant jusqu'à la vérification post-installation.
+      </p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:0 0 8px;">Lancer l'assistant</h3>
+      <p class="body-text">
+        Depuis le Gestionnaire de serveur, aller dans <strong>Gérer → Ajouter des rôles et fonctionnalités</strong>. L'assistant s'ouvre et guide les différentes étapes.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/winserver-menu-roles.png" alt="Gestionnaire de serveur — menu Gérer, Ajouter des rôles et fonctionnalités" loading="lazy" />
+        <p class="img-caption">Gestionnaire de serveur — accès au menu d'ajout de rôles</p>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/winserver-assistant-adds.png" alt="Assistant Nouvelle étendue — ajout rôle AD DS Windows Server" loading="lazy" />
+        <p class="img-caption">Assistant ajout de rôle — sélection d'AD DS</p>
+      </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Configuration post-installation</h3>
+      <p class="body-text">
+        Après l'installation d'un rôle, une notification apparaît dans le Gestionnaire de serveur pour lancer la configuration post-installation. Pour AD DS, ça consiste à promouvoir le serveur en contrôleur de domaine. Pour DHCP, c'est l'autorisation dans l'AD.
+      </p>
+
+      <div class="img-row">
+        <div class="img-wrap">
+          <img src="img/winserver-config-adscroll.png" alt="Configuration AD DS — assistant promotion DC" loading="lazy" />
+          <p class="img-caption">Configuration AD DS — assistant de promotion en contrôleur de domaine</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/winserver-verification-config.png" alt="Vérification configuration requise — résultats checks" loading="lazy" />
+          <p class="img-caption">Vérification prérequis avant installation — liste des checks</p>
+        </div>
+      </div>
+
+      <div class="note-info">
+        Avant d'ajouter des rôles, il vaut mieux faire les mises à jour Windows et configurer l'IP fixe du serveur. Si l'IP change après la promotion en DC, ça peut créer des problèmes avec le DNS et l'AD.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO 2ème année option SISR — SEPR Lyon</p>
+    <p>Alternance : <a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  }
+</script>
+</body>
+</html>

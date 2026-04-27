@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Veille technologique — Yvan Dupuit</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-links a.active { color: #3b5bdb; font-weight: 600; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .content-wrap { max-width: 860px; }
+  section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
+  /* Page header */
+  .page-header {
+    padding: 56px 0 44px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f5f8ff;
+  }
+  .page-badge {
+    display: inline-block;
+    background: #e8edfb;
+    color: #3b5bdb;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #333333;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #555555;
+    margin: 0;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* Titres de section */
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #333333;
+  }
+  .section-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 28px 0 10px;
+    color: #444444;
+    border-left: 3px solid #3b5bdb;
+    padding-left: 10px;
+  }
+  .section-intro {
+    font-size: 15px;
+    color: #444444;
+    margin: 0 0 20px;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+  p.body-text {
+    font-size: 15px;
+    color: #444444;
+    margin: 0 0 16px;
+    line-height: 1.7;
+  }
+
+  /* Source cards */
+  .source-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .source-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 18px 20px;
+    background: #ffffff;
+  }
+  .source-card .source-tag {
+    display: inline-block;
+    background: #e8edfb;
+    color: #3b5bdb;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+  .source-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0 0 6px;
+    line-height: 1.4;
+  }
+  .source-card p {
+    font-size: 13px;
+    color: #555555;
+    margin: 0 0 8px;
+    line-height: 1.6;
+  }
+  .source-card a.source-link {
+    font-size: 12px;
+    color: #3b5bdb;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .source-card a.source-link:hover { text-decoration: underline; }
+
+  /* Stat blocs */
+  .stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .stat-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    background: #ffffff;
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+  }
+  .stat-box .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #3b5bdb;
+    line-height: 1.1;
+  }
+  .stat-box .stat-label {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Risk table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .data-table th {
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #333333;
+  }
+  .data-table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px 14px;
+    color: #444444;
+  }
+  .data-table tr:nth-child(even) td { background: #f9f9f9; }
+  .risk-high { color: #c0392b; font-weight: 600; }
+  .risk-med { color: #e67e22; font-weight: 600; }
+  .risk-low { color: #27ae60; font-weight: 600; }
+
+  /* Notes */
+  .note {
+    background: #fff8e6;
+    border: 1px solid #f0c040;
+    border-left: 4px solid #f0c040;
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #5a4a00;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+  .note strong { color: #3a2e00; }
+  .note-info {
+    background: #f0f4ff;
+    border: 1px solid #b0c0f0;
+    border-left: 4px solid #3b5bdb;
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #2a3a6a;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+  .note-ok {
+    background: #edf7ed;
+    border: 1px solid #4caf50;
+    border-left: 4px solid #4caf50;
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #1a4a1a;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #444444;
+    line-height: 1.6;
+  }
+  .bullet-list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: #3b5bdb;
+    font-weight: 700;
+  }
+
+  /* Divider */
+  .divider { margin: 32px 0 20px; border: none; border-top: 1px solid #e8e8e8; }
+
+  /* Bouton */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    background: #ffffff;
+    color: #333333;
+    transition: background 0.15s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #f5f5f5; }
+
+  /* Footer */
+  footer { background: #f9f9f9; border-top: 1px solid #e0e0e0; padding: 36px 0 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .source-grid { grid-template-columns: 1fr; }
+    .stats-row { flex-direction: column; }
+    .page-header h1 { font-size: 26px; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html" class="active">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="page-badge">Veille technologique</div>
+    <h1>L'IA dans les métiers de l'informatique</h1>
+    <p>Dans le cadre du BTS SIO, on doit assurer une veille technologique sur un sujet en lien avec l'informatique. J'ai choisi de travailler sur l'impact de l'IA sur les métiers IT — c'est un sujet qui évolue vite en ce moment et qui touche directement notre domaine, que ce soit pour les admins sys, les réseaux ou le support.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Pourquoi ce sujet ?</h2>
+
+      <p class="body-text">
+        Depuis fin 2022 et le lancement de ChatGPT, les outils d'IA ont commencé à rentrer dans plein de domaines. Dans l'IT en particulier, ça a bougé vite : GitHub Copilot pour le code, des chatbots pour le support, des assistants pour les admins réseau... Difficile de ne pas se demander ce que ça change concrètement pour les métiers qu'on vise en BTS SIO.
+      </p>
+
+      <p class="body-text">
+        Ce qui m'a motivé à choisir ce sujet c'est surtout la question de l'emploi. Est-ce que l'IA va vraiment remplacer des jobs IT ? Quels métiers sont les plus à risque ? Et au contraire, qu'est-ce qui va être en tension, où les entreprises cherchent des gens qu'elles n'arrivent pas à trouver ? J'ai voulu des chiffres concrets, pas juste des opinions.
+      </p>
+
+      <p class="body-text">
+        J'ai donc suivi plusieurs sources spécialisées pendant plusieurs semaines pour construire ma veille : sites d'info IT, études INSEE, rapports McKinsey, articles de professionnels du secteur.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Les chiffres clés en 2025–2026</h2>
+
+      <p class="body-text">
+        Avant de rentrer dans le détail, voici quelques chiffres qui donnent une idée de l'ampleur du changement. Ces données viennent de plusieurs études récentes — PwC, McKinsey, Commission française sur l'IA, et une note INSEE de mars 2026.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">81,6%</div>
+          <div class="stat-label">des emplois IT ne sont PAS directement menacés par l'IA</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">+252%</div>
+          <div class="stat-label">d'emplois IT "augmentés" par l'IA entre 2019 et 2024 (PwC)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">166 000</div>
+          <div class="stat-label">offres d'emploi IA créées en France en 2024 (1er en Europe)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">-16%</div>
+          <div class="stat-label">d'emplois chez les 22–25 ans dans les métiers IT les plus exposés aux USA depuis l'IA générative (INSEE, mars 2026)</div>
+        </div>
+      </div>
+
+      <p class="body-text">
+        Ces chiffres montrent une réalité un peu complexe : d'un côté les emplois IT dans l'ensemble ne disparaissent pas, de l'autre les profils débutants ou peu spécialisés ont du mal à entrer sur le marché. La note INSEE de mars 2026 est claire là-dessus : ce sont surtout les jeunes qui en souffrent, en France comme aux États-Unis.
+      </p>
+
+      <div class="note-info">
+        <strong>Source principale :</strong> Note INSEE "IA et emploi salarié dans les activités informatiques" — publiée le 24 mars 2026. Disponible sur <a href="https://www.vie-publique.fr/en-bref/302720-ia-moins-demplois-dans-les-activites-informatiques" target="_blank" style="color:#3b5bdb;">vie-publique.fr</a>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Quels métiers sont à risque ?</h2>
+
+      <p class="body-text">
+        Tous les métiers IT ne sont pas logés à la même enseigne. Le site FORMIP a publié une analyse détaillée (novembre 2025) qui classe les métiers informatiques par niveau de risque d'automatisation. Ce qui ressort c'est que les tâches répétitives et à faible valeur ajoutée sont les premières touchées.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Métier</th>
+            <th>Risque d'automatisation</th>
+            <th>Pourquoi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Support technique N1</td>
+            <td class="risk-high">85% — Très élevé</td>
+            <td>Les chatbots IA traitent déjà 70% des tickets répétitifs (reset mot de passe, imprimante...)</td>
+          </tr>
+          <tr>
+            <td>Saisie de données / Data entry</td>
+            <td class="risk-high">90% — Très élevé</td>
+            <td>Tâche entièrement automatisable, aucune créativité requise</td>
+          </tr>
+          <tr>
+            <td>Testeur QA manuel (répétitif)</td>
+            <td class="risk-high">75% — Élevé</td>
+            <td>Les outils de test automatique couvrent de plus en plus les cas standard</td>
+          </tr>
+          <tr>
+            <td>Développeur web junior généraliste</td>
+            <td class="risk-med">60% — Moyen</td>
+            <td>GitHub Copilot génère des composants basiques en secondes</td>
+          </tr>
+          <tr>
+            <td>Admin sys / réseau</td>
+            <td class="risk-low">Faible — en transformation</td>
+            <td>Les tâches répétitives s'automatisent mais le rôle stratégique reste humain</td>
+          </tr>
+          <tr>
+            <td>Expert cybersécurité</td>
+            <td class="risk-low">Très faible — en forte hausse</td>
+            <td>Les menaces augmentent, la demande explose — +35% de recrutements prévus</td>
+          </tr>
+          <tr>
+            <td>Ingénieur DevOps / Cloud</td>
+            <td class="risk-low">Très faible — pénurie</td>
+            <td>Profils très demandés, l'IA augmente leur productivité sans les remplacer</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="body-text">
+        Ce tableau vient d'une synthèse de plusieurs sources : l'analyse FORMIP (2025), le rapport McKinsey sur la reconversion (375 millions de travailleurs à réorienter d'ici 2030), et une étude OpenAI publiée en octobre 2025 qui liste 44 métiers où l'IA peut avoir "le plus grand impact sur la productivité".
+      </p>
+
+      <div class="note">
+        <strong>Ce que ça veut dire pour nous en BTS SIO SISR :</strong> Le support N1 est effectivement en train de disparaître, mais c'est un métier de départ — pas une fin de carrière. Ce qui compte c'est de monter en compétences vers l'administration système, le réseau, la sécurité. Ces métiers-là résistent bien et sont en pénurie.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">L'IA dans l'administration réseau</h2>
+
+      <p class="body-text">
+        C'est le domaine qui me touche directement en option SISR. La question c'est pas "est-ce que l'IA va remplacer les admins réseau ?" — la réponse est clairement non à court terme. La vraie question c'est : "comment l'IA change le travail au quotidien d'un admin réseau ?"
+      </p>
+
+      <h3 class="section-subtitle">Ce que l'IA fait déjà en administration réseau</h3>
+
+      <ul class="bullet-list">
+        <li><strong>Surveillance en temps réel :</strong> les outils IA analysent le trafic réseau en continu, détectent les anomalies et les tentatives d'intrusion bien plus rapidement qu'une surveillance manuelle. C'est pas nouveau mais ça s'est beaucoup amélioré avec le machine learning.</li>
+        <li><strong>Génération de scripts :</strong> des outils comme GitHub Copilot ou ChatGPT permettent de générer des scripts Python ou PowerShell pour automatiser des tâches d'administration. L'admin décrit ce qu'il veut faire, l'IA produit le code. Ça fait gagner du temps sur les tâches répétitives.</li>
+        <li><strong>Prédiction de pannes :</strong> en analysant les logs et les historiques de performance, l'IA peut identifier des signaux faibles avant qu'une panne se produise. Passage d'une approche réactive à une approche proactive.</li>
+        <li><strong>Déploiement automatisé :</strong> configuration automatique des équipements réseau (IP, VLAN, paramètres de sécurité) lors de l'ajout d'un nouveau switch ou routeur.</li>
+      </ul>
+
+      <p class="body-text">
+        Un exemple concret : en février 2026, NetBox Labs a officialisé un assistant IA pour les administrateurs réseau. L'outil s'appelle "Copilot" et permet d'interroger l'infrastructure en langage naturel. Un admin peut demander "Quels terminaux n'ont pas d'adresse IP ?" ou "Qui a modifié ce préfixe la semaine dernière ?" directement, sans passer par des interfaces complexes.
+      </p>
+
+      <div class="note-info">
+        <strong>Source :</strong> Le Monde Informatique, "NetBox Labs lance un assistant IA pour les administrateurs réseau", février 2026 — <a href="https://www.lemondeinformatique.fr/actualites/lire-netbox-labs-lance-un-assistant-ia-pour-les-administrateurs-reseau-99331.html" target="_blank" style="color:#3b5bdb;">lemondeinformatique.fr</a>
+      </div>
+
+      <h3 class="section-subtitle">Ce qui reste humain</h3>
+
+      <p class="body-text">
+        Même avec tous ces outils, il y a des choses que l'IA ne fait pas bien : comprendre le contexte métier, prendre des décisions critiques sous pression, assurer la responsabilité d'une architecture réseau. Un admin senior avec 5–10 ans d'expérience reste indispensable. L'IA automatise les tâches fastidieuses, elle libère du temps pour le travail à plus forte valeur ajoutée.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Les nouveaux métiers créés par l'IA</h2>
+
+      <p class="body-text">
+        L'IA ne fait pas que menacer des emplois — elle en crée aussi. Des métiers qui n'existaient pas il y a 5 ans sont aujourd'hui en forte demande. Le site DataBird (avril 2026) liste plusieurs profils émergents qui attirent des salaires élevés.
+      </p>
+
+      <div class="source-grid">
+        <div class="source-card">
+          <div class="source-tag">Développement IA</div>
+          <h4>Ingénieur en IA générative</h4>
+          <p>Conception et déploiement de modèles IA (LLM, diffusion). Profil très recherché, souvent issu d'un background développeur avec spécialisation ML.</p>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Architecture</div>
+          <h4>Architecte IA / MLOps Engineer</h4>
+          <p>Déploiement et maintenance des modèles en production. Combine compétences DevOps et ML. Profil en pénurie en France.</p>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Sécurité</div>
+          <h4>AI Security Specialist</h4>
+          <p>Sécurisation des systèmes IA contre les attaques (adversarial attacks, prompt injection...). Domaine tout récent qui se structure.</p>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Éthique / Gouvernance</div>
+          <h4>Analyste en éthique et gouvernance IA</h4>
+          <p>Avec les nouvelles réglementations (EU AI Act), les entreprises recrutent des profils capables de gérer la conformité des systèmes IA.</p>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Réseau / Infra</div>
+          <h4>Ingénieur infrastructure IA</h4>
+          <p>Gestion des datacenters qui hébergent les modèles IA. D'ici 2030, 20 000 emplois datacenter créés en France selon les projections.</p>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Data</div>
+          <h4>Data Strategist</h4>
+          <p>Profil hybride qui combine expertise métier et compétences IA/data. Traduit les résultats des modèles en décisions business.</p>
+        </div>
+      </div>
+
+      <p class="body-text">
+        Selon les estimations, ces nouveaux métiers représenteraient +500 000 emplois informatiques liés à l'IA d'ici 2030. Les développeurs qui maîtrisent GitHub Copilot sont 35–55% plus productifs que les autres — c'est devenu un critère de recrutement.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Ce que ça change pour nous</h2>
+
+      <p class="body-text">
+        En tant qu'étudiant en BTS SIO SISR, la question est directe : est-ce que ce que j'apprends aujourd'hui va encore servir dans 5 ans ? La réponse courte : oui, mais il faut adapter la façon de travailler.
+      </p>
+
+      <h3 class="section-subtitle">Ce que l'IA ne remplace pas</h3>
+
+      <ul class="bullet-list">
+        <li>La compréhension réelle de comment fonctionnent les protocoles réseau, l'AD, la sécurité — sans ça, on ne peut pas superviser ce que l'IA fait</li>
+        <li>La capacité à gérer des incidents complexes, là où tout est lié et où le contexte compte</li>
+        <li>La responsabilité : un admin qui laisse une IA prendre toutes les décisions sur l'infrastructure sans comprendre reste responsable quand ça plante</li>
+        <li>La relation avec les utilisateurs et les équipes — l'IA ne gère pas les humains</li>
+      </ul>
+
+      <h3 class="section-subtitle">Ce qu'il faut développer en plus</h3>
+
+      <ul class="bullet-list">
+        <li><strong>Utiliser les outils IA au quotidien :</strong> ChatGPT pour documenter, Copilot pour les scripts, des assistants pour les configs — c'est plus une option, c'est attendu</li>
+        <li><strong>Comprendre les bases du scripting :</strong> Python et PowerShell deviennent encore plus importants quand l'IA peut générer du code mais qu'il faut savoir le relire et le corriger</li>
+        <li><strong>Spécialisation :</strong> les profils généralistes débutants sont les plus exposés. Se spécialiser en cybersécurité, cloud, ou infrastructure IA est un bon investissement</li>
+        <li><strong>Veille continue :</strong> le domaine bouge trop vite pour se reposer sur ce qu'on a appris en formation — il faut maintenir une veille active</li>
+      </ul>
+
+      <div class="note-ok">
+        <strong>Conclusion :</strong> L'IA n'est pas l'ennemie des métiers IT — c'est un outil. Ceux qui vont souffrir sont ceux qui refusent de l'adopter. Ceux qui vont bien s'en sortir sont ceux qui utilisent l'IA comme un assistant pour aller plus vite, tout en gardant les compétences techniques fondamentales.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Sources de veille utilisées</h2>
+
+      <p class="body-text">
+        Voici les sources que j'ai suivies pour construire cette veille. J'ai choisi des sources variées : études institutionnelles, sites spécialisés IT, médias professionnels et publications académiques.
+      </p>
+
+      <div class="source-grid">
+        <div class="source-card">
+          <div class="source-tag">Institutionnel</div>
+          <h4>INSEE — Emploi IT et IA générative</h4>
+          <p>Note de mars 2026 sur le recul de l'emploi salarié dans l'informatique en France et aux USA depuis l'arrivée de l'IA générative. Chiffres officiels sur les 22–25 ans.</p>
+          <a href="https://www.vie-publique.fr/en-bref/302720-ia-moins-demplois-dans-les-activites-informatiques" target="_blank" class="source-link">vie-publique.fr</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Spécialisé IT</div>
+          <h4>FORMIP — IA et emploi IT</h4>
+          <p>Analyse détaillée par métier avec chiffres d'automatisation. Couvre le support N1, les devs, les admins réseau. Très concret et sourcé.</p>
+          <a href="https://www.formip.com/pages/blog/ia-et-emploi-it-vraie-reponse" target="_blank" class="source-link">formip.com</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Actualité IT</div>
+          <h4>Le Monde Informatique — NetBox Labs IA</h4>
+          <p>Article de février 2026 sur l'assistant IA pour admins réseau de NetBox Labs. Exemple concret d'outil IA déployé en production pour l'administration réseau.</p>
+          <a href="https://www.lemondeinformatique.fr/actualites/lire-netbox-labs-lance-un-assistant-ia-pour-les-administrateurs-reseau-99331.html" target="_blank" class="source-link">lemondeinformatique.fr</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Formation</div>
+          <h4>EduGroupe — Métiers IT en tension 2025</h4>
+          <p>Liste des profils IT les plus recherchés en 2025. Cite le rapport McKinsey sur les 375 millions de travailleurs à reconvertir d'ici 2030. Bonne vue d'ensemble.</p>
+          <a href="https://edugroupe.com/les-profils-informatiques-recherches-en-2025/" target="_blank" class="source-link">edugroupe.com</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Data / IA</div>
+          <h4>DataBird — Impact IA marché du travail 2025</h4>
+          <p>Article d'avril 2026 sur les transformations du marché IT. Bons détails sur les nouveaux métiers créés et les salaires associés.</p>
+          <a href="https://www.data-bird.co/blog/impact-ia-marche-du-travail-2025" target="_blank" class="source-link">data-bird.co</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Administration réseau</div>
+          <h4>DémarreTonAvenir — IA en admin réseau</h4>
+          <p>Exemples concrets d'applications IA dans le département administration réseau : monitoring, déploiement automatisé, génération de scripts. Pertinent pour l'option SISR.</p>
+          <a href="https://www.demarretonaventure.com/ex-applications-ia/exemples-dapplications-ia-dans-le-departement-administration-reseau/" target="_blank" class="source-link">demarretonaventure.com</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Recherche</div>
+          <h4>OpenAI — GDPval et 44 métiers impactés</h4>
+          <p>Étude d'octobre 2025 d'OpenAI qui évalue quels métiers l'IA peut impacter sur la productivité. Développeurs logiciels et représentants service client figurent dans la liste.</p>
+          <a href="https://www.lesnumeriques.com/intelligence-artificielle/chatgpt-peut-deja-remplacer-44-metiers-selon-une-etude-d-openai-n243211.html" target="_blank" class="source-link">lesnumeriques.com</a>
+        </div>
+        <div class="source-card">
+          <div class="source-tag">Professionnel</div>
+          <h4>LinkedIn — ChatGPT et métiers informatique</h4>
+          <p>Article d'un professionnel IT sur l'impact de ChatGPT sur les développeurs. Bonne analyse du changement de nature des tâches (de la production vers la revue de code).</p>
+          <a href="https://fr.linkedin.com/pulse/chatgpt-quels-impacts-sur-les-m%C3%A9tiers-du-informatique-bellamine" target="_blank" class="source-link">linkedin.com</a>
+        </div>
+      </div>
+
+      <hr class="divider" />
+      <a href="index.html" class="btn">← Retour à l'accueil</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
+    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+    <p>© 2026</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>

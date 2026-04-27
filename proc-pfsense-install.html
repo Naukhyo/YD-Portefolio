@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Installation pfSense — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .three-imgs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs, .three-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Installation pfSense</div>
+    <h1>Installation pfSense</h1>
+    <p>Déploiement complet de pfSense : installation, configuration des interfaces WAN/LAN, DHCP, NAT et règles firewall.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Présentation de pfSense</h2>
+      <p>pfSense est un pare-feu/routeur open source basé sur FreeBSD. Il s'administre via une interface web et propose des fonctionnalités avancées : DHCP, NAT, VPN, VLAN, portail captif. Dans mon infra, c'est la VM <strong>Laniakea</strong> qui fait tourner pfSense (WAN : 192.168.1.145, LAN : 192.168.10.1).</p>
+
+      <div class="info-box">
+        pfSense s'installe sur un serveur avec au minimum deux cartes réseau : une pour le WAN (vers internet), une pour le LAN (réseau interne).
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Démarrage et installation</h2>
+      <p>On démarre depuis l'ISO pfSense. L'installeur démarre en console. Il faut choisir la méthode d'installation (guidée ou manuelle), puis sélectionner le disque cible. L'installation prend quelques minutes.</p>
+
+      <div class="img-block">
+        <img src="img/pfsense-install-boot.png" alt="Écran de démarrage de l'installation pfSense" loading="lazy" />
+        <div class="img-caption"><span class="step-num">1</span> Boot sur l'ISO pfSense — menu d'installation</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration des interfaces</h2>
+      <p>Après l'installation et le redémarrage, pfSense détecte les interfaces réseau et demande d'assigner le WAN et le LAN. On indique les noms des interfaces (em0 pour WAN, em1 pour LAN par exemple). L'IP LAN est configurée ici, ainsi que l'activation du DHCP.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/pfsense-install-interface.png" alt="Configuration des interfaces WAN et LAN dans pfSense" loading="lazy" />
+          <div class="img-caption"><span class="step-num">2</span> Assignation WAN/LAN en console</div>
+        </div>
+        <div class="img-block">
+          <img src="img/pfsense-install-webgui.png" alt="Accès à l'interface web pfSense" loading="lazy" />
+          <div class="img-caption"><span class="step-num">3</span> Accès à l'interface web pfSense</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration initiale via l'interface web</h2>
+      <p>Une fois l'interface accessible (192.168.1.1 par défaut), l'assistant de configuration se lance. Il guide à travers le nom d'hôte, les DNS, le fuseau horaire, et la configuration WAN. On change aussi le mot de passe admin par défaut.</p>
+
+      <div class="img-block">
+        <img src="img/pfsense-install-motdepasse.png" alt="Changement du mot de passe admin pfSense" loading="lazy" />
+        <div class="img-caption"><span class="step-num">4</span> Changement du mot de passe administrateur</div>
+      </div>
+
+      <div class="img-block">
+        <img src="img/pfsense-install-dashboard.png" alt="Dashboard pfSense après configuration initiale" loading="lazy" />
+        <div class="img-caption"><span class="step-num">5</span> Dashboard pfSense — état général du système</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Services disponibles</h2>
+      <p>pfSense propose beaucoup de services intégrés. Les plus utiles en entreprise : DHCP Server (attribution automatique d'IP), DNS Forwarder/Resolver, NAT pour faire passer le trafic LAN vers internet, et le module VPN pour les accès distants.</p>
+
+      <div class="img-block">
+        <img src="img/pfsense-services-menu.png" alt="Menu Services dans pfSense — liste des services disponibles" loading="lazy" />
+        <div class="img-caption">Menu Services pfSense — DHCP, DNS, VPN, NTP...</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration DHCP</h2>
+      <p>Le serveur DHCP de pfSense distribue les adresses IP sur le LAN. On définit la plage d'attribution, la passerelle, les DNS. On peut aussi créer des baux statiques pour attribuer toujours la même IP à un équipement via son adresse MAC.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/pfsense-dhcp-config.png" alt="Configuration du serveur DHCP dans pfSense" loading="lazy" />
+          <div class="img-caption">Paramètres DHCP — plage d'adresses et options</div>
+        </div>
+        <div class="img-block">
+          <img src="img/pfsense-nat-config.png" alt="Configuration NAT dans pfSense" loading="lazy" />
+          <div class="img-caption">Règles NAT — redirection de ports et masquage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Fin d'installation</h2>
+      <p>Une fois tout configuré, pfSense est opérationnel. On peut vérifier que les interfaces sont bien up, que le DHCP distribue des adresses, et que les clients LAN ont accès à internet via le NAT.</p>
+
+      <div class="img-block">
+        <img src="img/pfsense-install-progress.png" alt="Fin de l'installation pfSense" loading="lazy" />
+        <div class="img-caption">Installation terminée — pfSense prêt au redémarrage</div>
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">pfSense</span>
+      <span class="tag">Pare-feu</span>
+      <span class="tag">DHCP</span>
+      <span class="tag">NAT</span>
+      <span class="tag">WAN/LAN</span>
+      <span class="tag">FreeBSD</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

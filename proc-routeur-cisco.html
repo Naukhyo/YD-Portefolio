@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Configuration routeur Cisco — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 16px 0; }
+  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Configuration routeur Cisco</div>
+    <h1>Configuration routeur Cisco</h1>
+    <p>Connexion en console à un routeur Cisco via PuTTY, commandes de base IOS et configuration des interfaces.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Connexion en console avec PuTTY</h2>
+      <p>Pour configurer un routeur Cisco la première fois (sans réseau), on se connecte via le port Console avec un câble RS-232 (ou USB-Console). Sur le PC, on utilise PuTTY en mode Serial. Le port COM dépend de l'adaptateur utilisé, et la vitesse est généralement 9600 bauds.</p>
+
+      <div class="img-block">
+        <img src="img/routeur-putty-config.png" alt="Configuration PuTTY pour connexion console à un routeur Cisco" loading="lazy" />
+        <div class="img-caption"><span class="step-num">1</span> PuTTY — configuration en mode Serial (COM3, 9600 bauds)</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Premiers accès à l'IOS</h2>
+      <p>Une fois connecté, on arrive sur l'interface en ligne de commande Cisco IOS. Le prompt <code>Router&gt;</code> indique le mode utilisateur. On passe en mode privilégié avec <code>enable</code>, puis en mode configuration globale avec <code>configure terminal</code>.</p>
+
+      <div class="img-block">
+        <img src="img/routeur-console-connexion.png" alt="Console IOS Cisco — premier accès en mode utilisateur" loading="lazy" />
+        <div class="img-caption"><span class="step-num">2</span> Accès à l'IOS — mode utilisateur puis mode privilégié</div>
+      </div>
+
+      <pre>Router&gt; enable
+Router# configure terminal
+Router(config)#</pre>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration d'une interface</h2>
+      <p>Pour configurer une interface (FastEthernet, GigabitEthernet), on entre dans son sous-mode de configuration, on attribue une adresse IP et un masque, et on active l'interface avec <code>no shutdown</code>. Sans <code>no shutdown</code>, l'interface reste désactivée.</p>
+
+      <div class="img-block">
+        <img src="img/routeur-config-interface.png" alt="Configuration d'une interface Cisco avec adresse IP" loading="lazy" />
+        <div class="img-caption"><span class="step-num">3</span> Configuration interface — IP address + no shutdown</div>
+      </div>
+
+      <pre>Router(config)# interface FastEthernet0/0
+Router(config-if)# ip address 192.168.1.1 255.255.255.128
+Router(config-if)# duplex auto
+Router(config-if)# speed auto
+Router(config-if)# no shutdown</pre>
+
+      <div class="info-box">
+        Ne pas oublier de sauvegarder la configuration avec <code>copy running-config startup-config</code> (ou <code>wr</code> en raccourci). Sinon, la config est perdue au redémarrage.
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Commandes utiles en IOS</h2>
+      <p>Quelques commandes à retenir pour administrer un routeur Cisco :</p>
+      <pre>show interfaces          # état des interfaces
+show ip route            # table de routage
+show running-config      # configuration active
+ping 192.168.1.1         # test de connectivité
+traceroute 8.8.8.8       # traçage de route
+copy run start           # sauvegarde de la config</pre>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Cisco</span>
+      <span class="tag">IOS</span>
+      <span class="tag">PuTTY</span>
+      <span class="tag">Console</span>
+      <span class="tag">Routeur</span>
+      <span class="tag">Réseau</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

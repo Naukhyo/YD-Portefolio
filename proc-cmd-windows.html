@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Commandes Windows (CMD) — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  .cmd-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .cmd-table th { background: #3b5bdb; color: #fff; padding: 10px 14px; text-align: left; }
+  .cmd-table td { padding: 9px 14px; border-bottom: 1px solid #e0e0e0; }
+  .cmd-table tr:hover td { background: #f8f9fa; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Commandes Windows (CMD)</div>
+    <h1>Commandes Windows (CMD)</h1>
+    <p>Les commandes de base en ligne de commande Windows — navigation, fichiers, attributs, scripts batch.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Pourquoi utiliser CMD ?</h2>
+      <p>L'invite de commandes (CMD) permet de faire des opérations sur le système sans passer par l'interface graphique. C'est utile pour automatiser des tâches, parcourir des répertoires, gérer des fichiers ou diagnostiquer des problèmes réseau.</p>
+
+      <table class="cmd-table">
+        <thead>
+          <tr><th>Commande</th><th>Rôle</th><th>Exemple</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>dir</code></td><td>Lister le contenu d'un dossier</td><td><code>dir C:\TEXTE</code></td></tr>
+          <tr><td><code>cd</code></td><td>Changer de répertoire</td><td><code>cd C:\Users\yvan</code></td></tr>
+          <tr><td><code>mkdir</code></td><td>Créer un dossier</td><td><code>mkdir C:\TEXTE</code></td></tr>
+          <tr><td><code>del</code></td><td>Supprimer un fichier</td><td><code>del fichier.txt</code></td></tr>
+          <tr><td><code>copy</code></td><td>Copier un fichier</td><td><code>copy fic1.txt C:\BATCH</code></td></tr>
+          <tr><td><code>move</code></td><td>Déplacer un fichier</td><td><code>move fic1.txt C:\TEXTE</code></td></tr>
+          <tr><td><code>attrib</code></td><td>Modifier les attributs d'un fichier</td><td><code>attrib +r fichier.txt</code></td></tr>
+          <tr><td><code>subst</code></td><td>Créer un lecteur virtuel</td><td><code>subst X: C:\dossier</code></td></tr>
+          <tr><td><code>prompt</code></td><td>Personnaliser l'invite</td><td><code>prompt $D $T$_$L$P$G</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <h2>Naviguer et lister des fichiers</h2>
+      <p>La commande <code>dir</code> affiche le contenu d'un répertoire avec les noms, tailles et dates. Avec <code>dir /a</code> on voit aussi les fichiers cachés, et <code>dir /s</code> parcourt les sous-dossiers.</p>
+
+      <div class="img-block">
+        <img src="img/cmd-win-dir.png" alt="Commande dir dans CMD Windows" loading="lazy" />
+        <div class="img-caption">dir C:\TEXTE — affichage du contenu du répertoire</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Scripts batch</h2>
+      <p>Un fichier batch (.bat) permet d'enchaîner des commandes automatiquement. On peut créer des dossiers, copier des fichiers, afficher des messages, tout ça d'un seul double-clic. Utile pour automatiser des tâches répétitives en administration.</p>
+
+      <div class="img-block">
+        <img src="img/cmd-win-batch.png" alt="Exemple de script batch .bat" loading="lazy" />
+        <div class="img-caption">Exécution d'un fichier FIC1.BAT — traitement par lot</div>
+      </div>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cmd-win-mkdir.png" alt="Création de dossiers avec mkdir en CMD" loading="lazy" />
+          <div class="img-caption">Création de répertoires avec mkdir</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cmd-win-del.png" alt="Suppression de fichiers avec del" loading="lazy" />
+          <div class="img-caption">Suppression et confirmation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Attributs de fichiers</h2>
+      <p>La commande <code>attrib</code> permet de modifier les attributs d'un fichier : lecture seule (+r/-r), caché (+h/-h), archive (+a/-a), système (+s/-s). Pratique pour protéger des fichiers ou les cacher à l'explorateur.</p>
+
+      <div class="img-block">
+        <img src="img/cmd-win-attrib.png" alt="Commande attrib pour modifier les attributs de fichiers" loading="lazy" />
+        <div class="img-caption">attrib +r / -r sur un fichier texte</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Personnaliser l'invite et lecteurs virtuels</h2>
+      <p>La commande <code>prompt</code> change l'affichage de l'invite. Par exemple <code>prompt $D $T</code> affiche la date et l'heure. La commande <code>subst</code> crée un lecteur virtuel à partir d'un dossier, ce qui peut simplifier l'accès à des chemins longs.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cmd-win-prompt.png" alt="Invite CMD personnalisée avec date et heure" loading="lazy" />
+          <div class="img-caption">Invite personnalisée — date + heure affichées</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cmd-win-subst.png" alt="Création d'un lecteur virtuel avec subst" loading="lazy" />
+          <div class="img-caption">subst X: pour créer un lecteur virtuel</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        Les lecteurs créés avec <code>subst</code> ne persistent pas au redémarrage. Pour les rendre permanents, il faut les ajouter dans un script de démarrage.
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">CMD</span>
+      <span class="tag">Windows</span>
+      <span class="tag">Batch</span>
+      <span class="tag">Ligne de commande</span>
+      <span class="tag">Scripts</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

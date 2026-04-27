@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Linux &amp; Debian — Commandes — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 16px 0; }
+  .cmd-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .cmd-table th { background: #3b5bdb; color: #fff; padding: 10px 14px; text-align: left; }
+  .cmd-table td { padding: 9px 14px; border-bottom: 1px solid #e0e0e0; font-family: monospace; }
+  .cmd-table tr:hover td { background: #f8f9fa; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Linux &amp; Debian — Commandes</div>
+    <h1>Linux &amp; Debian — Commandes de base</h1>
+    <p>TP Debian : manipulation de fichiers, lecture, recherche et gestion des droits en ligne de commande Linux.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Navigation et fichiers</h2>
+      <p>Les premières commandes à maîtriser sous Linux sont celles de navigation et de gestion des fichiers. On travaille ici sur Debian en VM. Le terminal montre l'utilisateur, la machine et le répertoire courant : <code>yvan@vmdebian:~/essai$</code>.</p>
+
+      <div class="img-block">
+        <img src="img/linux-debian-ls.png" alt="Commande ls sous Linux Debian" loading="lazy" />
+        <div class="img-caption">ls — lister les fichiers du répertoire courant</div>
+      </div>
+
+      <table class="cmd-table">
+        <thead>
+          <tr><th>Commande</th><th>Rôle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ls</td><td>Lister les fichiers</td></tr>
+          <tr><td>ls -la</td><td>Lister avec détails et fichiers cachés</td></tr>
+          <tr><td>cd dossier</td><td>Changer de répertoire</td></tr>
+          <tr><td>mkdir nom</td><td>Créer un dossier</td></tr>
+          <tr><td>rm fichier</td><td>Supprimer un fichier</td></tr>
+          <tr><td>cp src dest</td><td>Copier un fichier</td></tr>
+          <tr><td>mv src dest</td><td>Déplacer / renommer</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-block">
+      <h2>Lire et afficher des fichiers</h2>
+      <p>La commande <code>cat</code> affiche le contenu d'un fichier directement dans le terminal. Pour les gros fichiers, on préfère <code>less</code> ou <code>more</code> qui permettent de paginer. <code>head</code> et <code>tail</code> affichent les premières ou dernières lignes.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/linux-debian-cat.png" alt="Commande cat pour afficher un fichier texte" loading="lazy" />
+          <div class="img-caption">cat — affichage du contenu d'un fichier texte</div>
+        </div>
+        <div class="img-block">
+          <img src="img/linux-debian-wc.png" alt="Commande wc -l pour compter les lignes" loading="lazy" />
+          <div class="img-caption">wc -l — compter le nombre de lignes d'un fichier</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Recherche dans les fichiers avec grep</h2>
+      <p>La commande <code>grep</code> cherche un motif (texte ou expression régulière) dans un fichier. Très utile pour filtrer des logs ou chercher une info dans un gros fichier de config. Avec <code>-i</code> la recherche est insensible à la casse, avec <code>-r</code> elle est récursive dans les dossiers.</p>
+
+      <div class="img-block">
+        <img src="img/linux-debian-grep.png" alt="Commande grep pour chercher dans un fichier texte" loading="lazy" />
+        <div class="img-caption">grep "sun" — recherche du mot dans un fichier texte</div>
+      </div>
+
+      <pre>yvan@vmdebian:~$ grep "sun" res
+here comes the sun
+Following the sun</pre>
+    </div>
+
+    <div class="section-block">
+      <h2>Droits et permissions</h2>
+      <p>Sous Linux, chaque fichier a des droits définis pour trois entités : le propriétaire (owner), le groupe, et les autres (others). <code>ls -la</code> affiche ces droits sous forme <code>-rwxr-xr--</code>. <code>chmod</code> modifie les droits, <code>chown</code> change le propriétaire.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/linux-debian-ls-la.png" alt="Affichage des droits avec ls -la" loading="lazy" />
+          <div class="img-caption">ls -la — droits, propriétaire et groupe de chaque fichier</div>
+        </div>
+        <div class="img-block">
+          <img src="img/linux-debian-diff.png" alt="Commande diff pour comparer deux fichiers" loading="lazy" />
+          <div class="img-caption">diff — comparer deux fichiers ligne par ligne</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        Pour changer les droits : <code>chmod 755 fichier</code> (owner=rwx, group=rx, others=rx) ou <code>chmod +x script.sh</code> pour rendre un script exécutable.
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Linux</span>
+      <span class="tag">Debian</span>
+      <span class="tag">Terminal</span>
+      <span class="tag">Bash</span>
+      <span class="tag">chmod</span>
+      <span class="tag">grep</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Protocole DHCP — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 16px 0; }
+  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Protocole DHCP</div>
+    <h1>Protocole DHCP</h1>
+    <p>TP DHCP sur Cisco Packet Tracer — configuration d'un serveur DHCP, pool d'adresses et attribution automatique aux clients.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Principe du DHCP</h2>
+      <p>DHCP (Dynamic Host Configuration Protocol) permet d'attribuer automatiquement une configuration réseau à un client qui se connecte : adresse IP, masque de sous-réseau, passerelle par défaut, serveur DNS. Sans DHCP, il faudrait tout configurer manuellement sur chaque machine.</p>
+      <p>Le processus se fait en 4 messages : <strong>Discover</strong> (le client cherche un serveur), <strong>Offer</strong> (le serveur propose une IP), <strong>Request</strong> (le client accepte), <strong>Acknowledge</strong> (le serveur confirme). On abrège en DORA.</p>
+
+      <div class="info-box">
+        Dans mon infra, le DHCP est géré par pfSense (Laniakea) pour le réseau 192.168.10.0/24. Les serveurs ont des IP fixes (réservations statiques).
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Topologie du TP</h2>
+      <p>Le TP a été réalisé sur Cisco Packet Tracer. La topologie comprend un routeur qui fait aussi office de serveur DHCP, et plusieurs PC clients qui doivent obtenir leur configuration automatiquement.</p>
+
+      <div class="img-block">
+        <img src="img/dhcp-topologie-tp.png" alt="Topologie du TP DHCP dans Packet Tracer" loading="lazy" />
+        <div class="img-caption"><span class="step-num">1</span> Topologie Packet Tracer — routeur DHCP + clients</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration du pool DHCP</h2>
+      <p>Sur le routeur Cisco, on configure le service DHCP en CLI. On crée un pool avec un nom, on définit le réseau distribué, la passerelle par défaut et le DNS. On peut aussi exclure certaines adresses du pool pour les équipements à IP fixe.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/dhcp-config-pool.png" alt="Configuration du pool DHCP sur routeur Cisco" loading="lazy" />
+          <div class="img-caption"><span class="step-num">2</span> Création du pool DHCP en IOS</div>
+        </div>
+        <div class="img-block">
+          <img src="img/dhcp-config-ip.png" alt="Définition de la plage d'adresses DHCP" loading="lazy" />
+          <div class="img-caption"><span class="step-num">3</span> Réseau distribué et adresses exclues</div>
+        </div>
+      </div>
+
+      <pre>Router(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
+Router(config)# ip dhcp pool MONRESEAU
+Router(dhcp-config)# network 192.168.1.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.1.1
+Router(dhcp-config)# dns-server 8.8.8.8</pre>
+    </div>
+
+    <div class="section-block">
+      <h2>Vérification — attribution aux clients</h2>
+      <p>Une fois le DHCP configuré, les clients Packet Tracer obtiennent leur IP automatiquement. On vérifie avec <code>ipconfig</code> sur le client et <code>show ip dhcp binding</code> sur le routeur pour voir toutes les attributions actives.</p>
+
+      <div class="img-block">
+        <img src="img/dhcp-result-attribution.png" alt="Résultat DHCP — attribution d'IP aux clients" loading="lazy" />
+        <div class="img-caption"><span class="step-num">4</span> Clients ayant obtenu leur IP via DHCP</div>
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">DHCP</span>
+      <span class="tag">Cisco IOS</span>
+      <span class="tag">Packet Tracer</span>
+      <span class="tag">Réseau</span>
+      <span class="tag">DORA</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

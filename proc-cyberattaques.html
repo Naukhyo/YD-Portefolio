@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cyberattaques &amp; sécurité — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #fff3cd; border-left: 4px solid #f59f00; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .info-box-blue { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Cyberattaques &amp; sécurité</div>
+    <h1>Cyberattaques &amp; sécurité</h1>
+    <p>Les différents types d'attaques informatiques, comment les identifier, et les bonnes pratiques pour s'en protéger.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Les types de logiciels malveillants</h2>
+      <p>Un malware (malicious software) est un programme conçu pour nuire à un système. Il en existe plusieurs catégories, chacune avec un mode d'action différent. Dans le cadre du cours Cisco NetAcad, on a étudié les principaux types et leurs caractéristiques.</p>
+
+      <div class="img-block">
+        <img src="img/attaques-intro-tableau.png" alt="Tableau des types de logiciels malveillants" loading="lazy" />
+        <div class="img-caption">Tableau des types de malwares étudiés en cours</div>
+      </div>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/attaques-tableau-menaces.png" alt="Tableau des menaces et descriptions" loading="lazy" />
+          <div class="img-caption">Caractéristiques des différentes menaces</div>
+        </div>
+        <div class="img-block">
+          <img src="img/attaques-securite-schema.png" alt="Schéma des vecteurs d'attaque" loading="lazy" />
+          <div class="img-caption">Principaux vecteurs d'attaque informatique</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Ingénierie sociale</h2>
+      <p>L'ingénierie sociale, c'est manipuler une personne pour qu'elle fasse quelque chose ou divulgue des informations. Le phishing (hameçonnage) en est l'exemple le plus répandu : un faux email qui imite une banque ou un service connu pour voler des identifiants.</p>
+
+      <div class="info-box">
+        Règle de base : une vraie banque ou entreprise ne demandera jamais ton mot de passe par email. Dès qu'un message crée de l'urgence, c'est suspect.
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Vulnérabilités et exploits</h2>
+      <p>Une vulnérabilité, c'est une faille dans un logiciel ou un système. Un exploit, c'est un programme qui tire parti de cette faille. La gestion des vulnérabilités passe par deux choses : appliquer les mises à jour rapidement, et surveiller les CVE (Common Vulnerabilities and Exposures) publiées.</p>
+
+      <div class="img-block">
+        <img src="img/attaques-vulnerabilite.png" alt="Tableau d'identification des vulnérabilités" loading="lazy" />
+        <div class="img-caption">Exercice d'identification des vulnérabilités sur différents systèmes</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Cisco Networking Academy — module sécurité</h2>
+      <p>On a travaillé sur le module Cybersecurity Essentials de Cisco NetAcad. Il couvre les types d'attaques, les protections à mettre en place, et les bonnes pratiques en entreprise. Les exercices se font sous forme de QCM interactifs sur la plateforme Cisco.</p>
+
+      <div class="img-block">
+        <img src="img/attaques-cisco-academy.png" alt="Cisco Networking Academy — module cybersécurité" loading="lazy" />
+        <div class="img-caption">Interface Cisco NetAcad — cours Cybersecurity Essentials</div>
+      </div>
+
+      <div class="info-box-blue">
+        La plateforme Cisco NetAcad propose des certifications gratuites dans le cadre scolaire. Les modules couvrent les bases réseau jusqu'à la cybersécurité avancée.
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Cybersécurité</span>
+      <span class="tag">Malware</span>
+      <span class="tag">Phishing</span>
+      <span class="tag">Cisco NetAcad</span>
+      <span class="tag">CVE</span>
+      <span class="tag">Attaques</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

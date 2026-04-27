@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Entreprise — Yvan Dupuit</title>
+<meta name="description" content="Présentation de l'entreprise d'alternance MP Conception SAS — missions, environnement technique." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .content-wrap { max-width: 760px; }
+
+  .page-header {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f9f9f9;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333333;
+  }
+  .page-header p { font-size: 15px; color: #666666; margin: 0; }
+
+  section { padding: 48px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #333333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3b5bdb;
+    display: inline-block;
+  }
+
+  .body-text {
+    font-size: 15px;
+    color: #444444;
+    margin: 0 0 14px;
+    max-width: 720px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 24px 0 0;
+    max-width: 720px;
+  }
+  .info-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+  }
+  .info-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #3b5bdb;
+    margin-bottom: 6px;
+  }
+  .info-card .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0 0 2px;
+  }
+  .info-card .sub {
+    font-size: 13px;
+    color: #666666;
+    margin: 0;
+  }
+
+  .mission-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    max-width: 720px;
+  }
+  .mission-list li {
+    font-size: 15px;
+    color: #444444;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+  .mission-list li strong { color: #333333; }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    max-width: 720px;
+  }
+  .tag {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #444444;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .note-info {
+    background: #eef1ff;
+    border-left: 3px solid #3b5bdb;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: #444;
+    margin: 20px 0 0;
+    max-width: 720px;
+  }
+
+  footer {
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    padding: 36px 0 24px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 26px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>Mon entreprise d'alternance</h1>
+    <p>MP Conception SAS — Oyonnax (01)</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Présentation</h2>
+
+      <div style="margin:0 0 24px;">
+        <img src="img/logo-mp-conception.jpg" alt="Logo MP Conception" style="max-width:280px;display:block;" />
+      </div>
+
+      <p class="body-text">
+        MP Conception SAS est un prestataire informatique basé à Oyonnax, dans l'Ain. L'entreprise existe depuis 2009 et propose des solutions informatiques globales pour les PME et PMI : infogérance, réseaux, sauvegardes, téléphonie d'entreprise et virtualisation. C'est aussi là que j'ai fait toute ma scolarité en alternance : la 1ère et la terminale bac pro SN, et maintenant le BTS SIO option SISR — toujours à la SEPR Lyon.
+      </p>
+      <p class="body-text">
+        En tant que prestataire informatique, MP Conception intervient directement chez ses clients pour gérer leur parc informatique et leur infrastructure. C'est un environnement varié — chaque client a sa config, ses problèmes, ses contraintes — ce qui m'a permis de toucher à pas mal de situations différentes.
+      </p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <p class="label">Entreprise</p>
+          <p class="value">MP Conception SAS</p>
+          <p class="sub">Prestataire informatique</p>
+        </div>
+        <div class="info-card">
+          <p class="label">Localisation</p>
+          <p class="value">Oyonnax — Ain (01)</p>
+          <p class="sub">453 Rue Edouard Herriot</p>
+        </div>
+        <div class="info-card">
+          <p class="label">Alternance</p>
+          <p class="value">Depuis septembre 2024</p>
+          <p class="sub">BTS SIO 2ème année — option SISR</p>
+        </div>
+        <div class="info-card">
+          <p class="label">Dirigeant</p>
+          <p class="value">Pierre Montagnac</p>
+          <p class="sub">Fondateur — depuis 2009</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Ce que fait MP Conception</h2>
+      <p class="body-text">
+        L'entreprise s'occupe de tout l'informatique de ses clients — pas juste le dépannage, mais vraiment la gestion complète : infrastructure, réseaux, sauvegardes, téléphonie. Le but c'est que les clients n'aient pas à gérer ça eux-mêmes.
+      </p>
+
+      <ul class="mission-list">
+        <li><strong>Infogérance</strong> — gestion complète du parc informatique des clients, maintenance préventive et corrective</li>
+        <li><strong>Réseaux</strong> — mise en place et sécurisation des réseaux locaux, VPN, firewall, routeurs</li>
+        <li><strong>Sauvegarde</strong> — solutions de sauvegarde locale, multi-sites et datacentre, plan de reprise d'activité (PRA/PCA)</li>
+        <li><strong>Téléphonie d'entreprise</strong> — téléphonie IP, configuration des centraux et des postes</li>
+        <li><strong>Virtualisation</strong> — déploiement et gestion d'environnements virtualisés</li>
+        <li><strong>Supervision</strong> — surveillance des infrastructures clients, alertes et interventions préventives</li>
+        <li><strong>Conseil et audit</strong> — accompagnement des clients sur leurs choix techniques et leur sécurité informatique</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Mes missions</h2>
+      <p class="body-text">
+        J'interviens sur les missions clients aux côtés des techniciens de l'entreprise. Les tâches varient beaucoup selon les clients et les semaines, c'est ce qui rend l'alternance intéressante.
+      </p>
+
+      <ul class="mission-list">
+        <li><strong>Helpdesk et support utilisateur</strong> — dépannage des postes, résolution de problèmes logiciels et matériels, assistance aux salariés au quotidien</li>
+        <li><strong>Réaffectation de postes</strong> — remise en état de PCs, installation Windows, configuration des logiciels métier et intégration au réseau</li>
+        <li><strong>Câblage réseau</strong> — tirage de câbles, sertissage RJ45, brassage en baie, organisation de l'armoire réseau</li>
+        <li><strong>Téléphonie IP Wildix</strong> — configuration des postes téléphoniques IP, gestion des extensions et paramétrage de la centrale Wildix</li>
+        <li><strong>Supervision des infrastructures</strong> — surveillance de l'état des serveurs et équipements réseau, interventions préventives</li>
+        <li><strong>Administration système</strong> — mise en place et gestion de l'infrastructure Windows Server, Active Directory, sauvegardes</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Environnement technique</h2>
+      <p class="body-text">
+        L'environnement technique chez MP Conception couvre des outils et technologies variés. J'ai eu l'occasion d'intervenir sur différents aspects de l'infrastructure au cours de mon alternance.
+      </p>
+
+      <div class="tech-tags">
+        <span class="tag">Windows Server 2022</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">Windows 10 / 11</span>
+        <span class="tag">Réseau local</span>
+        <span class="tag">Wildix (VoIP)</span>
+        <span class="tag">Sauvegardes</span>
+        <span class="tag">Support utilisateur</span>
+        <span class="tag">Câblage RJ45</span>
+        <span class="tag">Baie de brassage</span>
+      </div>
+
+      <div class="note-info">
+        Travailler chez un prestataire informatique comme MP Conception m'a obligé à m'adapter vite — chaque client a son infrastructure, ses outils et ses habitudes. J'ai appris à gérer des environnements variés et à documenter mes interventions correctement.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO 2ème année option SISR — SEPR Lyon</p>
+    <p>Alternance : <a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  }
+</script>
+</body>
+</html>

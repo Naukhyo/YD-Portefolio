@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cookies & vie privée — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Cookies &amp; vie privée</div>
+    <h1>Cookies &amp; vie privée</h1>
+    <p>Ce que sont les cookies, comment les gérer dans le navigateur, et ce que dit la CNIL là-dessus.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>C'est quoi un cookie ?</h2>
+      <p>Un cookie, c'est un petit fichier texte que le site web dépose sur ton navigateur quand tu le visites. Il sert à retenir des informations : ta session de connexion, tes préférences, ou même à suivre ta navigation entre plusieurs sites.</p>
+      <p>Il y a deux grandes catégories : les cookies techniques (nécessaires au fonctionnement du site) et les cookies de traçage (pour la pub et les statistiques). Ces derniers, tu as le droit de les refuser.</p>
+
+      <div class="img-block">
+        <img src="img/cookies-schema-fonctionnement.png" alt="Schéma de fonctionnement des cookies entre navigateur et serveur" loading="lazy" />
+        <div class="img-caption">Principe de fonctionnement : le navigateur envoie les cookies au serveur à chaque requête</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>L'historique du navigateur</h2>
+      <p>Le navigateur stocke aussi l'historique de navigation, les fichiers en cache et les données de formulaires. Ça peut vite s'accumuler. Pour consulter l'historique sur Firefox, <strong>Ctrl+H</strong> ou le menu Historique.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cookies-historique-firefox.png" alt="Historique de navigation Firefox" loading="lazy" />
+          <div class="img-caption">Historique Firefox — liste des pages visitées</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cookies-supprimer-historique.png" alt="Supprimer l'historique dans Firefox" loading="lazy" />
+          <div class="img-caption">Fenêtre de suppression de l'historique</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Gérer les cookies dans Chrome</h2>
+      <p>Dans Chrome, tu peux voir et supprimer les cookies site par site. Va dans Paramètres → Confidentialité et sécurité → Cookies et données des sites. Tu peux aussi bloquer les cookies tiers directement depuis là.</p>
+
+      <div class="img-block">
+        <img src="img/cookies-gestion-cookies-chrome.png" alt="Gestion des cookies dans Chrome" loading="lazy" />
+        <div class="img-caption">Paramètres cookies Chrome — vue par site</div>
+      </div>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cookies-parametres-vie-privee.png" alt="Paramètres vie privée et sécurité du navigateur" loading="lazy" />
+          <div class="img-caption">Réglages confidentialité navigateur</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cookies-tracker-bloque.png" alt="Bloqueur de trackers actif" loading="lazy" />
+          <div class="img-caption">Protection contre le pistage activée</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>La CNIL et le consentement</h2>
+      <p>La CNIL (Commission Nationale de l'Informatique et des Libertés) impose que les sites demandent ton accord avant de déposer des cookies non essentiels. C'est le fameux bandeau en bas de page. Tu as le droit de tout refuser d'un seul clic, depuis la réforme 2021.</p>
+
+      <div class="img-block">
+        <img src="img/cookies-cnil-logo.png" alt="Logo CNIL — autorité de protection des données" loading="lazy" />
+        <div class="img-caption">La CNIL encadre l'usage des cookies en France</div>
+      </div>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cookies-partenaires-cnil.png" alt="Liste des partenaires publicitaires sur un site" loading="lazy" />
+          <div class="img-caption">Exemple de liste de partenaires dans un bandeau cookie</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cookies-site-cnil.png" alt="Site de la CNIL — cyber.gouv.fr" loading="lazy" />
+          <div class="img-caption">Site cnil.fr — ressources sur la vie privée en ligne</div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        Depuis le 1er avril 2021, les sites doivent proposer un bouton "Tout refuser" aussi facilement accessible que le bouton "Tout accepter". Si ce n'est pas le cas, le site n'est pas conforme CNIL.
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Protection contre le pistage</h2>
+      <p>Firefox intègre une protection renforcée contre le pistage. Elle bloque automatiquement les trackers connus, les cookies de pistage intersites, les scripts de fingerprinting. On peut voir ce qui est bloqué sur chaque page en cliquant sur le bouclier dans la barre d'adresse.</p>
+
+      <div class="img-block">
+        <img src="img/cookies-protection-pistage.png" alt="Protection renforcée contre le pistage dans Firefox" loading="lazy" />
+        <div class="img-caption">Firefox — détail de la protection contre le pistage sur une page</div>
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Cookies</span>
+      <span class="tag">CNIL</span>
+      <span class="tag">RGPD</span>
+      <span class="tag">Firefox</span>
+      <span class="tag">Chrome</span>
+      <span class="tag">Vie privée</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

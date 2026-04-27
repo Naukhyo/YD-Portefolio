@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dossier TrueNAS — Yvan Dupuit</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  /* Layout */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .content-wrap { max-width: 860px; }
+  section { padding: 48px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
+  /* Page header */
+  .page-header {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f0f8f8;
+  }
+  .page-badge {
+    display: inline-block;
+    background: #e6f4f4;
+    color: #0e7c7b;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .page-header h1 { font-size: 32px; font-weight: 600; margin: 0 0 10px; color: #333333; }
+  .page-header p { font-size: 15px; color: #555555; margin: 0; max-width: 700px; }
+
+  /* Section titles */
+  .section-title { font-size: 20px; font-weight: 600; margin: 0 0 16px; color: #333333; }
+  .section-intro { font-size: 15px; color: #444444; margin: 0 0 20px; max-width: 720px; }
+
+  /* Info chips */
+  .info-inline { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+  .info-chip {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 13px;
+    background: #f9f9f9;
+  }
+  .info-chip strong { color: #333333; font-weight: 600; }
+  .info-chip span { color: #666666; margin-left: 4px; }
+
+  /* Images */
+  .img-wrap { margin: 24px 0; }
+  .img-wrap img {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+  }
+  .img-wrap img.tall { max-height: 500px; object-fit: contain; background: #1a1a2a; }
+  .img-wrap img.wide { max-height: 320px; object-fit: cover; }
+  .img-caption { font-size: 12px; color: #888888; font-style: italic; margin-top: 8px; text-align: center; }
+
+  /* Double image */
+  .img-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+  .img-duo .img-wrap { margin: 0; }
+
+  /* Note */
+  .note {
+    background: #fff8e6;
+    border: 1px solid #f0c040;
+    border-left: 4px solid #f0c040;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #5a4a00;
+    margin: 16px 0;
+  }
+  .note strong { color: #3a2e00; }
+  .note-ok {
+    background: #edf7ed;
+    border: 1px solid #4caf50;
+    border-left: 4px solid #4caf50;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #1a4a1a;
+    margin: 16px 0;
+  }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+  .data-table th { background: #f5f5f5; border: 1px solid #e0e0e0; padding: 10px 14px; text-align: left; font-weight: 600; color: #333333; }
+  .data-table td { border: 1px solid #e0e0e0; padding: 10px 14px; color: #444444; }
+  .data-table tr:nth-child(even) td { background: #f9f9f9; }
+  .data-table code { font-family: 'Courier New', monospace; font-size: 13px; background: #f0f0f0; padding: 2px 5px; border-radius: 3px; }
+
+  /* Steps list */
+  .steps { list-style: none; padding: 0; margin: 16px 0; }
+  .steps li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #444;
+  }
+  .steps li:last-child { border-bottom: none; }
+  .step-num {
+    min-width: 26px;
+    height: 26px;
+    background: #0e7c7b;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    background: #ffffff;
+    color: #333333;
+    transition: background 0.15s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #f5f5f5; }
+
+  /* Footer */
+  footer { background: #f9f9f9; border-top: 1px solid #e0e0e0; padding: 36px 0 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; text-align: center; }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 24px; }
+    .img-duo { grid-template-columns: 1fr; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="page-badge">Dossier Projet 2</div>
+    <h1>TrueNAS Scale — Bras-d-Orion</h1>
+    <p>Configuration d'un serveur NAS TrueNAS Scale, intégration au domaine Active Directory milkyway.local, et mise en place des partages SMB pour les utilisateurs et les GPO. Ce dossier couvre l'installation, la configuration réseau, la jonction AD et la gestion des partages.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Présentation du serveur</h2>
+      <p class="section-intro">TrueNAS Scale est installé sur une machine physique dédiée dans la salle serveur — c'est pas une VM contrairement aux DCs. L'avantage c'est d'avoir du stockage physique direct, ce qui est plus adapté pour un NAS.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Élément</th>
+            <th>Valeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nom de la machine</td><td><code>Bras-d-Orion</code></td></tr>
+          <tr><td>OS</td><td>TrueNAS Scale 25.04.2.3 (Community Edition)</td></tr>
+          <tr><td>Matériel</td><td>HP Z2 SFF G5 Workstation</td></tr>
+          <tr><td>Processeur</td><td>Intel Core i7-10700 @ 2.90 GHz</td></tr>
+          <tr><td>RAM</td><td>15.4 GiB</td></tr>
+          <tr><td>Stockage</td><td>898.64 GiB libres (pool ZFS)</td></tr>
+          <tr><td>Adresse IP</td><td><code>192.168.10.5/24</code></td></tr>
+          <tr><td>Passerelle</td><td><code>192.168.10.1</code> (pfSense)</td></tr>
+          <tr><td>Domaine</td><td><code>milkyway.local</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="img-wrap">
+        <img src="img/truenas-dashboard.png" alt="Dashboard TrueNAS — vue générale" loading="lazy" />
+        <p class="img-caption">Dashboard TrueNAS Scale — version 25.04.2.3, pool ZFS ONLINE, 15.4 GiB RAM utilisée</p>
+      </div>
+
+      <p style="font-size:15px;color:#444;margin-top:16px;margin-bottom:0;">Le dashboard donne une vue d'ensemble de l'état du système : utilisation CPU, RAM, stockage, état du pool ZFS. Le pool est au statut <strong>ONLINE</strong> ce qui signifie que tous les disques sont fonctionnels et que les données sont intègres.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">1. Configuration réseau et hostname</h2>
+      <p class="section-intro">TrueNAS prend une IP en DHCP par défaut — on passe en IP fixe via <strong>Network → Interfaces</strong> et on configure le hostname dans <strong>Network → Global Configuration</strong>.</p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:20px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Paramètres Global Configuration</h3>
+      <ul style="font-size:14px;color:#444;line-height:1.8;padding-left:20px;">
+        <li>Hostname : <code>Bras-d-Orion</code></li>
+        <li>Domain : <code>milkyway.local</code></li>
+        <li>DNS Nameserver 1 : <code>192.168.10.3</code> (DC principal Milky-Way)</li>
+        <li>Default Gateway : <code>192.168.10.1</code></li>
+        <li>Inherit domain from DHCP : <strong>décoché</strong></li>
+      </ul>
+
+      <div class="note">
+        <strong>Point important sur le DNS :</strong> Il faut mettre uniquement le DC principal (192.168.10.3) en DNS. Si on met 8.8.8.8 en plus, TrueNAS essaie de résoudre milkyway.local via Google et la jonction AD échoue. Le DNS du domaine doit être le seul nameserver.
+      </div>
+
+      <div class="img-duo">
+        <div class="img-wrap">
+          <img src="img/truenas-globalconfig.png" alt="Global Configuration TrueNAS" class="tall" loading="lazy" />
+          <p class="img-caption">Global Configuration — hostname, domaine, DNS</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/truenas-interface.png" alt="Edit Interface — IP fixe 192.168.10.5/24" class="tall" loading="lazy" />
+          <p class="img-caption">Edit Interface — IP fixe 192.168.10.5/24</p>
+        </div>
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/truenas-network.png" alt="Vue réseau TrueNAS — IP et hostname confirmés" class="wide" loading="lazy" />
+        <p class="img-caption">Vue réseau TrueNAS — IP 192.168.10.5/24, hostname Bras-d-Orion, domaine milkyway.local</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">2. Jonction au domaine Active Directory</h2>
+      <p class="section-intro">On joint TrueNAS au domaine milkyway.local via <strong>Credentials → Directory Services → Configure Active Directory</strong>. Ça permet de gérer les accès aux partages avec les groupes AD directement, sans recréer de comptes locaux.</p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:20px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Prérequis avant la jonction</h3>
+
+      <ul style="font-size:14px;color:#444;line-height:1.8;padding-left:20px;">
+        <li>L'IP fixe et le hostname sont bien configurés (voir section précédente)</li>
+        <li>Le DNS pointe uniquement sur <code>192.168.10.3</code> (le DC) — pas de 8.8.8.8 en plus</li>
+        <li>Le DC principal Milky-Way est accessible en ping depuis TrueNAS</li>
+      </ul>
+
+      <h3 style="font-size:16px;font-weight:600;margin:20px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Paramètres de jonction</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>Champ</th><th>Valeur</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Domain Name</td><td><code>milkyway.local</code></td></tr>
+          <tr><td>Domain Account Name</td><td><code>Administrator</code> (en anglais)</td></tr>
+          <tr><td>NetBIOS Name</td><td><code>BRAS-D-ORION</code></td></tr>
+          <tr><td>Enable</td><td>Coché</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>Attention au nom du compte :</strong> Sur un AD en français, on pourrait avoir le réflexe de mettre "Administrateur" mais TrueNAS attend le nom en anglais : <code>Administrator</code>. Avec "Administrateur" la jonction échoue avec une erreur bindname.
+      </div>
+
+      <div class="img-duo">
+        <div class="img-wrap">
+          <img src="img/truenas-dirservices.png" alt="Directory Services — avant jonction" class="wide" loading="lazy" />
+          <p class="img-caption">Directory Services — avant la jonction AD</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/truenas-adjoin.png" alt="Configuration jonction AD — progression 50%" class="tall" loading="lazy" />
+          <p class="img-caption">Configuration Active Directory — jonction en cours (50%)</p>
+        </div>
+      </div>
+
+      <div class="note-ok">
+        <strong>Résultat :</strong> Après la jonction, le statut passe à <strong>HEALTHY</strong> dans Directory Services. Les comptes et groupes AD sont accessibles dans TrueNAS pour la gestion des permissions.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">3. Partages SMB</h2>
+      <p class="section-intro">Les partages SMB permettent aux postes Windows d'accéder aux dossiers du NAS comme un lecteur réseau. Chaque partage est basé sur un dataset ZFS — ça permet de gérer les permissions séparément pour chacun. Étapes :</p>
+
+      <ol class="steps">
+        <li><span class="step-num">1</span><span>Aller dans <strong>Storage → Create Pool</strong> (déjà fait) puis créer un dataset pour chaque partage dans <strong>Storage → Datasets</strong></span></li>
+        <li><span class="step-num">2</span><span>Configurer les ACL du dataset pour donner les bons accès aux groupes AD (GRP-Informatique, etc.)</span></li>
+        <li><span class="step-num">3</span><span>Créer le partage SMB dans <strong>Shares → Windows (SMB)</strong> en pointant sur le dataset</span></li>
+        <li><span class="step-num">4</span><span>Démarrer le service SMB si ce n'est pas déjà fait (état "Running" requis)</span></li>
+      </ol>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Partages prévus</h3>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Nom du partage</th><th>Chemin UNC</th><th>Accès</th><th>Usage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>GPO</strong></td><td><code>\\Bras-d-Orion\GPO</code></td><td>Administrateurs</td><td>Stock le fond d'écran pour GPO-FondEcran</td></tr>
+          <tr><td><strong>Commun</strong></td><td><code>\\Bras-d-Orion\Commun</code></td><td>GRP-Informatique + GRP-Utilisateurs</td><td>Partage commun accessible à tous</td></tr>
+          <tr><td><strong>Informatique</strong></td><td><code>\\Bras-d-Orion\Informatique</code></td><td>GRP-Informatique uniquement</td><td>Documents réservés au service IT</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Lien avec la GPO-FondEcran</h3>
+
+      <p style="font-size:15px;color:#444;margin-bottom:16px;">
+        Le partage <strong>GPO</strong> est lié à la GPO-FondEcran sur Milky-Way. Le chemin renseigné dans la GPO est <code>\\Bras-d-Orion\GPO\fond-ecran.jpg</code> — à chaque ouverture de session, Windows récupère l'image depuis le NAS automatiquement.
+      </p>
+
+      <p style="font-size:15px;color:#444;margin-bottom:16px;">
+        Pour que ça marche, il faut : TrueNAS joint au domaine (statut <strong>HEALTHY</strong>), partage SMB <strong>GPO</strong> créé et service SMB actif, image <code>fond-ecran.jpg</code> déposée dans le dossier, et les postes clients qui arrivent à joindre <code>\\Bras-d-Orion</code> via le DNS du domaine.
+      </p>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Création des partages SMB</h3>
+
+      <p style="font-size:15px;color:#444;margin-bottom:16px;">
+        Les partages sont créés depuis <strong>Shares → Windows (SMB)</strong> dans l'interface TrueNAS. Pour chaque partage, on choisit le dataset ZFS et on définit le nom qui apparaîtra sur le réseau. Les permissions sont gérées via les ACL du dataset avec les groupes AD (GRP-Informatique, GRP-Utilisateurs). Une fois actif, les utilisateurs accèdent aux partages depuis l'Explorateur Windows via <code>\\Bras-d-Orion</code> ou par lecteur réseau mappé par GPO.
+      </p>
+
+      <a href="index.html" class="btn">← Retour à l'accueil</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
+    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+    <p>© 2026</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>

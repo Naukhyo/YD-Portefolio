@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dossier AD — Active Directory milkyway.local — Yvan Dupuit</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: #333333;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-links a.active { color: #3b5bdb; font-weight: 600; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  /* Layout */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .content-wrap {
+    max-width: 860px;
+  }
+  section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
+  /* Page header */
+  .page-header {
+    padding: 56px 0 44px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #f5f8ff;
+  }
+  .page-badge {
+    display: inline-block;
+    background: #e8edfb;
+    color: #3b5bdb;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #333333;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: #555555;
+    margin: 0;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #333333;
+  }
+  .section-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 28px 0 10px;
+    color: #444444;
+    border-left: 3px solid #3b5bdb;
+    padding-left: 10px;
+  }
+  .section-intro {
+    font-size: 15px;
+    color: #444444;
+    margin: 0 0 20px;
+    max-width: 720px;
+    line-height: 1.7;
+  }
+  p.body-text {
+    font-size: 15px;
+    color: #444444;
+    margin: 0 0 16px;
+    line-height: 1.7;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .data-table th {
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #333333;
+  }
+  .data-table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px 14px;
+    color: #444444;
+  }
+  .data-table tr:nth-child(even) td { background: #f9f9f9; }
+  .data-table code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    background: #f0f0f0;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+
+  /* Image — pleine largeur, pas de crop */
+  .img-wrap {
+    margin: 28px 0;
+  }
+  .img-wrap img {
+    width: 100%;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    height: auto;
+  }
+  /* Images hautes (formulaires, dialogues) — centrées, largeur limitée */
+  .img-wrap.img-narrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .img-wrap.img-narrow img {
+    max-width: 520px;
+    width: 100%;
+  }
+  .img-caption {
+    font-size: 12px;
+    color: #888888;
+    font-style: italic;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* GPO cards */
+  .gpo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .gpo-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    background: #ffffff;
+  }
+  .gpo-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b5bdb;
+    margin: 0 0 8px;
+  }
+  .gpo-card p {
+    font-size: 13px;
+    color: #555555;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Note alerte jaune */
+  .note {
+    background: #fff8e6;
+    border: 1px solid #f0c040;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #5a4a00;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+  .note strong { color: #3a2e00; }
+
+  /* Note info bleue */
+  .note-info {
+    background: #f0f4ff;
+    border: 1px solid #b0c0f0;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #2a3a6a;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+
+  /* Étapes numérotées */
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    counter-reset: steps;
+  }
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #444444;
+    line-height: 1.6;
+  }
+  .steps-list li::before {
+    content: counter(steps);
+    min-width: 28px;
+    height: 28px;
+    background: #3b5bdb;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Liste à puces simple */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #444444;
+    line-height: 1.6;
+  }
+  .bullet-list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: #3b5bdb;
+    font-weight: 700;
+  }
+
+  /* Paramètres réseau inline bloc */
+  .params-block {
+    background: #f5f8ff;
+    border: 1px solid #d0daff;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0 20px;
+    font-size: 14px;
+    color: #333;
+    font-family: 'Courier New', monospace;
+  }
+  .params-block p { margin: 4px 0; }
+
+  /* Divider titre de sous-section */
+  .divider { margin: 32px 0 20px; border: none; border-top: 1px solid #e8e8e8; }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    background: #ffffff;
+    color: #333333;
+    transition: background 0.15s;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #f5f5f5; }
+  .btn-primary {
+    background: #3b5bdb;
+    color: #fff;
+    border-color: #3b5bdb;
+  }
+  .btn-primary:hover { background: #2f4bbf; }
+
+  /* Footer */
+  footer {
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    padding: 36px 0 24px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .footer-inner p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #666666;
+  }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .gpo-grid { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 24px; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+    .data-table { font-size: 12px; }
+    .params-block { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html" class="active">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="page-badge">Dossier Projet 1</div>
+    <h1>Active Directory — milkyway.local</h1>
+    <p>Mise en place d'une infrastructure réseau complète avec Active Directory sous Windows Server 2022. Ce projet couvre l'installation et la configuration d'un DC principal, d'un DC secondaire pour la redondance, la gestion des utilisateurs et groupes, la configuration DNS/DHCP, et la mise en place de GPO de sécurité.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Infrastructure globale</h2>
+
+      <p class="body-text">
+        Voici un récapitulatif de toutes les machines impliquées dans ce projet. Tout tourne sur Proxmox — les deux serveurs Windows sont des VMs. Le domaine s'appelle <strong>milkyway.local</strong>. J'ai utilisé un thème astronomique pour nommer les machines, c'est plus pratique pour les distinguer.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Machine</th>
+            <th>Rôle</th>
+            <th>IP</th>
+            <th>OS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Milky-Way</strong></td>
+            <td>DC Principal</td>
+            <td><code>192.168.10.3</code></td>
+            <td>Windows Server 2022</td>
+          </tr>
+          <tr>
+            <td><strong>Andromède</strong></td>
+            <td>DC Secondaire</td>
+            <td><code>192.168.10.4</code></td>
+            <td>Windows Server 2022</td>
+          </tr>
+          <tr>
+            <td><strong>Virgo Cluster</strong></td>
+            <td>Hyperviseur Proxmox</td>
+            <td><code>192.168.10.2</code></td>
+            <td>Proxmox VE</td>
+          </tr>
+          <tr>
+            <td><strong>Laniakea</strong></td>
+            <td>Pare-feu / routeur</td>
+            <td><code>192.168.10.1</code></td>
+            <td>pfSense</td>
+          </tr>
+          <tr>
+            <td><strong>Bras-d-Orion</strong></td>
+            <td>NAS</td>
+            <td><code>192.168.10.5</code></td>
+            <td>TrueNAS Scale</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="img-wrap">
+        <img src="img/ad-server-manager.png" alt="Windows Server Manager — tableau de bord Milky-Way avant configuration" loading="lazy" />
+        <p class="img-caption">Windows Server Manager — tableau de bord Milky-Way avant configuration</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">1. Installation et configuration de base</h2>
+
+      <p class="body-text">
+        Avant de faire quoi que ce soit avec l'AD, il faut d'abord <strong>faire les mises à jour Windows et les drivers</strong>. Sur une VM Proxmox fraîchement installée, il y a souvent des pilotes manquants ou des patchs de sécurité en attente — mieux vaut régler ça avant de commencer à configurer quoi que ce soit. Ça évite les redémarrages intempestifs en pleine config et les comportements bizarres liés à un OS pas à jour.
+      </p>
+
+      <p class="body-text">
+        Une fois les mises à jour faites et le serveur redémarré, on peut configurer le réseau. Sur une VM Proxmox, Windows Server 2022 démarre avec une adresse IP en DHCP. Il faut passer en IP fixe avant d'installer les rôles.
+      </p>
+
+      <p class="body-text">
+        La configuration réseau se fait dans <strong>Panneau de configuration → Centre Réseau et partage → Modifier les paramètres de la carte → Propriétés de l'adaptateur → IPv4</strong>. On renseigne les valeurs suivantes :
+      </p>
+
+      <div class="params-block">
+        <p>Adresse IP &nbsp;&nbsp;&nbsp;: 192.168.10.3</p>
+        <p>Masque &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 255.255.255.0 (/24)</p>
+        <p>Passerelle &nbsp;&nbsp;: 192.168.10.1 (pfSense)</p>
+        <p>DNS préféré &nbsp;: 127.0.0.1 (lui-même — obligatoire pour un DC)</p>
+      </div>
+
+      <div class="img-wrap img-narrow">
+        <img src="img/ad-ip-config.png" alt="Propriétés IPv4 — IP fixe 192.168.10.3, DNS préféré 127.0.0.1" loading="lazy" />
+        <p class="img-caption">Propriétés TCP/IPv4 — IP fixe 192.168.10.3, DNS préféré 127.0.0.1 (lui-même), auxiliaire 8.8.8.8</p>
+      </div>
+
+      <div class="note">
+        <strong>Important — DNS sur 127.0.0.1 :</strong> Le DNS doit pointer sur lui-même (127.0.0.1) sur le DC principal. Si on met une autre IP, la promotion en contrôleur de domaine peut échouer.
+      </div>
+
+      <p class="body-text">
+        Une fois l'IP fixe configurée, il faut renommer l'ordinateur en <strong>Milky-Way</strong> via les Propriétés système (clic droit sur "Ce PC" → Propriétés → Modifier les paramètres → Modifier). Le nom doit correspondre à ce qu'on veut voir dans l'AD. Après le renommage, Windows demande un redémarrage — il faut le faire avant de continuer.
+      </p>
+
+      <p class="body-text">
+        Après le redémarrage, on peut vérifier la configuration réseau en ouvrant une invite de commandes et en tapant <code>ipconfig /all</code>. On doit voir l'IP 192.168.10.3 avec le DNS à 127.0.0.1. Si c'est bon, on peut passer à l'installation des rôles.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">2. Installation du rôle AD DS</h2>
+
+      <p class="body-text">
+        L'installation du rôle AD DS se fait via le <strong>Gestionnaire de serveur → Gérer → Ajouter des rôles et fonctionnalités</strong>. C'est un assistant en plusieurs étapes, assez guidé. On choisit d'installer plusieurs rôles en même temps pour gagner du temps.
+      </p>
+
+      <ol class="steps-list">
+        <li>
+          <span><strong>Type d'installation :</strong> choisir "Installation basée sur un rôle ou une fonctionnalité"</span>
+        </li>
+        <li>
+          <span><strong>Sélection du serveur :</strong> SRV-AD (Milky-Way) — le serveur local apparaît dans la liste</span>
+        </li>
+        <li>
+          <span><strong>Rôles sélectionnés :</strong> Services AD DS + Serveur DHCP + Serveur DNS — les trois cochés en même temps</span>
+        </li>
+        <li>
+          <span><strong>Fonctionnalités :</strong> laisser les fonctionnalités par défaut proposées par l'assistant</span>
+        </li>
+        <li>
+          <span><strong>Confirmation et installation :</strong> cliquer sur Installer et attendre la fin (ça prend quelques minutes)</span>
+        </li>
+      </ol>
+
+      <div class="img-wrap">
+        <img src="img/ad-roles-selection.png" alt="Sélection des rôles — AD DS, DHCP, DNS cochés" loading="lazy" />
+        <p class="img-caption">Sélection des rôles — AD DS, DHCP, DNS cochés dans l'assistant</p>
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/ad-roles-adds.png" alt="Détail du rôle AD DS — Services de domaine Active Directory" loading="lazy" />
+        <p class="img-caption">Détail du rôle AD DS — Services de domaine Active Directory</p>
+      </div>
+
+      <p class="body-text">
+        Une fois l'installation terminée, une notification apparaît dans le Gestionnaire de serveur (le drapeau en haut à droite avec un triangle d'alerte) pour promouvoir le serveur en contrôleur de domaine. C'est l'étape suivante.
+      </p>
+
+      <div class="note-info">
+        <strong>Note :</strong> Si la notification n'apparaît pas tout de suite, rafraîchir le Gestionnaire de serveur avec F5. Parfois il y a un petit délai après l'installation des rôles.
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">3. Promotion en contrôleur de domaine</h2>
+
+      <p class="body-text">
+        La promotion se lance via la notification <em>"Promouvoir ce serveur en contrôleur de domaine"</em> dans le Gestionnaire de serveur. L'assistant demande plusieurs informations importantes — c'est là qu'on définit le nom du domaine et les paramètres fondamentaux de la forêt AD.
+      </p>
+
+      <h3 class="section-subtitle">Paramètres de promotion saisis</h3>
+
+      <ul class="bullet-list">
+        <li><strong>Opération de déploiement :</strong> Ajouter une nouvelle forêt (c'est la première fois qu'on crée ce domaine)</li>
+        <li><strong>Nom du domaine racine :</strong> milkyway.local</li>
+        <li><strong>Niveau fonctionnel de la forêt :</strong> Windows Server 2016</li>
+        <li><strong>Niveau fonctionnel du domaine :</strong> Windows Server 2016</li>
+        <li><strong>Options du DC :</strong> Serveur DNS activé, Catalogue global activé</li>
+        <li><strong>Mot de passe DSRM :</strong> défini (nécessaire pour restaurer l'AD en mode de restauration des services d'annuaire)</li>
+        <li><strong>Chemin de la base NTDS, SYSVOL, journaux :</strong> laissés par défaut (<code>C:\Windows\NTDS</code>)</li>
+      </ul>
+
+      <div class="note">
+        <strong>Pourquoi Windows Server 2016 comme niveau fonctionnel ?</strong> On pourrait choisir Windows Server 2022 mais rester sur 2016 permet d'ajouter des DCs avec des versions antérieures si besoin. Dans ce projet c'est pas critique, mais c'est une bonne pratique.
+      </div>
+
+      <p class="body-text">
+        Avant de lancer la promotion, l'assistant fait une vérification de prérequis. Si tout est vert (sauf éventuellement un avertissement non bloquant sur le mot de passe admin), on peut cliquer sur <strong>Installer</strong>. Le serveur redémarre automatiquement après la promotion.
+      </p>
+
+      <p class="body-text">
+        Au redémarrage, le domaine <strong>milkyway.local</strong> est créé et Milky-Way est le DC principal. On se connecte maintenant avec le compte <code>MILKYWAY\Administrateur</code> (et non plus juste Administrateur).
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-domaine.png" alt="Console ADUC après promotion — domaine milkyway.local créé" loading="lazy" />
+        <p class="img-caption">Console ADUC après promotion — domaine milkyway.local créé avec ses conteneurs par défaut</p>
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/ad-server-manager2.png" alt="Gestionnaire de serveur — rôles AD DS, AD FS, DHCP visibles" loading="lazy" />
+        <p class="img-caption">Gestionnaire de serveur après promotion — rôles AD DS, DHCP, DNS bien présents</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">4. Configuration DNS</h2>
+
+      <p class="body-text">
+        Le DNS est essentiel pour l'AD — sans DNS qui fonctionne, rien ne marche. Quand on dit "rien", c'est vraiment rien : les postes ne peuvent pas trouver le DC, les utilisateurs ne peuvent pas se connecter au domaine, les GPO ne s'appliquent pas. C'est le service le plus critique de toute l'infrastructure AD.
+      </p>
+
+      <p class="body-text">
+        Le rôle DNS est installé en même temps qu'AD DS et une zone DNS principale est automatiquement créée pour <strong>milkyway.local</strong>. La console DNS est accessible via <strong>Outils → DNS</strong> dans le Gestionnaire de serveur.
+      </p>
+
+      <h3 class="section-subtitle">Comment le DNS est structuré dans l'AD</h3>
+
+      <p class="body-text">
+        Quand on promeut Milky-Way en DC, Windows crée automatiquement une zone DNS principale pour <strong>milkyway.local</strong>. Cette zone contient tous les enregistrements dont l'AD a besoin pour fonctionner. Il y a deux types d'enregistrements importants :
+      </p>
+
+      <ul class="bullet-list">
+        <li><strong>Enregistrements A</strong> : associent un nom à une IP. Le DC s'enregistre automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code>. Idem pour Andromède une fois prêt.</li>
+        <li><strong>Enregistrements SRV</strong> : enregistrements de services, visibles dans le sous-domaine <code>_msdcs.milkyway.local</code>. Ils permettent aux clients de localiser les DCs, les serveurs Kerberos, etc. Sans eux, les postes ne peuvent pas rejoindre le domaine.</li>
+        <li><strong>Zone de recherche inversée</strong> : créée pour le réseau <code>192.168.10.x</code> — permet de résoudre une IP en nom. Utile pour les logs et certains outils de diagnostic.</li>
+        <li><strong>Redirecteurs</strong> : configurés vers <code>8.8.8.8</code> (Google DNS) pour la résolution des noms externes (internet). Les requêtes milkyway.local restent traitées localement, les autres sont transmises à Google.</li>
+      </ul>
+
+      <h3 class="section-subtitle">Points vérifiés après installation</h3>
+
+      <ul class="bullet-list">
+        <li>Zone de recherche directe <strong>milkyway.local</strong> présente dans la console DNS</li>
+        <li>Enregistrements SRV créés automatiquement par AD (visibles dans <code>_msdcs.milkyway.local</code>)</li>
+        <li>Le DC s'est enregistré automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code></li>
+        <li>Zone de recherche inversée créée pour <code>192.168.10.x</code></li>
+        <li>Redirecteurs configurés vers <code>8.8.8.8</code> pour la résolution externe</li>
+      </ul>
+
+      <div class="note-info">
+        <strong>Vérification DNS :</strong> Pour tester que le DNS fonctionne, ouvrir un cmd et taper <code>nslookup milkyway.local</code>. On doit obtenir l'IP 192.168.10.3 en réponse. Si le résultat dit "serveur inconnu" ou "impossible de trouver", le DNS ne fonctionne pas et l'AD ne marchera pas correctement.
+      </div>
+
+      <h3 class="section-subtitle">Pourquoi le DNS est critique pour l'AD</h3>
+
+      <p class="body-text">
+        L'Active Directory dépend totalement du DNS. Si le DNS plante ou est mal configuré, rien ne marche : les postes ne trouvent plus le DC, les utilisateurs ne peuvent plus s'authentifier, les GPO ne s'appliquent plus. C'est le service le plus critique de toute l'infrastructure. C'est pour ça que le DC doit être son propre serveur DNS et que les clients doivent avoir l'IP du DC en DNS primaire.
+      </p>
+
+      <p class="body-text">
+        Les clients du domaine reçoivent automatiquement <code>192.168.10.3</code> comme serveur DNS via le DHCP (voir section suivante). C'est l'option 006 de l'étendue DHCP.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">5. Configuration du DHCP</h2>
+
+      <p class="body-text">
+        Le rôle DHCP est installé sur Milky-Way en même temps qu'AD DS et DNS. Son rôle c'est de distribuer automatiquement les adresses IP aux postes clients qui rejoignent le réseau, ce qui évite de devoir tout configurer manuellement. La console DHCP est accessible via <strong>Outils → DHCP</strong> dans le Gestionnaire de serveur.
+      </p>
+
+      <h3 class="section-subtitle">Étape 1 — Autoriser le serveur DHCP dans l'AD</h3>
+
+      <p class="body-text">
+        C'est une étape qu'on oublie souvent : avant de créer une étendue, il faut <strong>autoriser le serveur DHCP dans l'AD</strong>. Dans un environnement Active Directory, un serveur DHCP non autorisé ne distribue aucune adresse IP, même s'il est correctement configuré. Ça se fait via un clic droit sur le serveur dans la console DHCP → Autoriser. Le serveur passe alors de l'état rouge (non autorisé) à l'état vert.
+      </p>
+
+      <div class="note">
+        <strong>Pourquoi cette autorisation ?</strong> C'est une mesure de sécurité Microsoft : si quelqu'un branche un serveur DHCP non autorisé sur le réseau, il ne pourra pas distribuer des adresses qui entreraient en conflit avec le DHCP officiel du domaine. Ça protège contre les "rogue DHCP".
+      </div>
+
+      <h3 class="section-subtitle">Étape 2 — Créer l'étendue DHCP</h3>
+
+      <p class="body-text">
+        Une fois le serveur autorisé, on crée l'étendue via clic droit sur "IPv4" dans la console → Nouvelle étendue. L'assistant demande le nom de l'étendue, la plage d'adresses, les exclusions et les options (passerelle, DNS).
+      </p>
+
+      <h3 class="section-subtitle">Paramètres de l'étendue DHCP — LAN-10</h3>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Paramètre</th>
+            <th>Valeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nom de l'étendue</td>
+            <td><code>LAN-10</code></td>
+          </tr>
+          <tr>
+            <td>Plage d'adresses</td>
+            <td><code>192.168.10.100</code> → <code>192.168.10.200</code></td>
+          </tr>
+          <tr>
+            <td>Masque de sous-réseau</td>
+            <td><code>255.255.255.0</code></td>
+          </tr>
+          <tr>
+            <td>Passerelle (option 003)</td>
+            <td><code>192.168.10.1</code> — pfSense</td>
+          </tr>
+          <tr>
+            <td>Serveur DNS (option 006)</td>
+            <td><code>192.168.10.3</code> — Milky-Way</td>
+          </tr>
+          <tr>
+            <td>Suffixe DNS (option 015)</td>
+            <td><code>milkyway.local</code></td>
+          </tr>
+          <tr>
+            <td>Durée du bail</td>
+            <td>8 jours</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="body-text">
+        Les exclusions sont configurées pour les IPs fixes : <code>192.168.10.1</code> à <code>192.168.10.99</code> sont exclus de la plage DHCP pour éviter les conflits avec les serveurs et équipements réseau. Les serveurs, le pare-feu et le NAS ont tous des IPs fixes dans cette plage.
+      </p>
+
+      <div class="note-info">
+        <strong>Pourquoi 8 jours de bail ?</strong> Dans un réseau d'entreprise, 8 jours c'est un bon compromis. Un poste qui reste allumé et connecté garde son IP. Un poste qui ne répond plus depuis 8 jours voit son IP libérée pour être redistribuée. Trop court (1 jour) → les IPs changent tout le temps et ça peut casser des configs. Trop long (30 jours) → les IPs ne se libèrent jamais et on finit à court.
+      </div>
+
+      <h3 class="section-subtitle">Ce que les postes reçoivent automatiquement</h3>
+
+      <p class="body-text">
+        Quand un poste Windows démarre et obtient une adresse DHCP, il reçoit en même temps plusieurs informations via les options :
+      </p>
+
+      <ul class="bullet-list">
+        <li><strong>Une IP dans la plage 192.168.10.100–200</strong> — assignée dynamiquement par le DHCP</li>
+        <li><strong>La passerelle par défaut (option 003) :</strong> 192.168.10.1 — pfSense, pour sortir sur internet</li>
+        <li><strong>Le serveur DNS (option 006) :</strong> 192.168.10.3 — Milky-Way, pour résoudre les noms du domaine</li>
+        <li><strong>Le suffixe DNS (option 015) :</strong> milkyway.local — le poste peut alors résoudre directement <code>milky-way</code> au lieu de <code>milky-way.milkyway.local</code></li>
+      </ul>
+
+      <p class="body-text">
+        C'est grâce à ces options que les postes peuvent rejoindre le domaine et s'authentifier automatiquement dès qu'ils démarrent sur le réseau.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">6. Organisation de l'annuaire — OUs, groupes et comptes</h2>
+
+      <p class="body-text">
+        Une fois le domaine créé, on organise l'annuaire Active Directory avec des Unités d'Organisation (OUs). C'est ce qui permet de structurer les comptes et d'y appliquer des GPO de façon ciblée. Sans OUs, tous les comptes sont dans le même conteneur par défaut et on ne peut pas cibler les GPO précisément.
+      </p>
+
+      <p class="body-text">
+        La console utilisée pour toute cette partie c'est <strong>ADUC</strong> (Active Directory Users and Computers), accessible via Outils dans le Gestionnaire de serveur.
+      </p>
+
+      
+      <hr class="divider" />
+      <h3 class="section-subtitle">OUs créées</h3>
+
+      <p class="body-text">
+        Les OUs se créent par un clic droit sur le domaine (<code>milkyway.local</code>) → Nouveau → Unité d'organisation. J'ai créé l'OU avec l'option <em>"Protéger le conteneur de la suppression accidentelle"</em> cochée — bonne pratique pour éviter de supprimer une OU par erreur.
+      </p>
+
+      <ul class="bullet-list">
+        <li><strong>OU-Direction</strong> : contient les comptes de la direction</li>
+        <li><strong>OU-Informatique</strong> : contient les comptes du service informatique</li>
+        <li><strong>OU-Ordinateurs</strong> : pour les postes clients (quand ils joignent le domaine)</li>
+        <li><strong>OU-Utilisateurs</strong> : conteneur général pour les autres utilisateurs</li>
+      </ul>
+
+      <div class="img-wrap img-narrow">
+        <img src="img/ad-new-ou.png" alt="Création d'une OU via clic droit sur milkyway.local" loading="lazy" />
+        <p class="img-caption">Création d'une OU via clic droit sur milkyway.local → Nouveau → Unité d'organisation</p>
+      </div>
+
+      
+      <hr class="divider" />
+      <h3 class="section-subtitle">Groupes créés</h3>
+
+      <p class="body-text">
+        Les groupes permettent de gérer les droits d'accès aux ressources de façon centralisée. On ajoute les utilisateurs dans les groupes, et on donne les droits aux groupes — pas directement aux utilisateurs. C'est plus facile à maintenir.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Groupe</th>
+            <th>Type</th>
+            <th>Périmètre</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>GRP-Direction</strong></td>
+            <td>Sécurité</td>
+            <td>Global</td>
+            <td>Accès aux ressources de la Direction</td>
+          </tr>
+          <tr>
+            <td><strong>GRP-Informatique</strong></td>
+            <td>Sécurité</td>
+            <td>Global</td>
+            <td>Accès aux ressources du service Informatique</td>
+          </tr>
+        </tbody>
+      </table>
+
+      
+      <hr class="divider" />
+      <h3 class="section-subtitle">Comptes utilisateurs</h3>
+
+      <p class="body-text">
+        6 comptes ont été créés dans les OUs correspondantes. Chaque compte suit le format <code>prénom.nom@milkyway.local</code>. La création se fait via clic droit sur l'OU → Nouveau → Utilisateur.
+      </p>
+
+      <div class="img-wrap img-narrow">
+        <img src="img/ad-new-user.png" alt="Création d'un compte utilisateur — OU Direction, domaine milkyway.local" loading="lazy" />
+        <p class="img-caption">Création d'un compte utilisateur — OU Direction, domaine milkyway.local</p>
+      </div>
+
+      <div class="img-wrap img-narrow">
+        <img src="img/ad-user-password.png" alt="Configuration du mot de passe — options définies à la création" loading="lazy" />
+        <p class="img-caption">Configuration du mot de passe — options définies à la création du compte</p>
+      </div>
+
+      <p class="body-text">
+        Pour les options du mot de passe, j'ai coché <em>"L'utilisateur ne peut pas changer de mot de passe"</em> et <em>"Le mot de passe n'expire jamais"</em>. Ces options sont adaptées pour un environnement de lab où les comptes sont gérés par l'administrateur.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom complet</th>
+            <th>Login</th>
+            <th>OU</th>
+            <th>Groupe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Julien Appercelle</td>
+            <td><code>j.appercelle</code></td>
+            <td>OU-Informatique</td>
+            <td>GRP-Informatique</td>
+          </tr>
+          <tr>
+            <td>Jayden Chellalli</td>
+            <td><code>j.chellalli</code></td>
+            <td>OU-Utilisateurs</td>
+            <td>GRP-Utilisateurs</td>
+          </tr>
+          <tr>
+            <td>Moilyne Fagotin</td>
+            <td><code>m.fagotin</code></td>
+            <td>OU-Utilisateurs</td>
+            <td>GRP-Utilisateurs</td>
+          </tr>
+          <tr>
+            <td>Romain Dieunon</td>
+            <td><code>r.dieunon</code></td>
+            <td>OU-Utilisateurs</td>
+            <td>GRP-Utilisateurs</td>
+          </tr>
+          <tr>
+            <td>Wakil Elgarni</td>
+            <td><code>w.elgarni</code></td>
+            <td>OU-Utilisateurs</td>
+            <td>GRP-Utilisateurs</td>
+          </tr>
+          <tr>
+            <td>Yvan Dupuit</td>
+            <td><code>y.dupuit</code></td>
+            <td>OU-Utilisateurs</td>
+            <td>GRP-Utilisateurs</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="img-wrap">
+        <img src="img/ad-users-list.png" alt="Console ADUC — liste des utilisateurs avec OUs Direction et Informatique visibles" loading="lazy" />
+        <p class="img-caption">Console ADUC — liste des utilisateurs avec les OUs Direction et Informatique visibles dans l'arborescence</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">7. Mise en place du DC secondaire (Andromède)</h2>
+
+      <p class="body-text">
+        Pour avoir de la redondance, j'ai ajouté une deuxième VM Windows Server 2022 appelée <strong>Andromède</strong> (IP <code>192.168.10.4</code>). L'idée c'est que si Milky-Way tombe, les utilisateurs peuvent toujours s'authentifier via Andromède. Sans DC secondaire, si le DC principal plante, personne ne peut se connecter au domaine.
+      </p>
+
+      <h3 class="section-subtitle">Étapes de mise en place</h3>
+
+      <ol class="steps-list">
+        <li>
+          <span>Installer Windows Server 2022 sur la VM Andromède dans Proxmox (même procédure que pour Milky-Way)</span>
+        </li>
+        <li>
+          <span>Configurer l'IP fixe : <code>192.168.10.4</code>, masque <code>255.255.255.0</code>, passerelle <code>192.168.10.1</code></span>
+        </li>
+        <li>
+          <span>DNS : pointer sur <code>192.168.10.3</code> (Milky-Way) — sur le DC secondaire, le DNS pointe sur le DC principal, pas sur lui-même</span>
+        </li>
+        <li>
+          <span>Renommer la machine en <strong>Andromède</strong> via les Propriétés système, puis redémarrer</span>
+        </li>
+        <li>
+          <span>Joindre la machine au domaine <code>milkyway.local</code> (Propriétés système → Modifier → Domaine → entrer milkyway.local + credentials admin)</span>
+        </li>
+        <li>
+          <span>Installer le rôle <strong>AD DS</strong> via le Gestionnaire de serveur</span>
+        </li>
+        <li>
+          <span>Promouvoir en DC secondaire via la notification dans le Gestionnaire de serveur</span>
+        </li>
+      </ol>
+
+      <div class="img-wrap">
+        <img src="img/ad-andromede-promote.png" alt="Gestionnaire de serveur Andromède — notification de promotion en DC disponible" loading="lazy" />
+        <p class="img-caption">Gestionnaire de serveur sur Andromède — la notification de promotion en DC est disponible après l'installation d'AD DS</p>
+      </div>
+
+      <h3 class="section-subtitle">Promotion en DC secondaire</h3>
+
+      <p class="body-text">
+        La promotion d'Andromède en DC secondaire se fait en choisissant <strong>"Ajouter un contrôleur de domaine à un domaine existant"</strong>. Il faut fournir les credentials d'un admin du domaine (<code>ANDROMEDE\Administrateur</code> dans ce cas). L'assistant vérifie que le domaine milkyway.local est accessible depuis Andromède avant de continuer.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-andromede-deploy.png" alt="Assistant promotion — Ajouter un DC à milkyway.local" loading="lazy" />
+        <p class="img-caption">Assistant de promotion — option "Ajouter un contrôleur de domaine à un domaine existant" sélectionnée pour milkyway.local</p>
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/ad-andromede-options.png" alt="Options du DC secondaire — DNS, Catalogue global activés, mot de passe DSRM" loading="lazy" />
+        <p class="img-caption">Options du DC secondaire — DNS et Catalogue global activés, mot de passe DSRM défini</p>
+      </div>
+
+      <p class="body-text">
+        Après le redémarrage d'Andromède, les deux DCs sont visibles dans la console ADUC sous <strong>Domain Controllers</strong> : MILKY-WAY et ANDROMEDE. La réplication AD se fait automatiquement entre les deux — les modifications faites sur Milky-Way (nouveaux utilisateurs, nouvelles GPO...) sont répliquées sur Andromède en quelques secondes.
+      </p>
+
+      <div class="note-info">
+        <strong>Vérification de la réplication :</strong> Pour tester que la réplication fonctionne, on peut ouvrir un cmd sur Andromède et taper <code>repadmin /showrepl</code>. Cette commande affiche l'état de la réplication entre les DCs. Si tout est OK, on doit voir "Aucune erreur" (ou 0 échec de réplication).
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">8. Configuration des GPO</h2>
+
+      <p class="body-text">
+        Les GPO (Group Policy Objects) permettent d'appliquer des paramètres de configuration à tous les utilisateurs et ordinateurs du domaine depuis un point central. On les gère depuis la console <strong>Gestion des stratégies de groupe</strong> (GPMC), accessible via Outils dans le Gestionnaire de serveur. J'en ai créé 4 pour sécuriser l'environnement.
+      </p>
+
+      <h3 class="section-subtitle">Comment créer une GPO</h3>
+
+      <p class="body-text">
+        Dans la GPMC, on fait un clic droit sur le domaine ou l'OU où on veut la GPO → <strong>Créer un objet GPO dans ce domaine, et le lier ici...</strong>. Une fenêtre s'ouvre pour donner un nom à la GPO. Une fois créée, on double-clique dessus pour ouvrir l'éditeur et configurer les paramètres.
+      </p>
+
+      <div class="img-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;">
+        <div class="img-wrap" style="margin:0;">
+          <img src="img/ad-gpo-create-menu.png" alt="Menu clic droit sur milkyway.local — Créer un objet GPO" loading="lazy" />
+          <p class="img-caption">Clic droit sur milkyway.local pour créer une nouvelle GPO</p>
+        </div>
+        <div class="img-wrap" style="margin:0;">
+          <img src="img/ad-gpo-passwordpolicy-create.png" alt="Nom GPO-PasswordPolicy dans la fenêtre Nouvel objet GPO" loading="lazy" />
+          <p class="img-caption">Saisie du nom — GPO-PasswordPolicy</p>
+          <img src="img/ad-gpo-new-gpo.png" alt="Création d'un objet GPO nommé GPO-Securite dans la console GPMC" loading="lazy" />
+          <p class="img-caption">Exemple de création d'une GPO — ici GPO-Securite, même procédure pour toutes les GPO du domaine</p>
+        </div>
+      </div>
+
+      <p class="body-text">
+        Une fois la GPO créée, elle apparaît dans la liste des GPO liées à l'OU ou au domaine. Elle peut être modifiée à tout moment en double-cliquant dessus pour ouvrir l'éditeur de stratégie de groupe.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-gpo-linked-domain.png" alt="Console GPMC — GPO-PasswordPolicy liée à milkyway.local avec menu contextuel" loading="lazy" />
+        <p class="img-caption">Console GPMC — GPO-PasswordPolicy visible dans les GPO liées à milkyway.local</p>
+      </div>
+
+      <div class="img-wrap">
+        <img src="img/ad-gpo.png" alt="Console Gestion des stratégies de groupe — GPO-PasswordPolicy liée à milkyway.local" loading="lazy" />
+        <p class="img-caption">Vue générale de la console GPMC avec les GPO du domaine</p>
+      </div>
+
+      
+      <hr class="divider" />
+      <h3 class="section-subtitle">GPO-PasswordPolicy</h3>
+
+      <p class="body-text">
+        C'est la GPO la plus importante — elle définit les règles de mot de passe pour tous les utilisateurs du domaine. Elle est liée directement à la racine du domaine (<code>milkyway.local</code>) pour s'appliquer à tout le monde. La politique de mot de passe se configure dans <strong>Configuration ordinateur → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Stratégie de mot de passe</strong>.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-gpo-password-params.png" alt="Éditeur GPO — Stratégie de mot de passe dans GPO-PasswordPolicy" loading="lazy" />
+        <p class="img-caption">Éditeur de stratégie de groupe — section Stratégie de mot de passe dans GPO-PasswordPolicy</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Paramètre</th>
+            <th>Valeur configurée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Longueur minimale du mot de passe</td>
+            <td>8 caractères</td>
+          </tr>
+          <tr>
+            <td>Complexité</td>
+            <td>Activée (majuscule + minuscule + chiffre + caractère spécial)</td>
+          </tr>
+          <tr>
+            <td>Durée de vie maximale</td>
+            <td>90 jours</td>
+          </tr>
+          <tr>
+            <td>Durée de vie minimale</td>
+            <td>30 jours</td>
+          </tr>
+          <tr>
+            <td>Historique des mots de passe</td>
+            <td>5 mots de passe mémorisés</td>
+          </tr>
+          <tr>
+            <td>Seuil de verrouillage du compte</td>
+            <td>5 tentatives échouées</td>
+          </tr>
+          <tr>
+            <td>Durée de verrouillage du compte</td>
+            <td>10 minutes</td>
+          </tr>
+          <tr>
+            <td>Réinitialisation du compteur de verrouillage</td>
+            <td>10 minutes</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="img-wrap img-narrow">
+        <img src="img/ad-gpo-complexity.png" alt="GPO-PasswordPolicy — paramètre complexité activé dans l'éditeur de stratégie" loading="lazy" />
+        <p class="img-caption">GPO-PasswordPolicy — paramètre "La complexité du mot de passe doit être respectée" activé</p>
+      </div>
+
+      
+      <hr class="divider" />
+      <h3 class="section-subtitle">Les 3 autres GPO</h3>
+
+      <p class="body-text">
+        En plus de la politique de mot de passe, j'ai créé 3 GPO pour restreindre les actions des utilisateurs standards et standardiser l'environnement de travail.
+      </p>
+
+      <div class="gpo-grid">
+        <div class="gpo-card">
+          <h4>GPO-Restriction</h4>
+          <p>Liée à <strong>OU-Utilisateurs</strong>. Bloque l'accès au Panneau de configuration pour les utilisateurs standards. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Panneau de configuration → Interdire l'accès au Panneau de configuration et à PC Settings</em>.</p>
+        </div>
+        <div class="gpo-card">
+          <h4>GPO-Application</h4>
+          <p>Liée à <strong>OU-Utilisateurs</strong>. Bloque l'accès à l'invite de commandes (cmd.exe) pour les utilisateurs. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Système → Désactiver l'accès à l'invite de commandes</em>.</p>
+        </div>
+        <div class="gpo-card">
+          <h4>GPO-FondEcran</h4>
+          <p>Impose un fond d'écran commun à tous les utilisateurs du domaine. Le fichier image est stocké sur le partage <code>\\Bras-d-Orion\GPO\</code> (TrueNAS). GPO configurée, en attente des partages SMB.</p>
+        </div>
+        <div class="gpo-card">
+          <h4>GPO-PasswordPolicy</h4>
+          <p>Liée à <strong>milkyway.local</strong> (domaine entier). Politique de mot de passe : 8 caractères min, complexité activée, durée max 90 jours, verrouillage après 5 tentatives / 10 minutes.</p>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">GPO-Application — Blocage de cmd.exe</h3>
+
+      <p class="body-text">
+        Pour la GPO qui bloque l'invite de commandes, on va dans l'éditeur → Configuration utilisateur → Modèles d'administration → Système → et on double-clique sur <strong>"Désactiver l'accès à l'invite de commandes"</strong>. On passe le paramètre sur "Activé".
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-gpo-cmd-blocked.png" alt="Éditeur GPO — paramètre Désactiver l'accès à l'invite de commandes" loading="lazy" />
+        <p class="img-caption">GPO-Application — paramètre "Désactiver l'accès à l'invite de commandes" dans l'éditeur de stratégie</p>
+        <img src="img/ad-gpo-editor-tree.png" alt="Arborescence de l'éditeur GPO — GPO-PasswordPolicy avec Configuration ordinateur et utilisateur" loading="lazy" />
+        <p class="img-caption">Arborescence de l'éditeur GPO — on voit les deux sections Configuration ordinateur et Configuration utilisateur</p>
+      </div>
+
+      <div class="note">
+        <strong>Comment appliquer une GPO à une OU spécifique ?</strong> Dans la GPMC, on fait un clic droit sur l'OU concernée → Lier un objet de stratégie de groupe existant, puis on choisit la GPO. GPO-Restriction et GPO-Application sont liées à OU-Utilisateurs pour ne pas bloquer les administrateurs. GPO-PasswordPolicy est liée au domaine entier car la politique de mot de passe doit s'appliquer à tous.
+      </div>
+
+      
+      <hr class="divider" />
+      <a href="index.html" class="btn">← Retour à l'accueil</a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
+    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+    <p>© 2026</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>

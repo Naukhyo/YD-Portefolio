@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guide Wix — Reproduire le portfolio sur Wix Free</title>
+<meta name="description" content="Guide pas-à-pas pour reproduire le portfolio BTS SIO sur Wix Free : blocs, réglages, astuces." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1f2e;
+    background: #ffffff;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: #3b5bdb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header.page-header {
+    padding: 72px 0 40px;
+    border-bottom: 1px solid #e3e7ee;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #3b5bdb;
+    background: #e8edfb;
+    padding: 5px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 0 0 14px;
+    color: #1a1f2e;
+  }
+  .page-lead {
+    font-size: 17px;
+    color: #5a6478;
+    margin: 0;
+    max-width: 680px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 56px 0 14px;
+    color: #1a1f2e;
+    padding-top: 16px;
+    border-top: 1px solid #eef1f6;
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 28px 0 10px;
+    color: #1a1f2e;
+  }
+  p { margin: 0 0 14px; color: #2c3446; }
+  p.muted { color: #5a6478; font-size: 15px; }
+
+  ol, ul { padding-left: 22px; margin: 10px 0 18px; }
+  ol li, ul li { margin-bottom: 8px; color: #2c3446; }
+
+  code {
+    background: #f3f5f9;
+    border: 1px solid #e3e7ee;
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    color: #3b5bdb;
+  }
+
+  .intro-box {
+    background: #f7f8fa;
+    border: 1px solid #e3e7ee;
+    border-left: 4px solid #3b5bdb;
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin: 0 0 48px;
+  }
+  .intro-box h3 {
+    margin-top: 0;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #3b5bdb;
+  }
+  .intro-box ul { margin: 0; padding-left: 20px; }
+  .intro-box li { font-size: 15px; }
+
+  .section-card {
+    background: #fff;
+    border: 1px solid #e3e7ee;
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 32px;
+    box-shadow: 0 1px 2px rgba(20, 30, 60, 0.03);
+  }
+  .section-card h2 {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    font-size: 22px;
+  }
+  .section-card .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: #3b5bdb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 10px;
+    vertical-align: 2px;
+  }
+
+  .block-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0a5c5b;
+    background: #e6f4f4;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+
+  .visual-preview {
+    background: #f7f8fa;
+    border: 1px dashed #cfd6e4;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 16px 0 4px;
+    font-size: 14px;
+    color: #5a6478;
+  }
+  .visual-preview strong {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #3b5bdb;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .wireframe {
+    margin: 12px 0 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .wf-row {
+    background: #e3e7ee;
+    border-radius: 6px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    color: #5a6478;
+    font-weight: 500;
+  }
+  .wf-row.tall { height: 80px; }
+  .wf-row.xtall { height: 120px; }
+  .wf-cols { display: grid; gap: 6px; }
+  .wf-cols-2 { grid-template-columns: 1fr 1fr; }
+  .wf-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .wf-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .wf-nav { background: #1a1f2e; color: #fff; }
+  .wf-hero { background: linear-gradient(135deg, #e8edfb, #dde4f2); color: #3b5bdb; font-weight: 600; }
+  .wf-img { background: #cfd6e4; color: #5a6478; }
+  .wf-btn {
+    display: inline-block;
+    background: #3b5bdb;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 0 4px;
+  }
+  .wf-btn.ghost { background: #fff; color: #1a1f2e; border: 1px solid #cfd6e4; }
+
+  footer.page-footer {
+    border-top: 1px solid #e3e7ee;
+    margin-top: 72px;
+    padding: 32px 0 48px;
+    font-size: 13.5px;
+    color: #8089a0;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 30px; }
+    header.page-header { padding: 48px 0 32px; }
+    .section-card { padding: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">Guide pas-à-pas</span>
+    <h1>Comment reproduire ce portfolio sur Wix</h1>
+    <p class="page-lead">Ce guide explique comment recréer chaque section du portfolio BTS SIO dans l'éditeur <strong>Wix Free</strong> : quel bloc utiliser, les étapes clés, et à quoi ça ressemble dans Wix.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  
+  <div class="intro-box">
+    <h3>Avant de commencer — bonnes pratiques Wix</h3>
+    <ul>
+      <li><strong>Utilise les thèmes de couleur Wix</strong> (Paramètres du site → Thème) pour garder une palette cohérente sur toutes les sections.</li>
+      <li><strong>Travaille toujours en mode Desktop d'abord</strong>, puis vérifie et ajuste la vue <strong>Mobile</strong> via l'icône téléphone en haut de l'éditeur.</li>
+      <li><strong>Ajoute des ancres</strong> (<code>Ajouter → Menu &amp; Ancres → Ancre</code>) pour que les liens de la nav puissent rediriger vers les sections (Accueil, À propos, Projets, etc.).</li>
+      <li><strong>Uploade toutes tes images dans la médiathèque Wix</strong> avant de commencer (<code>Médias → Ajouter des médias</code>). Ça évite les allers-retours pendant le design.</li>
+      <li><strong>Sur Wix Free</strong> : pas de domaine personnalisé (ton URL sera <code>nomutilisateur.wixsite.com/ton-site</code>), et une bannière publicitaire Wix apparaît en bas de page — <em>c'est normal, inclus dans la gratuité</em>.</li>
+      <li><strong>Sauvegarde régulièrement</strong> avec <code>Ctrl+S</code>. Publie en cliquant sur <strong>Publier</strong> en haut à droite une fois prêt.</li>
+    </ul>
+  </div>
+
+  
+  <article class="section-card" id="nav">
+    <h2><span class="num">1</span>Header &amp; Navigation</h2>
+    <span class="block-badge">Bloc Wix : Strip + Menu horizontal</span>
+    <p class="muted">Barre supérieure fixe avec le logo à gauche (« YD — Yvan Dupuit ») et les liens de navigation à droite.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>En-tête</code>. Wix ajoute automatiquement un en-tête en haut de chaque page. Pour le menu : <code>Ajouter (+)</code> → <code>Menu &amp; Ancres</code> → <code>Menu horizontal</code>.</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Clique sur l'en-tête par défaut puis <strong>Modifier l'en-tête</strong>. Choisis un layout avec <em>logo à gauche + menu à droite</em>.</li>
+      <li>Ajoute ton logo : <code>Ajouter → Texte</code> pour « Yvan Dupuit » ou <code>Ajouter → Image</code> pour un logo « YD » (carré noir 28×28 avec texte blanc).</li>
+      <li>Ajoute le menu horizontal : <code>Ajouter → Menu &amp; Ancres → Menu horizontal</code>. Glisse-le dans l'en-tête.</li>
+      <li>Clique sur le menu → <strong>Gérer le menu</strong> → ajoute les liens : Accueil, À propos, Compétences, Projets, Veille, Contact. Chaque lien pointe vers une <strong>ancre</strong> de la page.</li>
+      <li>Dans <strong>Paramètres de l'en-tête</strong>, active <em>Fixe lors du défilement</em> (sticky) et mets un fond blanc légèrement transparent.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Couleur</strong> : fond <code>#FFFFFF</code> (85 % d'opacité), bordure basse <code>#E3E7EE</code>.</li>
+      <li><strong>Police</strong> : Inter, taille 14–15 px, poids 500 pour les liens.</li>
+      <li><strong>Survol lien</strong> : couleur texte qui s'assombrit + léger fond gris (<code>Interactions → Hover</code>).</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-row wf-nav">YD  Yvan Dupuit &nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp; Accueil · À propos · Compétences · Projets · Veille · Contact</div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="hero">
+    <h2><span class="num">2</span>Hero (section d'accueil)</h2>
+    <span class="block-badge">Bloc Wix : Strip avec texte centré + 2 boutons</span>
+    <p class="muted">Grande section d'introduction avec pastille « Disponible pour échanger », titre « Yvan Dupuit », sous-titre, et deux boutons.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>Strip</code> → choisis un layout <em>Title &amp; Subtitle</em> ou <em>Welcome</em> (section plein écran avec texte centré).</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Ajoute un Strip plein largeur, hauteur ≈ 520 px, fond blanc.</li>
+      <li>Dans le Strip, ajoute un élément <strong>Texte</strong> (pastille) : « Disponible pour échanger ». Style fond bleu pâle <code>#E8EDFB</code>, texte bleu foncé, coins arrondis 999px.</li>
+      <li>Ajoute un <strong>Titre</strong> (H1) : « Yvan Dupuit » — Inter 800, 56 px, letter-spacing négatif.</li>
+      <li>Ajoute deux paragraphes texte : « Étudiant BTS SIO — Option SISR » et « En alternance chez MP Conception · Lyon / Oyonnax ».</li>
+      <li>Ajoute deux <strong>Boutons</strong> (<code>Ajouter → Bouton</code>) :
+        <ul>
+          <li><em>Voir mes projets</em> — style plein, fond bleu <code>#3B5BDB</code>, texte blanc. Lien vers l'ancre <code>#projets</code>.</li>
+          <li><em>Me contacter</em> — style outline, bordure grise. Lien vers l'ancre <code>#contact</code>.</li>
+        </ul>
+      </li>
+      <li>Centre tous les éléments et ajoute une <strong>ancre « accueil »</strong> en haut (<code>Ajouter → Menu &amp; Ancres → Ancre</code>).</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Couleur accent</strong> : <code>#3B5BDB</code> (bleu Indigo).</li>
+      <li><strong>Espacement</strong> : padding vertical 96 px (réglable dans <em>Disposition du Strip</em>).</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-row wf-nav">Nav</div>
+        <div class="wf-row wf-hero" style="height:60px;">● Disponible pour échanger</div>
+        <div class="wf-row wf-hero" style="height:100px;">Yvan Dupuit</div>
+        <div class="wf-row wf-hero" style="height:30px;">BTS SIO — SISR · MP Conception</div>
+        <div class="wf-row wf-hero" style="height:50px;"><span class="wf-btn">Voir mes projets</span><span class="wf-btn ghost">Me contacter</span></div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="apropos">
+    <h2><span class="num">3</span>À propos</h2>
+    <span class="block-badge">Bloc Wix : Strip 2 colonnes (texte / image)</span>
+    <p class="muted">Section présentation sur deux colonnes : texte et cartes d'info à gauche, image pfSense en bas sur toute la largeur.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>Strip</code> → sélectionne un layout <em>2 colonnes</em> (texte à gauche, conteneur à droite).</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Ajoute un Strip 2 colonnes. Colonne gauche = texte, colonne droite = grille de cartes info.</li>
+      <li><strong>Colonne gauche</strong> : ajoute un éyebrow « À PROPOS » (texte majuscule bleu), un titre « Formation &amp; alternance », puis 2–3 paragraphes sur ton parcours (BTS SIO, SEPR, MP Conception).</li>
+      <li><strong>Colonne droite</strong> : crée 4 petites cartes avec <code>Ajouter → Box → Conteneur</code>. Chaque carte contient un label en capitales (« FORMATION », « ALTERNANCE », « DOMAINE », « OBJECTIF ») et 2 lignes de texte. Dispose-les en grille 2×2.</li>
+      <li><strong>Image pleine largeur</strong> en dessous : <code>Ajouter → Image</code>, sélectionne <code>photo-pfsense.jpg</code> depuis la médiathèque. Largeur 100 %, hauteur max 300 px, coins arrondis 12 px, recadrage <em>Cover</em>.</li>
+      <li>Ajoute une petite légende italique sous l'image : « Configuration pfSense — Projet BTS SIO ».</li>
+      <li>Ajoute une <strong>ancre « apropos »</strong> en haut du Strip.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Cartes info</strong> : fond <code>#F7F8FA</code>, bordure <code>#E3E7EE</code>, coins arrondis 10 px, padding 18 px.</li>
+      <li><strong>Image</strong> : applique un <em>masque arrondi</em> dans <code>Paramètres image → Bordure &amp; coins</code>.</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-cols wf-cols-2">
+          <div>
+            <div class="wf-row" style="height:20px;background:#E8EDFB;color:#3B5BDB;">À PROPOS</div>
+            <div class="wf-row tall">Texte présentation</div>
+          </div>
+          <div class="wf-cols wf-cols-2">
+            <div class="wf-row">Formation</div>
+            <div class="wf-row">Alternance</div>
+            <div class="wf-row">Domaine</div>
+            <div class="wf-row">Objectif</div>
+          </div>
+        </div>
+        <div class="wf-row xtall wf-img" style="margin-top:8px;">Image pfSense (pleine largeur)</div>
+        <div class="wf-row" style="height:18px;background:transparent;font-style:italic;">Configuration pfSense — Projet BTS SIO</div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="competences">
+    <h2><span class="num">4</span>Compétences</h2>
+    <span class="block-badge">Bloc Wix : Répéteur (Repeater) ou grille de Cards</span>
+    <p class="muted">Bannière image Proxmox en haut, puis grille 3×2 de cartes « compétences » avec icône + titre + tags.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>Liste</code> → <code>Répéteur</code>. Choisis un layout <em>grille 3 colonnes</em>. Le répéteur permet de dupliquer une carte et de changer juste son contenu.</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Crée un nouveau Strip à fond gris très clair <code>#F7F8FA</code>. Titre « Compétences » + sous-titre.</li>
+      <li><strong>Bannière image Proxmox</strong> : <code>Ajouter → Image</code>, choisis <code>photo-proxmox.jpg</code>. Largeur 100 %, hauteur max 200 px, coins arrondis 12 px, recadrage <em>Cover</em>. Légende italique en dessous : « Installation Proxmox VE — Hyperviseur du projet ».</li>
+      <li>Sous la bannière, ajoute un <strong>Répéteur</strong> avec 6 éléments, en grille 3 colonnes.</li>
+      <li>Dans l'item modèle du répéteur, ajoute : une icône (<code>Ajouter → Icône</code>) dans un petit carré bleu pâle, un titre H3 (Réseau, Systèmes, Virtualisation, Stockage, Sécurité, Outils), puis plusieurs petits « tags » texte (VLAN, pfSense, Cisco, etc.).</li>
+      <li>Les tags sont de petites Box (<code>Ajouter → Box</code>) avec bordure grise et texte court — duplique-les horizontalement.</li>
+      <li>Ajoute une <strong>ancre « competences »</strong> en haut du Strip.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Carte skill</strong> : fond blanc, bordure <code>#E3E7EE</code>, coins 16 px, padding 24 px. Au survol → bordure plus foncée + ombre légère (<code>Interactions → Hover</code>).</li>
+      <li><strong>Icône</strong> : carré 32×32, fond <code>#E8EDFB</code>, couleur icône <code>#3B5BDB</code>.</li>
+      <li><strong>Tags</strong> : fond <code>#F7F8FA</code>, bordure <code>#E3E7EE</code>, texte 12.5 px.</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-row wf-img" style="height:80px;">Bannière image Proxmox</div>
+        <div class="wf-cols wf-cols-3">
+          <div class="wf-row tall">Réseau</div>
+          <div class="wf-row tall">Systèmes</div>
+          <div class="wf-row tall">Virtualisation</div>
+          <div class="wf-row tall">Stockage</div>
+          <div class="wf-row tall">Sécurité</div>
+          <div class="wf-row tall">Outils</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="projets">
+    <h2><span class="num">5</span>Projets</h2>
+    <span class="block-badge">Bloc Wix : Répéteur 3 colonnes avec image + texte + bouton</span>
+    <p class="muted">Trois cartes projet côte à côte. Les deux premières sont « featured » avec fond coloré dégradé, la troisième est simple.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>Liste</code> → <code>Répéteur</code>. Choisis un layout <em>3 colonnes avec image, titre, texte, bouton</em>.</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Nouveau Strip « Projets » fond blanc. Éyebrow « RÉALISATIONS », titre « Projets », sous-titre.</li>
+      <li>Ajoute un Répéteur 3 colonnes, 3 items.</li>
+      <li><strong>Item 1 — Active Directory</strong> :
+        <ul>
+          <li>Badge en haut à droite « Dossier projet 1 » (petite Box bleue).</li>
+          <li>Icône AD (utilisateurs), titre « Active Directory — milkyway.local », description.</li>
+          <li><strong>Galerie 2 images côte à côte</strong> : <code>Ajouter → Galerie → Grille</code>, ajoute <code>ad-domaine.png</code> et <code>ad-gpo.png</code>. Hauteur 120 px, coins 8 px.</li>
+          <li>Tags techno (Windows Server 2022, DNS, DHCP, GPO…).</li>
+          <li>Bouton « Voir le dossier → ».</li>
+          <li>Fond dégradé bleu pâle → blanc, bordure bleue.</li>
+        </ul>
+      </li>
+      <li><strong>Item 2 — TrueNAS</strong> : même structure, mais en <em>teal</em> (<code>#0E7C7B</code>) au lieu de bleu. 1 seule image : <code>truenas-3.png</code>.</li>
+      <li><strong>Item 3 — Autres procédures</strong> : carte simple, fond blanc, bordure grise, sans image. Juste icône + titre + desc + tags + bouton outline.</li>
+      <li>Ajoute une <strong>ancre « projets »</strong>.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Cartes featured</strong> : fond <code>linear-gradient(180deg, #E8EDFB, #FFF)</code> pour AD, <code>linear-gradient(180deg, #E6F4F4, #FFF)</code> pour TrueNAS. Dans Wix : <em>Arrière-plan du conteneur → Dégradé</em>.</li>
+      <li><strong>Mini-galerie</strong> : si le Répéteur ne supporte pas de galerie imbriquée, remplace par 2 éléments Image côte à côte dans un conteneur grille.</li>
+      <li><strong>Bouton principal</strong> : fond accent, texte blanc, coins 9 px.</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-cols wf-cols-3">
+          <div>
+            <div class="wf-row" style="height:14px;background:#3B5BDB;color:#fff;font-size:9px;">Dossier projet 1</div>
+            <div class="wf-row" style="height:20px;background:#E8EDFB;">AD — milkyway.local</div>
+            <div class="wf-row tall" style="background:#E8EDFB;">Description AD</div>
+            <div class="wf-cols wf-cols-2" style="background:#E8EDFB;padding:4px;">
+              <div class="wf-row wf-img" style="height:40px;">img AD 1</div>
+              <div class="wf-row wf-img" style="height:40px;">img AD 2</div>
+            </div>
+            <div class="wf-row" style="background:#E8EDFB;"><span class="wf-btn">Voir →</span></div>
+          </div>
+          <div>
+            <div class="wf-row" style="height:14px;background:#0E7C7B;color:#fff;font-size:9px;">Dossier projet 2</div>
+            <div class="wf-row" style="height:20px;background:#E6F4F4;">TrueNAS</div>
+            <div class="wf-row tall" style="background:#E6F4F4;">Description TrueNAS</div>
+            <div class="wf-row wf-img" style="height:40px;">image TrueNAS</div>
+            <div class="wf-row" style="background:#E6F4F4;"><span class="wf-btn" style="background:#0E7C7B;">Voir →</span></div>
+          </div>
+          <div>
+            <div class="wf-row" style="height:20px;">Autres procédures</div>
+            <div class="wf-row tall">Description</div>
+            <div class="wf-row"><span class="wf-btn ghost">Voir →</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="veille">
+    <h2><span class="num">6</span>Veille technologique</h2>
+    <span class="block-badge">Bloc Wix : Strip texte + icône</span>
+    <p class="muted">Section simple avec une grosse carte : icône ampoule à gauche, tag « Thème actuel », titre, paragraphe à droite.</p>
+
+    <h3>Où le trouver</h3>
+    <p><code>Ajouter (+)</code> → <code>Strip</code> → layout <em>Texte avec icône</em> ou crée une simple Box conteneur.</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Nouveau Strip fond gris clair <code>#F7F8FA</code>. Éyebrow « VEILLE TECHNOLOGIQUE » + titre « Sujet en cours ».</li>
+      <li>Ajoute une grande Box conteneur (<code>Ajouter → Box → Conteneur</code>), fond gris clair, bordure, coins arrondis 16 px, padding 40 px.</li>
+      <li>À l'intérieur, dispose en 2 colonnes :
+        <ul>
+          <li><strong>Gauche</strong> : icône ampoule 56×56 dans un carré blanc arrondi (<code>Ajouter → Icône</code>, choisis une ampoule).</li>
+          <li><strong>Droite</strong> : petit tag bleu « Thème actuel », titre H3 « L'impact de l'IA sur les métiers de l'informatique », paragraphe descriptif.</li>
+        </ul>
+      </li>
+      <li>Ajoute une <strong>ancre « veille »</strong>.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Tag bleu</strong> : fond <code>#E8EDFB</code>, texte <code>#2D47B3</code>, coins 999 px.</li>
+      <li><strong>Icône</strong> : fond blanc, bordure <code>#E3E7EE</code>, coins 12 px.</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-cols" style="grid-template-columns:80px 1fr;background:#F7F8FA;padding:12px;border-radius:10px;">
+          <div class="wf-row" style="background:#fff;border:1px solid #E3E7EE;height:56px;">icône</div>
+          <div>
+            <div class="wf-row" style="height:16px;background:#E8EDFB;color:#3B5BDB;font-size:10px;">Thème actuel</div>
+            <div class="wf-row" style="height:22px;">IA &amp; métiers IT</div>
+            <div class="wf-row tall">Paragraphe descriptif de la veille</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  
+  <article class="section-card" id="footer">
+    <h2><span class="num">7</span>Footer / Contact</h2>
+    <span class="block-badge">Bloc Wix : Footer Wix standard</span>
+    <p class="muted">Pied de page avec logo + nom à gauche, email à droite, ligne de copyright en bas.</p>
+
+    <h3>Où le trouver</h3>
+    <p>Wix a un <strong>footer intégré</strong> sur chaque page. Clique en bas de ton site → <strong>Modifier le pied de page</strong>. Ou : <code>Ajouter (+)</code> → <code>Pied de page</code>.</p>
+
+    <h3>Étapes clés</h3>
+    <ol>
+      <li>Choisis un layout de footer simple (2 colonnes + ligne en bas).</li>
+      <li><strong>Colonne gauche</strong> : logo « YD » (petit carré noir 36×36) + texte « Yvan Dupuit » / « BTS SIO — SEPR Lyon ».</li>
+      <li><strong>Colonne droite</strong> : icône enveloppe + lien email <code>yvandupuit@gmail.com</code>. Dans Wix : clique sur le lien → <code>Lien vers → Email</code>, saisis l'adresse.</li>
+      <li><strong>Ligne du bas</strong> : texte centré « © 2025 Yvan Dupuit · Portfolio réalisé dans le cadre du BTS SIO option SISR », séparé par une bordure haute.</li>
+      <li>Ajoute une <strong>ancre « contact »</strong> dans le footer pour que le bouton Hero et le lien menu puissent y rediriger.</li>
+    </ol>
+
+    <h3>Personnalisation</h3>
+    <ul>
+      <li><strong>Fond</strong> : <code>#F7F8FA</code>, bordure haute <code>#E3E7EE</code>.</li>
+      <li><strong>Copyright</strong> : 12.5 px, couleur <code>#8089A0</code>, centré.</li>
+    </ul>
+
+    <div class="visual-preview">
+      <strong>À quoi ça ressemble dans Wix</strong>
+      <div class="wireframe">
+        <div class="wf-cols wf-cols-2" style="background:#F7F8FA;padding:10px;border-radius:8px;">
+          <div class="wf-row">YD · Yvan Dupuit — BTS SIO</div>
+          <div class="wf-row">✉ yvandupuit@gmail.com</div>
+        </div>
+        <div class="wf-row" style="height:18px;font-size:10px;color:#8089A0;">© 2025 Yvan Dupuit · Portfolio BTS SIO SISR</div>
+      </div>
+    </div>
+  </article>
+
+  
+  <div class="intro-box" style="border-left-color:#0a5c5b;">
+    <h3 style="color:#0a5c5b;">Publier le site</h3>
+    <ul>
+      <li>Clique sur <strong>Aperçu</strong> pour vérifier le rendu en Desktop et en Mobile.</li>
+      <li>Corrige les éventuels chevauchements en mode Mobile (Wix propose parfois de « réorganiser automatiquement »).</li>
+      <li>Clique sur <strong>Publier</strong> en haut à droite. Ton site est en ligne à <code>nomutilisateur.wixsite.com/ton-site</code>.</li>
+      <li>Sur Wix Free, une bannière publicitaire Wix apparaît en haut et/ou en bas — <em>tu ne peux pas l'enlever sans un forfait payant</em>.</li>
+      <li>Partage l'URL avec tes professeurs et jurés pour le dossier BTS SIO.</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer class="page-footer">
+  Guide Wix — Portfolio BTS SIO SISR · Yvan Dupuit
+</footer>
+
+</body>
+</html>

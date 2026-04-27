@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Découverte routage Cisco — Yvan Dupuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Roboto', sans-serif; color: #333333; background: #ffffff; line-height: 1.6; }
+  img { max-width: 100%; display: block; border-radius: 4px; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e0e0e0; }
+  .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
+  .nav-links a:hover { background: #f0f0f0; }
+  .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+  }
+  .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
+  .page-hero .container { max-width: 860px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
+  .breadcrumb a { color: #3b5bdb; }
+  .page-hero h1 { font-size: 28px; font-weight: 700; margin: 0 0 10px; }
+  .page-hero p { font-size: 15px; color: #555; margin: 0; max-width: 600px; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .content { padding: 48px 24px; }
+  .section-block { margin-bottom: 52px; }
+  .section-block h2 { font-size: 20px; font-weight: 700; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #3b5bdb; display: inline-block; }
+  .section-block p { margin: 0 0 16px; font-size: 15px; }
+  .img-block { margin: 20px 0; }
+  .img-block img { border: 1px solid #e0e0e0; max-width: 700px; }
+  .img-caption { font-size: 12px; color: #888; margin-top: 6px; }
+  .two-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  @media (max-width: 600px) { .two-imgs { grid-template-columns: 1fr; } }
+  .info-box { background: #f0f4ff; border-left: 4px solid #3b5bdb; padding: 14px 18px; border-radius: 4px; margin: 20px 0; font-size: 14px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  .step-num { display: inline-block; background: #3b5bdb; color: #fff; font-weight: 700; font-size: 13px; border-radius: 50%; width: 24px; height: 24px; text-align: center; line-height: 24px; margin-right: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag { background: #f0f4ff; color: #3b5bdb; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  footer { background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 24px; text-align: center; font-size: 13px; color: #888; margin-top: 60px; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #3b5bdb; font-size: 14px; font-weight: 500; margin-bottom: 32px; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Découverte routage Cisco</div>
+    <h1>Découverte du routage Cisco</h1>
+    <p>TP Exolab — découverte du routage avec Cisco Packet Tracer : topologie multi-réseaux, routes statiques et table de routage.</p>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+
+    <a href="procedures.html" class="back-link">← Retour aux procédures</a>
+
+    <div class="section-block">
+      <h2>Présentation du TP</h2>
+      <p>Ce TP a été réalisé sur Cisco Packet Tracer dans le cadre du cours réseau. L'objectif est de comprendre le fonctionnement du routage IP : comment un routeur sait vers où envoyer un paquet, et comment configurer des routes pour interconnecter plusieurs réseaux.</p>
+
+      <div class="img-block">
+        <img src="img/cisco-decouverte-topologie.jpeg" alt="Topologie réseau multi-routeurs sur Cisco Packet Tracer" loading="lazy" />
+        <div class="img-caption"><span class="step-num">1</span> Topologie Packet Tracer — plusieurs routeurs et réseaux</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Configuration des routeurs</h2>
+      <p>Chaque routeur a ses interfaces configurées avec les adresses IP correspondant aux réseaux auxquels il est connecté. On entre en mode configuration terminal pour modifier les interfaces une par une. Les captures annotées en rouge sur ce TP montrent les éléments clés à retenir.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cisco-decouverte-config-terminal.jpeg" alt="Configuration terminal routeur Cisco — interfaces et adresses IP" loading="lazy" />
+          <div class="img-caption"><span class="step-num">2</span> Configuration des interfaces IP (annotations en rouge)</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cisco-decouverte-annotee1.jpeg" alt="Configuration routeur annotée — points clés en rouge" loading="lazy" />
+          <div class="img-caption"><span class="step-num">3</span> Étapes de configuration annotées</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Table de routage</h2>
+      <p>La table de routage indique au routeur par où envoyer les paquets selon leur destination. La commande <code>show ip route</code> affiche cette table. Les entrées marquées <strong>C</strong> sont des réseaux directement connectés, les entrées <strong>S</strong> sont des routes statiques configurées manuellement.</p>
+
+      <div class="img-block">
+        <img src="img/cisco-decouverte-routing-table.jpeg" alt="Table de routage IP sur un routeur Cisco" loading="lazy" />
+        <div class="img-caption"><span class="step-num">4</span> Table de routage — routes connectées et statiques</div>
+      </div>
+
+      <div class="info-box">
+        Pour qu'un paquet puisse aller de réseau A à réseau C en passant par B, chaque routeur sur le chemin doit avoir une route vers la destination. Si une route manque, le paquet est perdu.
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Annotation des captures</h2>
+      <p>Les captures de ce TP sont annotées avec des encadrés rouges indiquant les commandes importantes, les valeurs à retenir ou les erreurs à éviter. C'est une méthode utilisée en cours pour mettre en évidence les points essentiels lors des corrections.</p>
+
+      <div class="two-imgs">
+        <div class="img-block">
+          <img src="img/cisco-decouverte-annotee2.jpeg" alt="Capture Packet Tracer annotée — routage inter-réseaux" loading="lazy" />
+          <div class="img-caption">Routage inter-réseaux annoté</div>
+        </div>
+        <div class="img-block">
+          <img src="img/cisco-decouverte-packet-tracer.jpeg" alt="Interface Cisco Packet Tracer" loading="lazy" />
+          <div class="img-caption">Cisco Packet Tracer Student — logiciel de simulation réseau</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tag-list">
+      <span class="tag">Cisco</span>
+      <span class="tag">Packet Tracer</span>
+      <span class="tag">Routage</span>
+      <span class="tag">Routes statiques</span>
+      <span class="tag">IOS</span>
+      <span class="tag">Réseau</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio BTS SIO — Yvan Dupuit · SEPR Lyon · Alternance MP Conception SAS</p>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

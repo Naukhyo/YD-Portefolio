@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yvan Dupuit — Portfolio BTS SIO SISR</title>
+<meta name="description" content="Portfolio d'Yvan Dupuit, étudiant en BTS SIO option SISR en alternance chez MP Conception. Réseaux, systèmes, infrastructure et sécurité." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    background: #ffffff;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: #333333;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-links a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .nav-links a:hover { background: #f5f5f5; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+  }
+
+  /* Layout */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  section { padding: 60px 0; }
+  section.alt { background: #f9f9f9; }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #e8edfb;
+    color: #3b5bdb;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #333333;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: #666666;
+    margin: 0 0 8px;
+  }
+  .hero-loc {
+    font-size: 15px;
+    color: #888888;
+    margin: 0 0 32px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-primary {
+    background: #3b5bdb;
+    color: #ffffff;
+    border-color: #3b5bdb;
+  }
+  .btn-primary:hover { background: #2d47b3; }
+  .btn-ghost {
+    background: #ffffff;
+    color: #333333;
+    border-color: #e0e0e0;
+  }
+  .btn-ghost:hover { background: #f5f5f5; }
+
+  /* Section titles */
+  .section-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #3b5bdb;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    color: #333333;
+  }
+  .section-lead {
+    font-size: 15px;
+    color: #666666;
+    margin: 0 0 36px;
+    max-width: 600px;
+  }
+
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .project-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s;
+  }
+  .project-card:hover { border-color: #3b5bdb; }
+  .project-card.featured { border-color: #3b5bdb; background: #f5f8ff; }
+  .project-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #3b5bdb;
+    background: #e8edfb;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+  .project-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333333;
+  }
+  .project-desc {
+    font-size: 14px;
+    color: #666666;
+    margin: 0 0 16px;
+    flex-grow: 1;
+  }
+  .project-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .project-gallery.single { grid-template-columns: 1fr; }
+  .project-gallery img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+  }
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 14px;
+  }
+  .tech-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: #555555;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* Footer */
+  footer {
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    padding: 40px 0 28px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .footer-inner p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #666666;
+  }
+  .footer-inner a { color: #3b5bdb; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 32px; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      flex-direction: column;
+      padding: 8px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 12px; }
+    .nav-toggle { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Yvan Dupuit</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="entreprise.html">Entreprise</a></li>
+      <li><a href="competences.html">Compétences</a></li>
+      <li><a href="dossier-ad.html">Dossier AD</a></li>
+      <li><a href="dossier-truenas.html">Dossier TrueNAS</a></li>
+      <li><a href="procedures.html">Procédures</a></li>
+      <li><a href="veille.html">Veille</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <h1>Yvan Dupuit</h1>
+    <p class="hero-sub">Étudiant BTS SIO — Option SISR</p>
+    <p class="hero-loc">En alternance chez MP Conception · Lyon / Oyonnax</p>
+    <div class="hero-actions">
+      <a href="#projets" class="btn btn-primary">Voir mes projets →</a>
+      <a href="a-propos.html" class="btn btn-ghost">En savoir plus</a>
+    </div>
+  </div>
+</header>
+
+<section id="projets">
+  <div class="container">
+    <p class="section-eyebrow">Réalisations</p>
+    <h2 class="section-title">Projets</h2>
+    <p class="section-lead">Projets réalisés dans le cadre du BTS SIO et en alternance, mettant en pratique les compétences réseau et système.</p>
+
+    <div class="projects-grid">
+
+      
+      <article class="project-card featured">
+        <span class="project-badge">Dossier projet 1</span>
+        <h3>Active Directory — milkyway.local</h3>
+        <p class="project-desc">Déploiement d'une forêt Active Directory avec DC principal (Milky-Way) et DC secondaire (Andromède). Configuration DNS, DHCP, OUs, comptes utilisateurs, groupes et GPO sur Windows Server 2022.</p>
+        <div class="project-gallery">
+          <img src="img/ad-domaine.png" alt="Console Active Directory — milkyway.local" loading="lazy" />
+          <img src="img/ad-gpo.png" alt="Éditeur de GPO — GPO-PasswordPolicy" loading="lazy" />
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">Windows Server 2022</span>
+          <span class="tech-tag">Active Directory</span>
+          <span class="tech-tag">DNS</span>
+          <span class="tech-tag">DHCP</span>
+          <span class="tech-tag">GPO</span>
+          <span class="tech-tag">Proxmox</span>
+        </div>
+        <a href="dossier-ad.html" class="btn btn-primary" style="align-self:flex-start;font-size:13px;padding:8px 16px;">Voir le dossier →</a>
+      </article>
+
+      
+      <article class="project-card" style="border-color:#e0e0e0;">
+        <span class="project-badge" style="background:#e6f4f4;color:#0e7c7b;">Dossier projet 2</span>
+        <h3>TrueNAS — Bras-d-Orion</h3>
+        <p class="project-desc">Configuration d'un NAS TrueNAS Scale avec intégration au domaine milkyway.local. Partages SMB, gestion des permissions via les groupes Active Directory.</p>
+        <div class="project-gallery single">
+          <img src="img/truenas-dashboard.png" alt="TrueNAS Scale — dashboard" loading="lazy" />
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">TrueNAS Scale</span>
+          <span class="tech-tag">SMB</span>
+          <span class="tech-tag">Active Directory</span>
+          <span class="tech-tag">NTFS</span>
+        </div>
+        <a href="dossier-truenas.html" class="btn btn-primary" style="align-self:flex-start;font-size:13px;padding:8px 16px;background:#0e7c7b;border-color:#0e7c7b;">Voir le dossier →</a>
+      </article>
+
+      
+      <article class="project-card">
+        <h3>Autres procédures</h3>
+        <p class="project-desc">Procédures réalisées tout au long de l'année : pfSense, VLANs, switch Cisco, GLPI, PRTG. Travaux pratiques et configurations documentées.</p>
+        <div class="project-tech">
+          <span class="tech-tag">GLPI</span>
+          <span class="tech-tag">PRTG</span>
+          <span class="tech-tag">pfSense</span>
+          <span class="tech-tag">Cisco</span>
+          <span class="tech-tag">VLAN</span>
+        </div>
+        <a href="procedures.html" class="btn btn-ghost" style="align-self:flex-start;font-size:13px;padding:8px 16px;">Voir les procédures →</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <p class="section-eyebrow">Naviguer</p>
+    <h2 class="section-title">Pages du portfolio</h2>
+    <p class="section-lead">Toutes les sections du portfolio sont accessibles depuis le menu ou les liens ci-dessous.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="a-propos.html" class="btn btn-ghost">À propos</a>
+      <a href="competences.html" class="btn btn-ghost">Compétences</a>
+      <a href="dossier-ad.html" class="btn btn-ghost">Dossier AD</a>
+      <a href="dossier-truenas.html" class="btn btn-ghost">Dossier TrueNAS</a>
+      <a href="procedures.html" class="btn btn-ghost">Procédures</a>
+      <a href="veille.html" class="btn btn-ghost">Veille</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
+    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
+    <p>© 2026</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>
