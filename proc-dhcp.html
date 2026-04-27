@@ -85,7 +85,7 @@
     <div class="section-block">
       <h2>Principe du DHCP</h2>
       <p>DHCP (Dynamic Host Configuration Protocol) permet d'attribuer automatiquement une configuration réseau à un client qui se connecte : adresse IP, masque de sous-réseau, passerelle par défaut, serveur DNS. Sans DHCP, il faudrait tout configurer manuellement sur chaque machine.</p>
-      <p>Le processus se fait en 4 messages : <strong>Discover</strong> (le client cherche un serveur), <strong>Offer</strong> (le serveur propose une IP), <strong>Request</strong> (le client accepte), <strong>Acknowledge</strong> (le serveur confirme). On abrège en DORA.</p>
+      <p>Le processus se fait en 4 messages : Discover (le client cherche un serveur), Offer (le serveur propose une IP), Request (le client accepte), Acknowledge (le serveur confirme). On abrège en DORA.</p>
 
       <div class="info-box">
         Dans mon infra, le DHCP est géré par pfSense (Laniakea) pour le réseau 192.168.10.0/24. Les serveurs ont des IP fixes (réservations statiques).

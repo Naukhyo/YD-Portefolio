@@ -83,13 +83,13 @@
 
     <div class="section-block">
       <h2>Avant de commencer</h2>
-      <p>Windows Server 2022 est le système d'exploitation serveur de Microsoft. Dans mon infra, j'ai déployé deux VM Windows Server 2022 sur Proxmox : <strong>Milky-Way</strong> (DC principal, 192.168.10.3) et <strong>Andromède</strong> (DC secondaire, 192.168.10.4).</p>
+      <p>Windows Server 2022 est le système d'exploitation serveur de Microsoft. Dans mon infra, j'ai déployé deux VM Windows Server 2022 sur Proxmox : Milky-Way (DC principal, 192.168.10.3) et Andromède (DC secondaire, 192.168.10.4).</p>
       <p>Avant l'installation, il faut s'assurer que la VM a au moins 2 vCPU, 4 Go de RAM et 40 Go de disque. On démarre depuis l'ISO Windows Server 2022.</p>
     </div>
 
     <div class="section-block">
       <h2>Sélection de la version</h2>
-      <p>L'installeur propose plusieurs éditions. Pour un usage en production avec interface graphique, on choisit <strong>Windows Server 2022 Standard Evaluation (avec Expérience de bureau)</strong>. La version Core n'a pas d'interface graphique — c'est plus léger mais plus complexe à administrer.</p>
+      <p>L'installeur propose plusieurs éditions. Pour un usage en production avec interface graphique, on choisit Windows Server 2022 Standard Evaluation (avec Expérience de bureau). La version Core n'a pas d'interface graphique — c'est plus léger mais plus complexe à administrer.</p>
 
       <div class="img-block">
         <img src="img/winserv-install-select-os.png" alt="Sélection de la version Windows Server 2022 à installer" loading="lazy" />
@@ -99,7 +99,7 @@
 
     <div class="section-block">
       <h2>Contrat de licence et type d'installation</h2>
-      <p>On accepte le contrat de licence Microsoft. Ensuite, on choisit le type d'installation : <strong>Personnalisée</strong> pour une installation propre, ou Mise à niveau si on upgrade depuis une version existante. Ici, on fait toujours une installation propre.</p>
+      <p>On accepte le contrat de licence Microsoft. Ensuite, on choisit le type d'installation : Personnalisée pour une installation propre, ou Mise à niveau si on upgrade depuis une version existante. Ici, on fait toujours une installation propre.</p>
 
       <div class="two-imgs">
         <div class="img-block">

@@ -285,7 +285,7 @@
         <p class="img-caption">Dashboard TrueNAS Scale — version 25.04.2.3, pool ZFS ONLINE, 15.4 GiB RAM utilisée</p>
       </div>
 
-      <p style="font-size:15px;color:#444;margin-top:16px;margin-bottom:0;">Le dashboard donne une vue d'ensemble de l'état du système : utilisation CPU, RAM, stockage, état du pool ZFS. Le pool est au statut <strong>ONLINE</strong> ce qui signifie que tous les disques sont fonctionnels et que les données sont intègres.</p>
+      <p style="font-size:15px;color:#444;margin-top:16px;margin-bottom:0;">Le dashboard donne une vue d'ensemble de l'état du système : utilisation CPU, RAM, stockage, état du pool ZFS. Le pool est au statut ONLINE ce qui signifie que tous les disques sont fonctionnels et que les données sont intègres.</p>
     </div>
   </div>
 </section>
@@ -294,7 +294,7 @@
   <div class="container">
     <div class="content-wrap">
       <h2 class="section-title">1. Configuration réseau et hostname</h2>
-      <p class="section-intro">TrueNAS prend une IP en DHCP par défaut — on passe en IP fixe via <strong>Network → Interfaces</strong> et on configure le hostname dans <strong>Network → Global Configuration</strong>.</p>
+      <p class="section-intro">TrueNAS prend une IP en DHCP par défaut — on passe en IP fixe via Network → Interfaces et on configure le hostname dans Network → Global Configuration.</p>
 
       <h3 style="font-size:16px;font-weight:600;margin:20px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Paramètres Global Configuration</h3>
       <ul style="font-size:14px;color:#444;line-height:1.8;padding-left:20px;">
@@ -302,11 +302,11 @@
         <li>Domain : <code>milkyway.local</code></li>
         <li>DNS Nameserver 1 : <code>192.168.10.3</code> (DC principal Milky-Way)</li>
         <li>Default Gateway : <code>192.168.10.1</code></li>
-        <li>Inherit domain from DHCP : <strong>décoché</strong></li>
+        <li>Inherit domain from DHCP : décoché</li>
       </ul>
 
       <div class="note">
-        <strong>Point important sur le DNS :</strong> Il faut mettre uniquement le DC principal (192.168.10.3) en DNS. Si on met 8.8.8.8 en plus, TrueNAS essaie de résoudre milkyway.local via Google et la jonction AD échoue. Le DNS du domaine doit être le seul nameserver.
+        Point important sur le DNS : Il faut mettre uniquement le DC principal (192.168.10.3) en DNS. Si on met 8.8.8.8 en plus, TrueNAS essaie de résoudre milkyway.local via Google et la jonction AD échoue. Le DNS du domaine doit être le seul nameserver.
       </div>
 
       <div class="img-duo">
@@ -332,7 +332,7 @@
   <div class="container">
     <div class="content-wrap">
       <h2 class="section-title">2. Jonction au domaine Active Directory</h2>
-      <p class="section-intro">On joint TrueNAS au domaine milkyway.local via <strong>Credentials → Directory Services → Configure Active Directory</strong>. Ça permet de gérer les accès aux partages avec les groupes AD directement, sans recréer de comptes locaux.</p>
+      <p class="section-intro">On joint TrueNAS au domaine milkyway.local via Credentials → Directory Services → Configure Active Directory. Ça permet de gérer les accès aux partages avec les groupes AD directement, sans recréer de comptes locaux.</p>
 
       <h3 style="font-size:16px;font-weight:600;margin:20px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Prérequis avant la jonction</h3>
 
@@ -356,7 +356,7 @@
       </table>
 
       <div class="note">
-        <strong>Attention au nom du compte :</strong> Sur un AD en français, on pourrait avoir le réflexe de mettre "Administrateur" mais TrueNAS attend le nom en anglais : <code>Administrator</code>. Avec "Administrateur" la jonction échoue avec une erreur bindname.
+        Attention au nom du compte : Sur un AD en français, on pourrait avoir le réflexe de mettre "Administrateur" mais TrueNAS attend le nom en anglais : <code>Administrator</code>. Avec "Administrateur" la jonction échoue avec une erreur bindname.
       </div>
 
       <div class="img-duo">
@@ -371,7 +371,7 @@
       </div>
 
       <div class="note-ok">
-        <strong>Résultat :</strong> Après la jonction, le statut passe à <strong>HEALTHY</strong> dans Directory Services. Les comptes et groupes AD sont accessibles dans TrueNAS pour la gestion des permissions.
+        Résultat : Après la jonction, le statut passe à HEALTHY dans Directory Services. Les comptes et groupes AD sont accessibles dans TrueNAS pour la gestion des permissions.
       </div>
     </div>
   </div>
@@ -384,9 +384,9 @@
       <p class="section-intro">Les partages SMB permettent aux postes Windows d'accéder aux dossiers du NAS comme un lecteur réseau. Chaque partage est basé sur un dataset ZFS — ça permet de gérer les permissions séparément pour chacun. Étapes :</p>
 
       <ol class="steps">
-        <li><span class="step-num">1</span><span>Aller dans <strong>Storage → Create Pool</strong> (déjà fait) puis créer un dataset pour chaque partage dans <strong>Storage → Datasets</strong></span></li>
+        <li><span class="step-num">1</span><span>Aller dans Storage → Create Pool (déjà fait) puis créer un dataset pour chaque partage dans Storage → Datasets</span></li>
         <li><span class="step-num">2</span><span>Configurer les ACL du dataset pour donner les bons accès aux groupes AD (GRP-Informatique, etc.)</span></li>
-        <li><span class="step-num">3</span><span>Créer le partage SMB dans <strong>Shares → Windows (SMB)</strong> en pointant sur le dataset</span></li>
+        <li><span class="step-num">3</span><span>Créer le partage SMB dans Shares → Windows (SMB) en pointant sur le dataset</span></li>
         <li><span class="step-num">4</span><span>Démarrer le service SMB si ce n'est pas déjà fait (état "Running" requis)</span></li>
       </ol>
 
@@ -406,17 +406,17 @@
       <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Lien avec la GPO-FondEcran</h3>
 
       <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Le partage <strong>GPO</strong> est lié à la GPO-FondEcran sur Milky-Way. Le chemin renseigné dans la GPO est <code>\\Bras-d-Orion\GPO\fond-ecran.jpg</code> — à chaque ouverture de session, Windows récupère l'image depuis le NAS automatiquement.
+        Le partage GPO est lié à la GPO-FondEcran sur Milky-Way. Le chemin renseigné dans la GPO est <code>\\Bras-d-Orion\GPO\fond-ecran.jpg</code> — à chaque ouverture de session, Windows récupère l'image depuis le NAS automatiquement.
       </p>
 
       <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Pour que ça marche, il faut : TrueNAS joint au domaine (statut <strong>HEALTHY</strong>), partage SMB <strong>GPO</strong> créé et service SMB actif, image <code>fond-ecran.jpg</code> déposée dans le dossier, et les postes clients qui arrivent à joindre <code>\\Bras-d-Orion</code> via le DNS du domaine.
+        Pour que ça marche, il faut : TrueNAS joint au domaine (statut HEALTHY), partage SMB GPO créé et service SMB actif, image <code>fond-ecran.jpg</code> déposée dans le dossier, et les postes clients qui arrivent à joindre <code>\\Bras-d-Orion</code> via le DNS du domaine.
       </p>
 
       <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Création des partages SMB</h3>
 
       <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Les partages sont créés depuis <strong>Shares → Windows (SMB)</strong> dans l'interface TrueNAS. Pour chaque partage, on choisit le dataset ZFS et on définit le nom qui apparaîtra sur le réseau. Les permissions sont gérées via les ACL du dataset avec les groupes AD (GRP-Informatique, GRP-Utilisateurs). Une fois actif, les utilisateurs accèdent aux partages depuis l'Explorateur Windows via <code>\\Bras-d-Orion</code> ou par lecteur réseau mappé par GPO.
+        Les partages sont créés depuis Shares → Windows (SMB) dans l'interface TrueNAS. Pour chaque partage, on choisit le dataset ZFS et on définit le nom qui apparaîtra sur le réseau. Les permissions sont gérées via les ACL du dataset avec les groupes AD (GRP-Informatique, GRP-Utilisateurs). Une fois actif, les utilisateurs accèdent aux partages depuis l'Explorateur Windows via <code>\\Bras-d-Orion</code> ou par lecteur réseau mappé par GPO.
       </p>
 
       <a href="index.html" class="btn">← Retour à l'accueil</a>

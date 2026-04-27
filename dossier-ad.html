@@ -423,7 +423,7 @@
       <h2 class="section-title">Infrastructure globale</h2>
 
       <p class="body-text">
-        Voici un récapitulatif de toutes les machines impliquées dans ce projet. Tout tourne sur Proxmox — les deux serveurs Windows sont des VMs. Le domaine s'appelle <strong>milkyway.local</strong>. J'ai utilisé un thème astronomique pour nommer les machines, c'est plus pratique pour les distinguer.
+        Voici un récapitulatif de toutes les machines impliquées dans ce projet. Tout tourne sur Proxmox — les deux serveurs Windows sont des VMs. Le domaine s'appelle milkyway.local. J'ai utilisé un thème astronomique pour nommer les machines, c'est plus pratique pour les distinguer.
       </p>
 
       <table class="data-table">
@@ -484,7 +484,7 @@
       <h2 class="section-title">1. Installation et configuration de base</h2>
 
       <p class="body-text">
-        Avant de faire quoi que ce soit avec l'AD, il faut d'abord <strong>faire les mises à jour Windows et les drivers</strong>. Sur une VM Proxmox fraîchement installée, il y a souvent des pilotes manquants ou des patchs de sécurité en attente — mieux vaut régler ça avant de commencer à configurer quoi que ce soit. Ça évite les redémarrages intempestifs en pleine config et les comportements bizarres liés à un OS pas à jour.
+        Avant de commencer, faire les mises à jour Windows et vérifier les drivers. Ça évite les redémarrages en pleine config.
       </p>
 
       <p class="body-text">
@@ -492,7 +492,7 @@
       </p>
 
       <p class="body-text">
-        La configuration réseau se fait dans <strong>Panneau de configuration → Centre Réseau et partage → Modifier les paramètres de la carte → Propriétés de l'adaptateur → IPv4</strong>. On renseigne les valeurs suivantes :
+        La configuration réseau se fait dans Panneau de configuration → Centre Réseau et partage → Modifier les paramètres de la carte → Propriétés de l'adaptateur → IPv4. On renseigne les valeurs suivantes :
       </p>
 
       <div class="params-block">
@@ -508,11 +508,11 @@
       </div>
 
       <div class="note">
-        <strong>Important — DNS sur 127.0.0.1 :</strong> Le DNS doit pointer sur lui-même (127.0.0.1) sur le DC principal. Si on met une autre IP, la promotion en contrôleur de domaine peut échouer.
+        Important — DNS sur 127.0.0.1 : Le DNS doit pointer sur lui-même (127.0.0.1) sur le DC principal. Si on met une autre IP, la promotion en contrôleur de domaine peut échouer.
       </div>
 
       <p class="body-text">
-        Une fois l'IP fixe configurée, il faut renommer l'ordinateur en <strong>Milky-Way</strong> via les Propriétés système (clic droit sur "Ce PC" → Propriétés → Modifier les paramètres → Modifier). Le nom doit correspondre à ce qu'on veut voir dans l'AD. Après le renommage, Windows demande un redémarrage — il faut le faire avant de continuer.
+        Une fois l'IP fixe configurée, il faut renommer l'ordinateur en Milky-Way via les Propriétés système (clic droit sur "Ce PC" → Propriétés → Modifier les paramètres → Modifier). Le nom doit correspondre à ce qu'on veut voir dans l'AD. Après le renommage, Windows demande un redémarrage — il faut le faire avant de continuer.
       </p>
 
       <p class="body-text">
@@ -529,24 +529,24 @@
       <h2 class="section-title">2. Installation du rôle AD DS</h2>
 
       <p class="body-text">
-        L'installation du rôle AD DS se fait via le <strong>Gestionnaire de serveur → Gérer → Ajouter des rôles et fonctionnalités</strong>. C'est un assistant en plusieurs étapes, assez guidé. On choisit d'installer plusieurs rôles en même temps pour gagner du temps.
+        L'installation du rôle AD DS se fait via le Gestionnaire de serveur → Gérer → Ajouter des rôles et fonctionnalités. C'est un assistant en plusieurs étapes, assez guidé. On choisit d'installer plusieurs rôles en même temps pour gagner du temps.
       </p>
 
       <ol class="steps-list">
         <li>
-          <span><strong>Type d'installation :</strong> choisir "Installation basée sur un rôle ou une fonctionnalité"</span>
+          <span>Type d'installation : choisir "Installation basée sur un rôle ou une fonctionnalité"</span>
         </li>
         <li>
-          <span><strong>Sélection du serveur :</strong> SRV-AD (Milky-Way) — le serveur local apparaît dans la liste</span>
+          <span>Sélection du serveur : SRV-AD (Milky-Way) — le serveur local apparaît dans la liste</span>
         </li>
         <li>
-          <span><strong>Rôles sélectionnés :</strong> Services AD DS + Serveur DHCP + Serveur DNS — les trois cochés en même temps</span>
+          <span>Rôles sélectionnés : Services AD DS + Serveur DHCP + Serveur DNS — les trois cochés en même temps</span>
         </li>
         <li>
-          <span><strong>Fonctionnalités :</strong> laisser les fonctionnalités par défaut proposées par l'assistant</span>
+          <span>Fonctionnalités : laisser les fonctionnalités par défaut proposées par l'assistant</span>
         </li>
         <li>
-          <span><strong>Confirmation et installation :</strong> cliquer sur Installer et attendre la fin (ça prend quelques minutes)</span>
+          <span>Confirmation et installation : cliquer sur Installer et attendre la fin (ça prend quelques minutes)</span>
         </li>
       </ol>
 
@@ -565,7 +565,7 @@
       </p>
 
       <div class="note-info">
-        <strong>Note :</strong> Si la notification n'apparaît pas tout de suite, rafraîchir le Gestionnaire de serveur avec F5. Parfois il y a un petit délai après l'installation des rôles.
+        Si la notification n'apparaît pas, appuyer sur F5 pour rafraîchir.
       </div>
 
     </div>
@@ -584,25 +584,23 @@
       <h3 class="section-subtitle">Paramètres de promotion saisis</h3>
 
       <ul class="bullet-list">
-        <li><strong>Opération de déploiement :</strong> Ajouter une nouvelle forêt (c'est la première fois qu'on crée ce domaine)</li>
-        <li><strong>Nom du domaine racine :</strong> milkyway.local</li>
-        <li><strong>Niveau fonctionnel de la forêt :</strong> Windows Server 2016</li>
-        <li><strong>Niveau fonctionnel du domaine :</strong> Windows Server 2016</li>
-        <li><strong>Options du DC :</strong> Serveur DNS activé, Catalogue global activé</li>
-        <li><strong>Mot de passe DSRM :</strong> défini (nécessaire pour restaurer l'AD en mode de restauration des services d'annuaire)</li>
-        <li><strong>Chemin de la base NTDS, SYSVOL, journaux :</strong> laissés par défaut (<code>C:\Windows\NTDS</code>)</li>
+        <li>Opération de déploiement : Ajouter une nouvelle forêt (c'est la première fois qu'on crée ce domaine)</li>
+        <li>Nom du domaine racine : milkyway.local</li>
+        <li>Niveau fonctionnel de la forêt : Windows Server 2016</li>
+        <li>Niveau fonctionnel du domaine : Windows Server 2016</li>
+        <li>Options du DC : Serveur DNS activé, Catalogue global activé</li>
+        <li>Mot de passe DSRM : défini (nécessaire pour restaurer l'AD en mode de restauration des services d'annuaire)</li>
+        <li>Chemin de la base NTDS, SYSVOL, journaux : laissés par défaut (<code>C:\Windows\NTDS</code>)</li>
       </ul>
 
-      <div class="note">
-        <strong>Pourquoi Windows Server 2016 comme niveau fonctionnel ?</strong> On pourrait choisir Windows Server 2022 mais rester sur 2016 permet d'ajouter des DCs avec des versions antérieures si besoin. Dans ce projet c'est pas critique, mais c'est une bonne pratique.
-      </div>
+
 
       <p class="body-text">
-        Avant de lancer la promotion, l'assistant fait une vérification de prérequis. Si tout est vert (sauf éventuellement un avertissement non bloquant sur le mot de passe admin), on peut cliquer sur <strong>Installer</strong>. Le serveur redémarre automatiquement après la promotion.
+        Avant de lancer la promotion, l'assistant fait une vérification de prérequis. Si tout est vert, cliquer sur Installer. Le serveur redémarre automatiquement.
       </p>
 
       <p class="body-text">
-        Au redémarrage, le domaine <strong>milkyway.local</strong> est créé et Milky-Way est le DC principal. On se connecte maintenant avec le compte <code>MILKYWAY\Administrateur</code> (et non plus juste Administrateur).
+        Au redémarrage, le domaine milkyway.local est créé et Milky-Way est le DC principal. On se connecte maintenant avec le compte <code>MILKYWAY\Administrateur</code> (et non plus juste Administrateur).
       </p>
 
       <div class="img-wrap">
@@ -629,26 +627,26 @@
       </p>
 
       <p class="body-text">
-        Le rôle DNS est installé en même temps qu'AD DS et une zone DNS principale est automatiquement créée pour <strong>milkyway.local</strong>. La console DNS est accessible via <strong>Outils → DNS</strong> dans le Gestionnaire de serveur.
+        Le rôle DNS est installé en même temps qu'AD DS et une zone DNS principale est automatiquement créée pour milkyway.local. La console DNS est accessible via Outils → DNS dans le Gestionnaire de serveur.
       </p>
 
       <h3 class="section-subtitle">Comment le DNS est structuré dans l'AD</h3>
 
       <p class="body-text">
-        Quand on promeut Milky-Way en DC, Windows crée automatiquement une zone DNS principale pour <strong>milkyway.local</strong>. Cette zone contient tous les enregistrements dont l'AD a besoin pour fonctionner. Il y a deux types d'enregistrements importants :
+        Quand on promeut Milky-Way en DC, Windows crée automatiquement une zone DNS principale pour milkyway.local. Cette zone contient tous les enregistrements dont l'AD a besoin pour fonctionner. Il y a deux types d'enregistrements importants :
       </p>
 
       <ul class="bullet-list">
-        <li><strong>Enregistrements A</strong> : associent un nom à une IP. Le DC s'enregistre automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code>. Idem pour Andromède une fois prêt.</li>
-        <li><strong>Enregistrements SRV</strong> : enregistrements de services, visibles dans le sous-domaine <code>_msdcs.milkyway.local</code>. Ils permettent aux clients de localiser les DCs, les serveurs Kerberos, etc. Sans eux, les postes ne peuvent pas rejoindre le domaine.</li>
-        <li><strong>Zone de recherche inversée</strong> : créée pour le réseau <code>192.168.10.x</code> — permet de résoudre une IP en nom. Utile pour les logs et certains outils de diagnostic.</li>
-        <li><strong>Redirecteurs</strong> : configurés vers <code>8.8.8.8</code> (Google DNS) pour la résolution des noms externes (internet). Les requêtes milkyway.local restent traitées localement, les autres sont transmises à Google.</li>
+        <li>Enregistrements A : associent un nom à une IP. Le DC s'enregistre automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code>. Idem pour Andromède une fois prêt.</li>
+        <li>Enregistrements SRV : enregistrements de services, visibles dans le sous-domaine <code>_msdcs.milkyway.local</code>. Ils permettent aux clients de localiser les DCs, les serveurs Kerberos, etc. Sans eux, les postes ne peuvent pas rejoindre le domaine.</li>
+        <li>Zone de recherche inversée : créée pour le réseau <code>192.168.10.x</code> — permet de résoudre une IP en nom. Utile pour les logs et certains outils de diagnostic.</li>
+        <li>Redirecteurs : configurés vers <code>8.8.8.8</code> (Google DNS) pour la résolution des noms externes (internet). Les requêtes milkyway.local restent traitées localement, les autres sont transmises à Google.</li>
       </ul>
 
       <h3 class="section-subtitle">Points vérifiés après installation</h3>
 
       <ul class="bullet-list">
-        <li>Zone de recherche directe <strong>milkyway.local</strong> présente dans la console DNS</li>
+        <li>Zone de recherche directe milkyway.local présente dans la console DNS</li>
         <li>Enregistrements SRV créés automatiquement par AD (visibles dans <code>_msdcs.milkyway.local</code>)</li>
         <li>Le DC s'est enregistré automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code></li>
         <li>Zone de recherche inversée créée pour <code>192.168.10.x</code></li>
@@ -656,10 +654,10 @@
       </ul>
 
       <div class="note-info">
-        <strong>Vérification DNS :</strong> Pour tester que le DNS fonctionne, ouvrir un cmd et taper <code>nslookup milkyway.local</code>. On doit obtenir l'IP 192.168.10.3 en réponse. Si le résultat dit "serveur inconnu" ou "impossible de trouver", le DNS ne fonctionne pas et l'AD ne marchera pas correctement.
+        Pour tester le DNS : <code>nslookup milkyway.local</code> dans un cmd. On doit obtenir 192.168.10.3 en réponse.
       </div>
 
-      <h3 class="section-subtitle">Pourquoi le DNS est critique pour l'AD</h3>
+
 
       <p class="body-text">
         L'Active Directory dépend totalement du DNS. Si le DNS plante ou est mal configuré, rien ne marche : les postes ne trouvent plus le DC, les utilisateurs ne peuvent plus s'authentifier, les GPO ne s'appliquent plus. C'est le service le plus critique de toute l'infrastructure. C'est pour ça que le DC doit être son propre serveur DNS et que les clients doivent avoir l'IP du DC en DNS primaire.
@@ -679,17 +677,17 @@
       <h2 class="section-title">5. Configuration du DHCP</h2>
 
       <p class="body-text">
-        Le rôle DHCP est installé sur Milky-Way en même temps qu'AD DS et DNS. Son rôle c'est de distribuer automatiquement les adresses IP aux postes clients qui rejoignent le réseau, ce qui évite de devoir tout configurer manuellement. La console DHCP est accessible via <strong>Outils → DHCP</strong> dans le Gestionnaire de serveur.
+        Le rôle DHCP est installé sur Milky-Way en même temps qu'AD DS et DNS. Son rôle c'est de distribuer automatiquement les adresses IP aux postes clients qui rejoignent le réseau, ce qui évite de devoir tout configurer manuellement. La console DHCP est accessible via Outils → DHCP dans le Gestionnaire de serveur.
       </p>
 
       <h3 class="section-subtitle">Étape 1 — Autoriser le serveur DHCP dans l'AD</h3>
 
       <p class="body-text">
-        C'est une étape qu'on oublie souvent : avant de créer une étendue, il faut <strong>autoriser le serveur DHCP dans l'AD</strong>. Dans un environnement Active Directory, un serveur DHCP non autorisé ne distribue aucune adresse IP, même s'il est correctement configuré. Ça se fait via un clic droit sur le serveur dans la console DHCP → Autoriser. Le serveur passe alors de l'état rouge (non autorisé) à l'état vert.
+        Avant de créer une étendue, il faut autoriser le serveur DHCP dans l'AD. Tant qu'il n'est pas autorisé, il ne distribue aucune IP. Clic droit sur le serveur dans la console DHCP → Autoriser. L'icône passe au vert.
       </p>
 
       <div class="note">
-        <strong>Pourquoi cette autorisation ?</strong> C'est une mesure de sécurité Microsoft : si quelqu'un branche un serveur DHCP non autorisé sur le réseau, il ne pourra pas distribuer des adresses qui entreraient en conflit avec le DHCP officiel du domaine. Ça protège contre les "rogue DHCP".
+        C'est une sécurité Microsoft pour éviter qu'un DHCP non officiel distribue des IPs sur le réseau (rogue DHCP).
       </div>
 
       <h3 class="section-subtitle">Étape 2 — Créer l'étendue DHCP</h3>
@@ -744,7 +742,7 @@
       </p>
 
       <div class="note-info">
-        <strong>Pourquoi 8 jours de bail ?</strong> Dans un réseau d'entreprise, 8 jours c'est un bon compromis. Un poste qui reste allumé et connecté garde son IP. Un poste qui ne répond plus depuis 8 jours voit son IP libérée pour être redistribuée. Trop court (1 jour) → les IPs changent tout le temps et ça peut casser des configs. Trop long (30 jours) → les IPs ne se libèrent jamais et on finit à court.
+        8 jours de bail : assez long pour qu'un poste garde son IP, assez court pour libérer les IPs des postes déconnectés.
       </div>
 
       <h3 class="section-subtitle">Ce que les postes reçoivent automatiquement</h3>
@@ -754,10 +752,10 @@
       </p>
 
       <ul class="bullet-list">
-        <li><strong>Une IP dans la plage 192.168.10.100–200</strong> — assignée dynamiquement par le DHCP</li>
-        <li><strong>La passerelle par défaut (option 003) :</strong> 192.168.10.1 — pfSense, pour sortir sur internet</li>
-        <li><strong>Le serveur DNS (option 006) :</strong> 192.168.10.3 — Milky-Way, pour résoudre les noms du domaine</li>
-        <li><strong>Le suffixe DNS (option 015) :</strong> milkyway.local — le poste peut alors résoudre directement <code>milky-way</code> au lieu de <code>milky-way.milkyway.local</code></li>
+        <li>Une IP dans la plage 192.168.10.100–200 — assignée dynamiquement par le DHCP</li>
+        <li>La passerelle par défaut (option 003) : 192.168.10.1 — pfSense, pour sortir sur internet</li>
+        <li>Le serveur DNS (option 006) : 192.168.10.3 — Milky-Way, pour résoudre les noms du domaine</li>
+        <li>Le suffixe DNS (option 015) : milkyway.local — le poste peut alors résoudre directement <code>milky-way</code> au lieu de <code>milky-way.milkyway.local</code></li>
       </ul>
 
       <p class="body-text">
@@ -778,7 +776,7 @@
       </p>
 
       <p class="body-text">
-        La console utilisée pour toute cette partie c'est <strong>ADUC</strong> (Active Directory Users and Computers), accessible via Outils dans le Gestionnaire de serveur.
+        La console utilisée pour toute cette partie c'est ADUC (Active Directory Users and Computers), accessible via Outils dans le Gestionnaire de serveur.
       </p>
 
       
@@ -790,10 +788,10 @@
       </p>
 
       <ul class="bullet-list">
-        <li><strong>OU-Direction</strong> : contient les comptes de la direction</li>
-        <li><strong>OU-Informatique</strong> : contient les comptes du service informatique</li>
-        <li><strong>OU-Ordinateurs</strong> : pour les postes clients (quand ils joignent le domaine)</li>
-        <li><strong>OU-Utilisateurs</strong> : conteneur général pour les autres utilisateurs</li>
+        <li>OU-Direction : contient les comptes de la direction</li>
+        <li>OU-Informatique : contient les comptes du service informatique</li>
+        <li>OU-Ordinateurs : pour les postes clients (quand ils joignent le domaine)</li>
+        <li>OU-Utilisateurs : conteneur général pour les autres utilisateurs</li>
       </ul>
 
       <div class="img-wrap img-narrow">
@@ -920,7 +918,7 @@
       <h2 class="section-title">7. Mise en place du DC secondaire (Andromède)</h2>
 
       <p class="body-text">
-        Pour avoir de la redondance, j'ai ajouté une deuxième VM Windows Server 2022 appelée <strong>Andromède</strong> (IP <code>192.168.10.4</code>). L'idée c'est que si Milky-Way tombe, les utilisateurs peuvent toujours s'authentifier via Andromède. Sans DC secondaire, si le DC principal plante, personne ne peut se connecter au domaine.
+        Pour avoir de la redondance, j'ai ajouté une deuxième VM Windows Server 2022 appelée Andromède (IP <code>192.168.10.4</code>). L'idée c'est que si Milky-Way tombe, les utilisateurs peuvent toujours s'authentifier via Andromède. Sans DC secondaire, si le DC principal plante, personne ne peut se connecter au domaine.
       </p>
 
       <h3 class="section-subtitle">Étapes de mise en place</h3>
@@ -936,13 +934,13 @@
           <span>DNS : pointer sur <code>192.168.10.3</code> (Milky-Way) — sur le DC secondaire, le DNS pointe sur le DC principal, pas sur lui-même</span>
         </li>
         <li>
-          <span>Renommer la machine en <strong>Andromède</strong> via les Propriétés système, puis redémarrer</span>
+          <span>Renommer la machine en Andromède via les Propriétés système, puis redémarrer</span>
         </li>
         <li>
           <span>Joindre la machine au domaine <code>milkyway.local</code> (Propriétés système → Modifier → Domaine → entrer milkyway.local + credentials admin)</span>
         </li>
         <li>
-          <span>Installer le rôle <strong>AD DS</strong> via le Gestionnaire de serveur</span>
+          <span>Installer le rôle AD DS via le Gestionnaire de serveur</span>
         </li>
         <li>
           <span>Promouvoir en DC secondaire via la notification dans le Gestionnaire de serveur</span>
@@ -957,7 +955,7 @@
       <h3 class="section-subtitle">Promotion en DC secondaire</h3>
 
       <p class="body-text">
-        La promotion d'Andromède en DC secondaire se fait en choisissant <strong>"Ajouter un contrôleur de domaine à un domaine existant"</strong>. Il faut fournir les credentials d'un admin du domaine (<code>ANDROMEDE\Administrateur</code> dans ce cas). L'assistant vérifie que le domaine milkyway.local est accessible depuis Andromède avant de continuer.
+        La promotion d'Andromède en DC secondaire se fait en choisissant "Ajouter un contrôleur de domaine à un domaine existant". Il faut fournir les credentials d'un admin du domaine (<code>ANDROMEDE\Administrateur</code> dans ce cas). L'assistant vérifie que le domaine milkyway.local est accessible depuis Andromède avant de continuer.
       </p>
 
       <div class="img-wrap">
@@ -971,11 +969,11 @@
       </div>
 
       <p class="body-text">
-        Après le redémarrage d'Andromède, les deux DCs sont visibles dans la console ADUC sous <strong>Domain Controllers</strong> : MILKY-WAY et ANDROMEDE. La réplication AD se fait automatiquement entre les deux — les modifications faites sur Milky-Way (nouveaux utilisateurs, nouvelles GPO...) sont répliquées sur Andromède en quelques secondes.
+        Après le redémarrage d'Andromède, les deux DCs sont visibles dans la console ADUC sous Domain Controllers : MILKY-WAY et ANDROMEDE. La réplication AD se fait automatiquement entre les deux — les modifications faites sur Milky-Way (nouveaux utilisateurs, nouvelles GPO...) sont répliquées sur Andromède en quelques secondes.
       </p>
 
       <div class="note-info">
-        <strong>Vérification de la réplication :</strong> Pour tester que la réplication fonctionne, on peut ouvrir un cmd sur Andromède et taper <code>repadmin /showrepl</code>. Cette commande affiche l'état de la réplication entre les DCs. Si tout est OK, on doit voir "Aucune erreur" (ou 0 échec de réplication).
+        Pour vérifier la réplication : <code>repadmin /showrepl</code> sur Andromède — doit afficher 0 erreur.
       </div>
 
     </div>
@@ -988,13 +986,13 @@
       <h2 class="section-title">8. Configuration des GPO</h2>
 
       <p class="body-text">
-        Les GPO (Group Policy Objects) permettent d'appliquer des paramètres de configuration à tous les utilisateurs et ordinateurs du domaine depuis un point central. On les gère depuis la console <strong>Gestion des stratégies de groupe</strong> (GPMC), accessible via Outils dans le Gestionnaire de serveur. J'en ai créé 4 pour sécuriser l'environnement.
+        Les GPO (Group Policy Objects) permettent d'appliquer des paramètres de configuration à tous les utilisateurs et ordinateurs du domaine depuis un point central. On les gère depuis la console Gestion des stratégies de groupe (GPMC), accessible via Outils dans le Gestionnaire de serveur. J'en ai créé 4 pour sécuriser l'environnement.
       </p>
 
       <h3 class="section-subtitle">Comment créer une GPO</h3>
 
       <p class="body-text">
-        Dans la GPMC, on fait un clic droit sur le domaine ou l'OU où on veut la GPO → <strong>Créer un objet GPO dans ce domaine, et le lier ici...</strong>. Une fenêtre s'ouvre pour donner un nom à la GPO. Une fois créée, on double-clique dessus pour ouvrir l'éditeur et configurer les paramètres.
+        Dans la GPMC, on fait un clic droit sur le domaine ou l'OU où on veut la GPO → Créer un objet GPO dans ce domaine, et le lier ici.... Une fenêtre s'ouvre pour donner un nom à la GPO. Une fois créée, on double-clique dessus pour ouvrir l'éditeur et configurer les paramètres.
       </p>
 
       <div class="img-duo" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;">
@@ -1029,7 +1027,7 @@
       <h3 class="section-subtitle">GPO-PasswordPolicy</h3>
 
       <p class="body-text">
-        C'est la GPO la plus importante — elle définit les règles de mot de passe pour tous les utilisateurs du domaine. Elle est liée directement à la racine du domaine (<code>milkyway.local</code>) pour s'appliquer à tout le monde. La politique de mot de passe se configure dans <strong>Configuration ordinateur → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Stratégie de mot de passe</strong>.
+        C'est la GPO la plus importante — elle définit les règles de mot de passe pour tous les utilisateurs du domaine. Elle est liée directement à la racine du domaine (<code>milkyway.local</code>) pour s'appliquer à tout le monde. La politique de mot de passe se configure dans Configuration ordinateur → Paramètres Windows → Paramètres de sécurité → Stratégies de compte → Stratégie de mot de passe.
       </p>
 
       <div class="img-wrap">
@@ -1096,11 +1094,11 @@
       <div class="gpo-grid">
         <div class="gpo-card">
           <h4>GPO-Restriction</h4>
-          <p>Liée à <strong>OU-Utilisateurs</strong>. Bloque l'accès au Panneau de configuration pour les utilisateurs standards. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Panneau de configuration → Interdire l'accès au Panneau de configuration et à PC Settings</em>.</p>
+          <p>Liée à OU-Utilisateurs. Bloque l'accès au Panneau de configuration pour les utilisateurs standards. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Panneau de configuration → Interdire l'accès au Panneau de configuration et à PC Settings</em>.</p>
         </div>
         <div class="gpo-card">
           <h4>GPO-Application</h4>
-          <p>Liée à <strong>OU-Utilisateurs</strong>. Bloque l'accès à l'invite de commandes (cmd.exe) pour les utilisateurs. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Système → Désactiver l'accès à l'invite de commandes</em>.</p>
+          <p>Liée à OU-Utilisateurs. Bloque l'accès à l'invite de commandes (cmd.exe) pour les utilisateurs. Configurée dans <em>Configuration utilisateur → Modèles d'administration → Système → Désactiver l'accès à l'invite de commandes</em>.</p>
         </div>
         <div class="gpo-card">
           <h4>GPO-FondEcran</h4>
@@ -1108,14 +1106,14 @@
         </div>
         <div class="gpo-card">
           <h4>GPO-PasswordPolicy</h4>
-          <p>Liée à <strong>milkyway.local</strong> (domaine entier). Politique de mot de passe : 8 caractères min, complexité activée, durée max 90 jours, verrouillage après 5 tentatives / 10 minutes.</p>
+          <p>Liée à milkyway.local (domaine entier). Politique de mot de passe : 8 caractères min, complexité activée, durée max 90 jours, verrouillage après 5 tentatives / 10 minutes.</p>
         </div>
       </div>
 
       <h3 class="section-subtitle">GPO-Application — Blocage de cmd.exe</h3>
 
       <p class="body-text">
-        Pour la GPO qui bloque l'invite de commandes, on va dans l'éditeur → Configuration utilisateur → Modèles d'administration → Système → et on double-clique sur <strong>"Désactiver l'accès à l'invite de commandes"</strong>. On passe le paramètre sur "Activé".
+        Pour la GPO qui bloque l'invite de commandes, on va dans l'éditeur → Configuration utilisateur → Modèles d'administration → Système → et on double-clique sur "Désactiver l'accès à l'invite de commandes". On passe le paramètre sur "Activé".
       </p>
 
       <div class="img-wrap">
@@ -1126,7 +1124,7 @@
       </div>
 
       <div class="note">
-        <strong>Comment appliquer une GPO à une OU spécifique ?</strong> Dans la GPMC, on fait un clic droit sur l'OU concernée → Lier un objet de stratégie de groupe existant, puis on choisit la GPO. GPO-Restriction et GPO-Application sont liées à OU-Utilisateurs pour ne pas bloquer les administrateurs. GPO-PasswordPolicy est liée au domaine entier car la politique de mot de passe doit s'appliquer à tous.
+        Dans la GPMC, clic droit sur l'OU → Lier un objet de stratégie de groupe existant. GPO-Restriction et GPO-Application sont liées à OU-Utilisateurs pour ne pas bloquer les admins. GPO-PasswordPolicy est liée au domaine entier.
       </div>
 
       
