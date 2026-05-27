@@ -15,7 +15,7 @@
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: #333333;
-    background: #f6f6f6;
+    background: #efefef;
     line-height: 1.6;
   }
   img { max-width: 100%; display: block; }
@@ -26,7 +26,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: #f6f6f6;
+    background: #efefef;
     border-bottom: 1px solid #e0e0e0;
   }
   .nav-inner {
@@ -214,7 +214,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     padding: 20px;
-    background: #f6f6f6;
+    background: #efefef;
   }
   .gpo-card h4 {
     font-size: 14px;
@@ -334,7 +334,7 @@
     font-family: 'Roboto', sans-serif;
     border: 1px solid #e0e0e0;
     cursor: pointer;
-    background: #f6f6f6;
+    background: #efefef;
     color: #333333;
     transition: background 0.15s;
     margin-top: 8px;
@@ -633,14 +633,14 @@
       <h3 class="section-subtitle">Comment le DNS est structuré dans l'AD</h3>
 
       <p class="body-text">
-        Quand on promeut Milky-Way en DC, Windows crée automatiquement une zone DNS principale pour milkyway.local. Cette zone contient tous les enregistrements dont l'AD a besoin pour fonctionner. Il y a deux types d'enregistrements importants :
+        Quand Milky-Way est promu DC, Windows crée automatiquement une zone DNS pour milkyway.local. Le serveur se charge de résoudre tous les noms internes du domaine. Il y a quelques notions à connaître :
       </p>
 
       <ul class="bullet-list">
-        <li>Enregistrements A : associent un nom à une IP. Le DC s'enregistre automatiquement : <code>milky-way.milkyway.local → 192.168.10.3</code>. Idem pour Andromède une fois prêt.</li>
-        <li>Enregistrements SRV : enregistrements de services, visibles dans le sous-domaine <code>_msdcs.milkyway.local</code>. Ils permettent aux clients de localiser les DCs, les serveurs Kerberos, etc. Sans eux, les postes ne peuvent pas rejoindre le domaine.</li>
-        <li>Zone de recherche inversée : créée pour le réseau <code>192.168.10.x</code> — permet de résoudre une IP en nom. Utile pour les logs et certains outils de diagnostic.</li>
-        <li>Redirecteurs : configurés vers <code>8.8.8.8</code> (Google DNS) pour la résolution des noms externes (internet). Les requêtes milkyway.local restent traitées localement, les autres sont transmises à Google.</li>
+        <li>Enregistrements A : c'est le lien nom → IP. Le DC se déclare tout seul : <code>milky-way.milkyway.local → 192.168.10.3</code>. Andromède fait pareil quand il rejoint le domaine.</li>
+        <li>Enregistrements SRV : ils permettent aux postes clients de trouver le DC sur le réseau. Sans eux, personne ne peut rejoindre le domaine. Ils sont créés automatiquement par l'AD.</li>
+        <li>Zone inversée : permet de faire l'inverse — trouver un nom à partir d'une IP. Utile pour les diagnostics et les logs réseau.</li>
+        <li>Redirecteurs : configurés vers <code>8.8.8.8</code>. Tout ce qui n'est pas milkyway.local (par exemple google.com) est transmis à Google pour être résolu.</li>
       </ul>
 
       <h3 class="section-subtitle">Points vérifiés après installation</h3>

@@ -15,7 +15,7 @@
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: #333333;
-    background: #f6f6f6;
+    background: #efefef;
     line-height: 1.6;
   }
   img { max-width: 100%; display: block; }
@@ -26,7 +26,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: #f6f6f6;
+    background: #efefef;
     border-bottom: 1px solid #e0e0e0;
   }
   .nav-inner {
@@ -189,7 +189,7 @@
     font-family: 'Roboto', sans-serif;
     border: 1px solid #e0e0e0;
     cursor: pointer;
-    background: #f6f6f6;
+    background: #efefef;
     color: #333333;
     transition: background 0.15s;
     margin-top: 8px;
@@ -371,8 +371,29 @@
       </div>
 
       <div class="note-ok">
-        Résultat : Après la jonction, le statut passe à HEALTHY dans Directory Services. Les comptes et groupes AD sont accessibles dans TrueNAS pour la gestion des permissions.
+        Après la jonction, le statut passe à HEALTHY dans Directory Services. Les comptes et groupes AD sont accessibles dans TrueNAS pour la gestion des permissions.
       </div>
+
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Comptes utilisateurs disponibles dans TrueNAS</h3>
+
+      <p style="font-size:15px;color:#444;margin-bottom:14px;">
+        Une fois joint au domaine, TrueNAS voit automatiquement tous les comptes et groupes AD. Les mêmes utilisateurs que sur Milky-Way sont disponibles pour configurer les permissions des partages.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Compte</th><th>Groupe AD</th><th>Rôle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>j.appercelle</code></td><td>GRP-Informatique</td><td>Technicien IT</td></tr>
+          <tr><td><code>j.chellalli</code></td><td>GRP-Utilisateurs</td><td>Utilisateur standard</td></tr>
+          <tr><td><code>m.fagotin</code></td><td>GRP-Utilisateurs</td><td>Utilisateur standard</td></tr>
+          <tr><td><code>r.dieunon</code></td><td>GRP-Utilisateurs</td><td>Utilisateur standard</td></tr>
+          <tr><td><code>w.elgarni</code></td><td>GRP-Utilisateurs</td><td>Utilisateur standard</td></tr>
+          <tr><td><code>y.dupuit</code></td><td>GRP-Utilisateurs</td><td>Utilisateur standard</td></tr>
+          <tr><td><code>Administrateur</code></td><td>Admins du domaine</td><td>Administrateur domaine</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -400,6 +421,7 @@
           <tr><td><strong>GPO</strong></td><td><code>\\Bras-d-Orion\GPO</code></td><td>Administrateurs</td><td>Stocke le fond d'écran pour GPO-FondEcran</td></tr>
           <tr><td><strong>Commun</strong></td><td><code>\\Bras-d-Orion\Commun</code></td><td>GRP-Informatique + GRP-Utilisateurs</td><td>Partage commun accessible à tous</td></tr>
           <tr><td><strong>Informatique</strong></td><td><code>\\Bras-d-Orion\Informatique</code></td><td>GRP-Informatique uniquement</td><td>Documents réservés au service IT</td></tr>
+          <tr><td><strong>Direction</strong></td><td><code>\\Bras-d-Orion\Direction</code></td><td>GRP-Direction uniquement</td><td>Documents réservés à la direction</td></tr>
         </tbody>
       </table>
 
@@ -439,11 +461,26 @@
             <td>MILKYWAY\GRP-Utilisateurs</td>
             <td>Accès refusé</td>
           </tr>
+          <tr>
+            <td><strong>Direction</strong></td>
+            <td>MILKYWAY\GRP-Direction</td>
+            <td>Lecture / Écriture</td>
+          </tr>
+          <tr>
+            <td><strong>Direction</strong></td>
+            <td>MILKYWAY\GRP-Informatique</td>
+            <td>Accès refusé</td>
+          </tr>
+          <tr>
+            <td><strong>Direction</strong></td>
+            <td>MILKYWAY\GRP-Utilisateurs</td>
+            <td>Accès refusé</td>
+          </tr>
         </tbody>
       </table>
 
       <div class="note">
-        Les utilisateurs standards (GRP-Utilisateurs) n'ont pas accès au partage Informatique — ils reçoivent une erreur "Accès refusé" s'ils essaient d'y accéder. Seul GRP-Informatique peut lire et écrire dans ce dossier.
+        GRP-Utilisateurs n'a accès ni au partage Informatique ni au partage Direction. GRP-Direction n'a accès qu'à son propre partage. Seul GRP-Informatique a accès au partage Commun et au partage Informatique.
       </div>
 
       <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Lien avec la GPO-FondEcran</h3>
