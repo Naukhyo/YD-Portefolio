@@ -439,31 +439,31 @@
           <tr>
             <td><strong>Milky-Way</strong></td>
             <td>DC Principal</td>
-            <td><code>192.168.10.3</code></td>
+            <td><code>192.168.10.3/24</code></td>
             <td>Windows Server 2022</td>
           </tr>
           <tr>
             <td><strong>Andromède</strong></td>
             <td>DC Secondaire</td>
-            <td><code>192.168.10.4</code></td>
+            <td><code>192.168.10.4/24</code></td>
             <td>Windows Server 2022</td>
           </tr>
           <tr>
             <td><strong>Virgo Cluster</strong></td>
             <td>Hyperviseur Proxmox</td>
-            <td><code>192.168.10.2</code></td>
+            <td><code>192.168.10.2/24</code></td>
             <td>Proxmox VE</td>
           </tr>
           <tr>
             <td><strong>Laniakea</strong></td>
             <td>Pare-feu / routeur</td>
-            <td><code>192.168.10.1</code></td>
+            <td><code>192.168.10.1/24</code></td>
             <td>pfSense</td>
           </tr>
           <tr>
             <td><strong>Bras-d-Orion</strong></td>
             <td>NAS</td>
-            <td><code>192.168.10.5</code></td>
+            <td><code>192.168.10.5/24</code></td>
             <td>TrueNAS Scale</td>
           </tr>
         </tbody>
@@ -523,7 +523,7 @@
   </div>
 </section>
 
-<section>
+<section class="alt">
   <div class="container">
     <div class="content-wrap">
       <h2 class="section-title">2. Installation du rôle AD DS</h2>
@@ -659,9 +659,7 @@
 
 
 
-      <p class="body-text">
-        L'Active Directory dépend totalement du DNS. Si le DNS plante ou est mal configuré, rien ne marche : les postes ne trouvent plus le DC, les utilisateurs ne peuvent plus s'authentifier, les GPO ne s'appliquent plus. C'est le service le plus critique de toute l'infrastructure. C'est pour ça que le DC doit être son propre serveur DNS et que les clients doivent avoir l'IP du DC en DNS primaire.
-      </p>
+
 
       <p class="body-text">
         Les clients du domaine reçoivent automatiquement <code>192.168.10.3</code> comme serveur DNS via le DHCP (voir section suivante). C'est l'option 006 de l'étendue DHCP.
@@ -767,6 +765,42 @@
 </section>
 
 <section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">NTP — Synchronisation du temps</h2>
+
+      <p class="body-text">
+        La synchronisation de l'heure est un point critique dans un environnement Active Directory. Kerberos (le protocole d'authentification de l'AD) tolère au maximum 5 minutes de décalage entre les machines. Si un poste ou un serveur a une heure trop décalée, il ne peut plus s'authentifier au domaine.
+      </p>
+
+      <p class="body-text">
+        Milky-Way est configuré comme serveur de temps de référence pour tout le domaine. Il synchronise son heure depuis les serveurs NTP du pool français (fr.pool.ntp.org), et tous les autres membres du domaine synchronisent leur heure directement depuis lui via le protocole W32TM.
+      </p>
+
+      <p class="body-text">
+        La configuration se fait via PowerShell avec la commande <code>w32tm /config</code> en spécifiant la liste des serveurs NTP.
+      </p>
+
+      <div class="img-wrap">
+        <img src="img/ad-ntp-config.jpg" alt="PowerShell — configuration NTP sur Milky-Way avec fr.pool.ntp.org" loading="lazy" />
+        <p class="img-caption">Configuration du serveur NTP sur Milky-Way — synchronisation sur 0.fr.pool.ntp.org, 1.fr.pool.ntp.org, 2.fr.pool.ntp.org, 3.fr.pool.ntp.org</p>
+      </div>
+
+      <ul class="bullet-list">
+        <li>Milky-Way (DC principal) : source de temps du domaine, synchronisé sur fr.pool.ntp.org</li>
+        <li>Andromède (DC secondaire) : synchronisé sur Milky-Way via la hiérarchie AD</li>
+        <li>Bras-d-Orion (TrueNAS) : synchronisé sur Milky-Way — requis pour la jonction AD</li>
+        <li>Postes clients : synchronisés automatiquement sur le DC le plus proche à chaque ouverture de session</li>
+      </ul>
+
+      <div class="note-info">
+        Pour vérifier la synchronisation sur un poste : <code>w32tm /query /status</code> dans un cmd. La ligne "Source" doit afficher le DC, pas "Local CMOS Clock".
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
   <div class="container">
     <div class="content-wrap">
       <h2 class="section-title">6. Organisation de l'annuaire — OUs, groupes et comptes</h2>
@@ -955,7 +989,7 @@
       <h3 class="section-subtitle">Promotion en DC secondaire</h3>
 
       <p class="body-text">
-        La promotion d'Andromède en DC secondaire se fait en choisissant "Ajouter un contrôleur de domaine à un domaine existant". Il faut fournir les credentials d'un admin du domaine (<code>ANDROMEDE\Administrateur</code> dans ce cas). L'assistant vérifie que le domaine milkyway.local est accessible depuis Andromède avant de continuer.
+        La promotion d'Andromède en DC secondaire se fait en choisissant "Ajouter un contrôleur de domaine à un domaine existant". Il faut fournir les credentials d'un admin du domaine (<code>MILKYWAY\Administrateur</code>). L'assistant vérifie que le domaine milkyway.local est accessible depuis Andromède avant de continuer.
       </p>
 
       <div class="img-wrap">
@@ -1102,7 +1136,7 @@
         </div>
         <div class="gpo-card">
           <h4>GPO-FondEcran</h4>
-          <p>Impose un fond d'écran commun à tous les utilisateurs du domaine. Le fichier image est stocké sur le partage <code>\\Bras-d-Orion\GPO\</code> (TrueNAS). GPO configurée, en attente des partages SMB.</p>
+          <p>Impose un fond d'écran commun à tous les utilisateurs du domaine. Le fichier image est stocké sur le partage <code>\\Bras-d-Orion\GPO\</code> (TrueNAS). Le chemin est renseigné dans Configuration utilisateur → Modèles d'administration → Bureau → Papier peint du bureau.</p>
         </div>
         <div class="gpo-card">
           <h4>GPO-PasswordPolicy</h4>
@@ -1427,7 +1461,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

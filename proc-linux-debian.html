@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Linux &amp; Debian — Commandes — Yvan Dupuit</title>
+<title>Linux &amp; Debian — Commandes et gestion des accès — Yvan Dupuit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
@@ -18,11 +18,7 @@
   .nav-links a { padding: 6px 12px; border-radius: 4px; font-size: 14px; font-weight: 500; color: #555; transition: background .15s; }
   .nav-links a:hover { background: #f0f0f0; }
   .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; }
-  @media (max-width: 768px) {
-    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; }
-    .nav-links.open { display: flex; }
-    .nav-toggle { display: block; }
-  }
+  @media (max-width: 768px) { .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e0e0e0; padding: 8px 0; } .nav-links.open { display: flex; } .nav-toggle { display: block; } }
   .page-hero { background: #f8f9fa; border-bottom: 1px solid #e0e0e0; padding: 48px 24px 36px; }
   .page-hero .container { max-width: 860px; margin: 0 auto; }
   .breadcrumb { font-size: 13px; color: #888; margin-bottom: 12px; }
@@ -74,9 +70,9 @@
 
 <div class="page-hero">
   <div class="container">
-    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Linux &amp; Debian — Commandes</div>
-    <h1>Linux &amp; Debian — Commandes de base</h1>
-    <p>TP Debian : manipulation de fichiers, lecture, recherche et gestion des droits en ligne de commande Linux.</p>
+    <div class="breadcrumb"><a href="procedures.html">Procédures</a> › Linux &amp; Debian — Commandes et gestion des accès</div>
+    <h1>Linux &amp; Debian — Commandes et gestion des accès</h1>
+    <p>TP Debian : navigation, manipulation de fichiers, gestion des utilisateurs et des groupes en ligne de commande.</p>
   </div>
 </div>
 
@@ -111,24 +107,24 @@
     </div>
 
     <div class="section-block">
-      <h2>Lire et afficher des fichiers</h2>
-      <p>La commande <code>cat</code> affiche le contenu d'un fichier directement dans le terminal. Pour les gros fichiers, on préfère <code>less</code> ou <code>more</code> qui permettent de paginer. <code>head</code> et <code>tail</code> affichent les premières ou dernières lignes.</p>
+      <h2>Lire et créer des fichiers</h2>
+      <p>La commande <code>cat</code> permet de créer un fichier directement depuis le terminal (avec <code>cat > fichier</code>) ou d'afficher son contenu. Pour les gros fichiers on préfère <code>less</code> ou <code>more</code> qui permettent de défiler.</p>
 
       <div class="two-imgs">
         <div class="img-block">
-          <img src="img/linux-debian-cat.png" alt="Commande cat pour afficher un fichier texte" loading="lazy" />
-          <div class="img-caption">cat — affichage du contenu d'un fichier texte</div>
+          <img src="img/linux-debian-cat.png" alt="Commande cat pour créer et lire des fichiers" loading="lazy" />
+          <div class="img-caption">cat — création et lecture de fichiers en terminal Debian</div>
         </div>
         <div class="img-block">
-          <img src="img/linux-debian-wc.png" alt="Commande wc -l pour compter les lignes" loading="lazy" />
-          <div class="img-caption">wc -l — compter le nombre de lignes d'un fichier</div>
+          <img src="img/linux-debian-wc.png" alt="Commande grep recherche dans un fichier" loading="lazy" />
+          <div class="img-caption">grep — recherche d'une chaîne dans un fichier</div>
         </div>
       </div>
     </div>
 
     <div class="section-block">
-      <h2>Recherche dans les fichiers avec grep</h2>
-      <p>La commande <code>grep</code> cherche un motif (texte ou expression régulière) dans un fichier. Très utile pour filtrer des logs ou chercher une info dans un gros fichier de config. Avec <code>-i</code> la recherche est insensible à la casse, avec <code>-r</code> elle est récursive dans les dossiers.</p>
+      <h2>Recherche avec grep</h2>
+      <p>La commande <code>grep</code> cherche un motif (texte ou expression régulière) dans un fichier. Utile pour filtrer des logs ou chercher une information dans un gros fichier de config. Avec <code>-i</code> la recherche est insensible à la casse, avec <code>-r</code> elle est récursive dans les dossiers.</p>
 
       <div class="img-block">
         <img src="img/linux-debian-grep.png" alt="Commande grep pour chercher dans un fichier texte" loading="lazy" />
@@ -160,6 +156,45 @@ Following the sun</pre>
       </div>
     </div>
 
+    <div class="section-block">
+      <h2>Gestion des utilisateurs</h2>
+      <p>Sous Linux, les informations sur les utilisateurs sont stockées dans deux fichiers principaux : <code>/etc/passwd</code> (liste des utilisateurs et leurs infos) et <code>/etc/shadow</code> (mots de passe hashés). Ces fichiers sont lisibles avec <code>cat</code> ou <code>less</code>.</p>
+
+      <div class="img-block">
+        <img src="img/linux-acces-passwd.png" alt="Contenu de /etc/passwd avec les utilisateurs Linux" loading="lazy" />
+        <div class="img-caption">Fichier /etc/passwd — chaque ligne correspond à un utilisateur</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Gestion des groupes</h2>
+      <p>Les groupes permettent de gérer les permissions pour plusieurs utilisateurs à la fois. La commande <code>groupadd</code> crée un groupe, <code>usermod -aG groupe utilisateur</code> ajoute un utilisateur à un groupe. La commande <code>groups</code> affiche les groupes d'un utilisateur.</p>
+
+      <div class="img-block">
+        <img src="img/linux-acces-groupes.png" alt="Gestion des groupes Linux avec groupadd et usermod" loading="lazy" />
+        <div class="img-caption">Création de groupes et ajout d'utilisateurs</div>
+      </div>
+
+      <pre>groupadd devs
+useradd -m yvan
+usermod -aG devs yvan
+groups yvan</pre>
+    </div>
+
+    <div class="section-block">
+      <h2>Droits avancés</h2>
+      <p>La commande <code>ls -la</code> affiche les permissions de chaque fichier. Le format <code>drwxr-xr--</code> se lit : type (d=dossier), droits propriétaire (rwx), droits groupe (r-x), droits autres (r--). Les groupes permettent de déléguer finement l'accès aux ressources sans modifier les droits des fichiers un par un.</p>
+
+      <div class="img-block">
+        <img src="img/linux-acces-droits.png" alt="Affichage des droits Linux avec ls -la" loading="lazy" />
+        <div class="img-caption">ls -la — droits des utilisateurs et groupes sur les répertoires</div>
+      </div>
+
+      <div class="info-box">
+        Pour qu'un utilisateur puisse lire les fichiers d'un autre, il doit soit faire partie du même groupe, soit les droits "others" doivent l'autoriser. En entreprise, on utilise des groupes pour centraliser la gestion des accès.
+      </div>
+    </div>
+
     <div class="tag-list">
       <span class="tag">Linux</span>
       <span class="tag">Debian</span>
@@ -167,6 +202,9 @@ Following the sun</pre>
       <span class="tag">Bash</span>
       <span class="tag">chmod</span>
       <span class="tag">grep</span>
+      <span class="tag">Utilisateurs</span>
+      <span class="tag">Groupes</span>
+      <span class="tag">Permissions</span>
     </div>
 
   </div>
@@ -459,7 +497,7 @@ Following the sun</pre>
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

@@ -335,11 +335,6 @@
         <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Windows</div>
         <div style="font-size:14px;font-weight:600;color:#333;">Commandes CMD →</div>
       </a>
-
-      <a href="proc-cyberattaques.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
-        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Cybersécurité</div>
-        <div style="font-size:14px;font-weight:600;color:#333;">Cyberattaques →</div>
-      </a>
       <a href="proc-pfsense-install.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
         <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Firewall</div>
         <div style="font-size:14px;font-weight:600;color:#333;">pfSense — Installation →</div>
@@ -372,10 +367,6 @@
       <a href="proc-glpi-debian.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
         <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Helpdesk</div>
         <div style="font-size:14px;font-weight:600;color:#333;">GLPI sur Debian →</div>
-      </a>
-      <a href="proc-linux-acces.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
-        <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Linux</div>
-        <div style="font-size:14px;font-weight:600;color:#333;">Accès Linux →</div>
       </a>
       <a href="proc-github-pages.html" style="display:block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:14px 16px;transition:border-color .15s;" onmouseover="this.style.borderColor='#3b5bdb'" onmouseout="this.style.borderColor='#e0e0e0'">
         <div style="font-size:11px;color:#3b5bdb;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Hébergement</div>
@@ -1211,7 +1202,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

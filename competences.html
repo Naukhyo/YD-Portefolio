@@ -21,7 +21,6 @@
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
 
-  /* Navigation */
   nav {
     position: sticky;
     top: 0;
@@ -38,11 +37,7 @@
     justify-content: space-between;
     height: 60px;
   }
-  .brand {
-    font-weight: 700;
-    font-size: 15px;
-    color: #333333;
-  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
   .nav-links {
     display: flex;
     gap: 4px;
@@ -70,16 +65,8 @@
     color: #333;
   }
 
-  /* Layout */
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  section { padding: 60px 0; }
-  section.alt { background: #f9f9f9; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  /* Page header */
   .page-header {
     padding: 48px 0 40px;
     border-bottom: 1px solid #e0e0e0;
@@ -91,70 +78,78 @@
     margin: 0 0 8px;
     color: #333333;
   }
-  .page-header p {
-    font-size: 15px;
-    color: #666666;
-    margin: 0;
-  }
+  .page-header p { font-size: 15px; color: #666666; margin: 0; }
 
-  /* Image */
-  .img-wrap {
-    margin-bottom: 36px;
-  }
-  .img-wrap img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
-  }
-  .img-caption {
-    font-size: 12px;
-    color: #888888;
-    font-style: italic;
-    margin-top: 8px;
-    text-align: center;
-  }
+  section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
 
-  /* Skills grid */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .skill-group {
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 24px;
-    background: #f6f6f6;
-    transition: border-color 0.15s;
-  }
-  .skill-group:hover { border-color: #3b5bdb; }
-  .skill-group h3 {
-    font-size: 15px;
+  .section-title {
+    font-size: 22px;
     font-weight: 600;
-    margin: 0 0 14px;
+    margin: 0 0 20px;
     color: #333333;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .tag {
+    border-bottom: 2px solid #3b5bdb;
     display: inline-block;
-    padding: 4px 10px;
-    background: #f5f5f5;
-    color: #444444;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    font-size: 13px;
-    font-weight: 400;
   }
 
-  /* Footer */
+  .cat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 12px;
+  }
+  .cat-label.ecole { color: #3b5bdb; }
+  .cat-label.entreprise { color: #1e7e34; }
+  .cat-label.les-deux { color: #c0392b; }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 980px;
+  }
+
+  .tags-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .tag.ecole {
+    background: #eef1ff;
+    border-color: #c5cff5;
+    color: #2c46b8;
+  }
+  .tag.entreprise {
+    background: #edfaed;
+    border-color: #b2dfb2;
+    color: #1e7e34;
+  }
+  .tag.les-deux {
+    background: #fff0f0;
+    border-color: #f5c5c5;
+    color: #c0392b;
+  }
+
+  .col-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
   footer {
     background: #f9f9f9;
     border-top: 1px solid #e0e0e0;
@@ -166,26 +161,17 @@
     padding: 0 24px;
     text-align: center;
   }
-  .footer-inner p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #666666;
-  }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
   .footer-inner a { color: #3b5bdb; }
   .footer-inner a:hover { text-decoration: underline; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 600px) {
-    .skills-grid { grid-template-columns: 1fr; }
+  @media (max-width: 800px) {
+    .cat-grid { grid-template-columns: 1fr; gap: 28px; }
+    .page-header h1 { font-size: 26px; }
     .nav-links {
       display: none;
       position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
+      top: 60px; left: 0; right: 0;
       background: #fff;
       border-bottom: 1px solid #e0e0e0;
       flex-direction: column;
@@ -218,78 +204,65 @@
 
 <div class="page-header">
   <div class="container">
-    <h1>Compétences techniques</h1>
-    <p>Technos et outils travaillés en cours et en entreprise</p>
+    <h1>Compétences</h1>
+    <p>Compétences acquises en cours, en entreprise, ou dans les deux</p>
   </div>
 </div>
 
 <section>
   <div class="container">
-    <p style="font-size:15px;color:#444444;margin:0 0 28px;max-width:700px;">Voici les technos que j'ai eu l'occasion de travailler en cours et en entreprise. Certaines je maîtrise bien, d'autres je suis encore en train d'apprendre.</p>
+    <h2 class="section-title">Vue d'ensemble</h2>
 
-    <div class="skills-grid">
+    <div class="cat-grid">
 
-      <div class="skill-group">
-        <h3>Réseau</h3>
-        <div class="skill-tags">
-          <span class="tag">VLAN</span>
-          <span class="tag">pfSense</span>
-          <span class="tag">Cisco</span>
-          <span class="tag">DHCP</span>
-          <span class="tag">VPN</span>
-          <span class="tag">TCP/IP</span>
-          <span class="tag">OSI</span>
-          <span class="tag">Wildix</span>
+      <div>
+        <div class="col-title" style="border-color:#c5cff5;">École — BTS SIO SISR</div>
+        <div class="tags-block">
+          <span class="tag ecole">Linux / Debian</span>
+          <span class="tag ecole">TLS / HTTPS</span>
+          <span class="tag ecole">GPG / Chiffrement</span>
+          <span class="tag ecole">Cisco Packet Tracer</span>
+          <span class="tag ecole">GLPI sur Debian</span>
+          <span class="tag ecole">GitHub Pages</span>
         </div>
       </div>
 
-      <div class="skill-group">
-        <h3>Systèmes</h3>
-        <div class="skill-tags">
-          <span class="tag">Windows Server 2022</span>
-          <span class="tag">Active Directory</span>
-          <span class="tag">GPO</span>
-          <span class="tag">DNS</span>
-          <span class="tag">Linux</span>
+      <div>
+        <div class="col-title" style="border-color:#b2dfb2;">Entreprise — MP Conception</div>
+        <div class="tags-block">
+          <span class="tag entreprise">Wildix VoIP</span>
+          <span class="tag entreprise">PRTG</span>
+          <span class="tag entreprise">Câblage RJ45</span>
+          <span class="tag entreprise">Baie de brassage</span>
+          <span class="tag entreprise">Hyper-V</span>
+          <span class="tag entreprise">Support utilisateur</span>
+          <span class="tag entreprise">Réaffectation de postes</span>
+          <span class="tag entreprise">Interventions terrain</span>
+          <span class="tag entreprise">Supervision sauvegardes</span>
+          <span class="tag entreprise">Gestion de parc</span>
+          <span class="tag entreprise">Keeper</span>
+          <span class="tag entreprise">Schémas réseau draw.io</span>
+          <span class="tag entreprise">NinjaOne</span>
         </div>
       </div>
 
-      <div class="skill-group">
-        <h3>Virtualisation</h3>
-        <div class="skill-tags">
-          <span class="tag">Proxmox</span>
-          <span class="tag">VMware</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <h3>Stockage</h3>
-        <div class="skill-tags">
-          <span class="tag">TrueNAS Scale</span>
-          <span class="tag">SMB</span>
-          <span class="tag">NTFS</span>
-          <span class="tag">iSCSI</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <h3>Sécurité</h3>
-        <div class="skill-tags">
-          <span class="tag">Chiffrement</span>
-          <span class="tag">TLS</span>
-          <span class="tag">Hachage</span>
-          <span class="tag">KeePass</span>
-          <span class="tag">Firewall</span>
-        </div>
-      </div>
-
-      <div class="skill-group">
-        <h3>Outils</h3>
-        <div class="skill-tags">
-          <span class="tag">GLPI</span>
-          <span class="tag">PRTG</span>
-          <span class="tag">Wireshark</span>
-          <span class="tag">Tailscale</span>
+      <div>
+        <div class="col-title" style="border-color:#f5c5c5;">École &amp; Entreprise</div>
+        <div class="tags-block">
+          <span class="tag les-deux">Windows Server</span>
+          <span class="tag les-deux">Active Directory</span>
+          <span class="tag les-deux">DNS / DHCP</span>
+          <span class="tag les-deux">GPO</span>
+          <span class="tag les-deux">pfSense</span>
+          <span class="tag les-deux">GLPI</span>
+          <span class="tag les-deux">Veeam</span>
+          <span class="tag les-deux">Wireshark</span>
+          <span class="tag les-deux">GlassWire</span>
+          <span class="tag les-deux">Virtualisation</span>
+          <span class="tag les-deux">Windows 10 / 11</span>
+          <span class="tag les-deux">Commandes CMD</span>
+          <span class="tag les-deux">Cisco / VLANs</span>
+          <span class="tag les-deux">IPScanner</span>
         </div>
       </div>
 
@@ -299,19 +272,18 @@
 
 <footer>
   <div class="footer-inner">
-    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
-    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
-    <p>© 2026</p>
+    <p>Yvan Dupuit — BTS SIO 2ème année option SISR — SEPR Lyon</p>
+    <p>Alternance : <a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
   </div>
 </footer>
 
 <script>
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  if (toggle) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  }
 </script>
-
 <script data-pplx-inline-edit>
 (function () {
   if (window === window.top) return;
@@ -589,7 +561,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

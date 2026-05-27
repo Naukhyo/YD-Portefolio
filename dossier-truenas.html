@@ -390,39 +390,89 @@
         <li><span class="step-num">4</span><span>Démarrer le service SMB si ce n'est pas déjà fait (état "Running" requis)</span></li>
       </ol>
 
-      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Partages prévus</h3>
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Partages créés</h3>
 
       <table class="data-table">
         <thead>
           <tr><th>Nom du partage</th><th>Chemin UNC</th><th>Accès</th><th>Usage</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>GPO</strong></td><td><code>\\Bras-d-Orion\GPO</code></td><td>Administrateurs</td><td>Stock le fond d'écran pour GPO-FondEcran</td></tr>
+          <tr><td><strong>GPO</strong></td><td><code>\\Bras-d-Orion\GPO</code></td><td>Administrateurs</td><td>Stocke le fond d'écran pour GPO-FondEcran</td></tr>
           <tr><td><strong>Commun</strong></td><td><code>\\Bras-d-Orion\Commun</code></td><td>GRP-Informatique + GRP-Utilisateurs</td><td>Partage commun accessible à tous</td></tr>
           <tr><td><strong>Informatique</strong></td><td><code>\\Bras-d-Orion\Informatique</code></td><td>GRP-Informatique uniquement</td><td>Documents réservés au service IT</td></tr>
         </tbody>
       </table>
 
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Gestion des ACL</h3>
+
+      <p style="font-size:15px;color:#444;margin-bottom:14px;">
+        TrueNAS utilise des ACL POSIX sur les datasets ZFS pour gérer les permissions. On les configure via Storage → Datasets → Edit Permissions. Puisque TrueNAS est joint au domaine, on peut directement ajouter les groupes AD dans les ACL.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Dataset / Partage</th><th>Groupe AD</th><th>Permissions</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>GPO</strong></td>
+            <td>MILKYWAY\Administrateurs du domaine</td>
+            <td>Lecture / Écriture</td>
+          </tr>
+          <tr>
+            <td><strong>Commun</strong></td>
+            <td>MILKYWAY\GRP-Informatique</td>
+            <td>Lecture / Écriture</td>
+          </tr>
+          <tr>
+            <td><strong>Commun</strong></td>
+            <td>MILKYWAY\GRP-Utilisateurs</td>
+            <td>Lecture seule</td>
+          </tr>
+          <tr>
+            <td><strong>Informatique</strong></td>
+            <td>MILKYWAY\GRP-Informatique</td>
+            <td>Lecture / Écriture</td>
+          </tr>
+          <tr>
+            <td><strong>Informatique</strong></td>
+            <td>MILKYWAY\GRP-Utilisateurs</td>
+            <td>Accès refusé</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        Les utilisateurs standards (GRP-Utilisateurs) n'ont pas accès au partage Informatique — ils reçoivent une erreur "Accès refusé" s'ils essaient d'y accéder. Seul GRP-Informatique peut lire et écrire dans ce dossier.
+      </div>
+
       <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Lien avec la GPO-FondEcran</h3>
 
-      <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Le partage GPO est lié à la GPO-FondEcran sur Milky-Way. Le chemin renseigné dans la GPO est <code>\\Bras-d-Orion\GPO\fond-ecran.jpg</code> — à chaque ouverture de session, Windows récupère l'image depuis le NAS automatiquement.
+      <p style="font-size:15px;color:#444;margin-bottom:14px;">
+        Le partage GPO est lié à la GPO-FondEcran configurée sur Milky-Way. Le chemin renseigné dans la GPO est <code>\\Bras-d-Orion\GPO\fond-ecran.jpg</code> — à chaque ouverture de session, Windows récupère l'image depuis le NAS automatiquement. Pour que ça marche il faut que TrueNAS soit joint au domaine (statut HEALTHY), que le service SMB soit actif, et que le fichier image soit déposé dans le dataset GPO.
       </p>
 
-      <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Pour que ça marche, il faut : TrueNAS joint au domaine (statut HEALTHY), partage SMB GPO créé et service SMB actif, image <code>fond-ecran.jpg</code> déposée dans le dossier, et les postes clients qui arrivent à joindre <code>\\Bras-d-Orion</code> via le DNS du domaine.
+      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">SMB v1 désactivé</h3>
+
+      <p style="font-size:15px;color:#444;margin-bottom:14px;">
+        SMB v1 est un ancien protocole de partage de fichiers qui date des années 90. Il est désactivé sur TrueNAS par défaut, et c'est une bonne chose — SMB v1 a été exploité par le ransomware WannaCry en 2017 pour se propager sur les réseaux d'entreprise. Le protocole ne chiffre pas les données et n'a pas de mécanisme d'authentification moderne.
       </p>
 
-      <h3 style="font-size:16px;font-weight:600;margin:24px 0 10px;border-left:3px solid #0e7c7b;padding-left:10px;">Création des partages SMB</h3>
+      <ul style="font-size:14px;color:#444;line-height:1.8;padding-left:20px;margin-bottom:16px;">
+        <li>SMB v1 : désactivé — protocole vulnérable, à ne jamais réactiver</li>
+        <li>SMB v2 et v3 : activés — chiffrement des données en transit, authentification Kerberos</li>
+        <li>TrueNAS Scale désactive SMB v1 par défaut dans les paramètres du service SMB</li>
+      </ul>
 
-      <p style="font-size:15px;color:#444;margin-bottom:16px;">
-        Les partages sont créés depuis Shares → Windows (SMB) dans l'interface TrueNAS. Pour chaque partage, on choisit le dataset ZFS et on définit le nom qui apparaîtra sur le réseau. Les permissions sont gérées via les ACL du dataset avec les groupes AD (GRP-Informatique, GRP-Utilisateurs). Une fois actif, les utilisateurs accèdent aux partages depuis l'Explorateur Windows via <code>\\Bras-d-Orion</code> ou par lecteur réseau mappé par GPO.
-      </p>
+      <div class="note-ok">
+        Tous les postes Windows 10/11 supportent SMB v2 et v3 nativement. La désactivation de SMB v1 n'a aucun impact sur les utilisateurs — ils accèdent aux partages exactement pareil.
+      </div>
 
       <a href="index.html" class="btn">← Retour à l'accueil</a>
     </div>
   </div>
 </section>
+
 
 <footer>
   <div class="footer-inner">
@@ -716,7 +766,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

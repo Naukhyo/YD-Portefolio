@@ -21,7 +21,6 @@
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
 
-  /* Navigation */
   nav {
     position: sticky;
     top: 0;
@@ -38,11 +37,7 @@
     justify-content: space-between;
     height: 60px;
   }
-  .brand {
-    font-weight: 700;
-    font-size: 15px;
-    color: #333333;
-  }
+  .brand { font-weight: 700; font-size: 15px; color: #333333; }
   .nav-links {
     display: flex;
     gap: 4px;
@@ -70,16 +65,8 @@
     color: #333;
   }
 
-  /* Layout */
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  section { padding: 60px 0; }
-  section.alt { background: #f9f9f9; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  /* Page header */
   .page-header {
     padding: 48px 0 40px;
     border-bottom: 1px solid #e0e0e0;
@@ -91,55 +78,48 @@
     margin: 0 0 8px;
     color: #333333;
   }
-  .page-header p {
-    font-size: 15px;
-    color: #666666;
-    margin: 0;
-  }
+  .page-header p { font-size: 15px; color: #666666; margin: 0; }
 
-  /* Section titles */
-  .section-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #3b5bdb;
-    margin-bottom: 8px;
-  }
+  section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
+  section:last-of-type { border-bottom: none; }
+  section.alt { background: #f9f9f9; }
+
   .section-title {
     font-size: 22px;
     font-weight: 600;
     margin: 0 0 16px;
     color: #333333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3b5bdb;
+    display: inline-block;
   }
 
-  /* Text */
-  .content-text p {
+  .body-text {
     font-size: 15px;
     color: #444444;
-    margin: 0 0 16px;
+    margin: 0 0 14px;
     max-width: 720px;
   }
 
-  /* Info cards */
   .info-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-top: 32px;
+    max-width: 760px;
   }
   .info-card {
     border: 1px solid #e0e0e0;
     border-radius: 6px;
-    padding: 20px;
-    background: #f6f6f6;
+    padding: 18px 20px;
+    background: #fff;
   }
   .info-card-label {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #888888;
+    color: #3b5bdb;
     margin-bottom: 6px;
   }
   .info-card-value {
@@ -153,48 +133,57 @@
     color: #666666;
   }
 
-  /* Image */
-  .img-wrap {
-    margin-top: 36px;
+  .timeline {
+    margin-top: 32px;
+    max-width: 720px;
+    position: relative;
+    padding-left: 28px;
   }
-  .img-wrap img {
-    width: 100%;
-    max-height: 280px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #e0e0e0;
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: #e0e0e0;
   }
-  .img-caption {
-    font-size: 12px;
-    color: #888888;
-    font-style: italic;
-    margin-top: 8px;
-    text-align: center;
+  .timeline-item {
+    position: relative;
+    padding: 0 0 28px 20px;
   }
-
-  /* Buttons */
-  .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-    border: 1px solid #e0e0e0;
-    cursor: pointer;
-    background: #f6f6f6;
-    color: #333333;
-    transition: background 0.15s;
-  }
-  .btn:hover { background: #f5f5f5; }
-  .btn-primary {
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
     background: #3b5bdb;
-    color: #ffffff;
-    border-color: #3b5bdb;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #3b5bdb;
   }
-  .btn-primary:hover { background: #2d47b3; }
+  .timeline-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3b5bdb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  .timeline-sub {
+    font-size: 14px;
+    color: #555;
+  }
 
-  /* Footer */
   footer {
     background: #f9f9f9;
     border-top: 1px solid #e0e0e0;
@@ -206,19 +195,11 @@
     padding: 0 24px;
     text-align: center;
   }
-  .footer-inner p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #666666;
-  }
+  .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
   .footer-inner a { color: #3b5bdb; }
   .footer-inner a:hover { text-decoration: underline; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .info-cards { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     .info-cards { grid-template-columns: 1fr 1fr; }
     .page-header h1 { font-size: 26px; }
     .nav-links {
@@ -260,16 +241,23 @@
 <div class="page-header">
   <div class="container">
     <h1>À propos</h1>
-    <p>Présentation et parcours</p>
+    <p>Yvan Dupuit — étudiant BTS SIO SISR en alternance</p>
   </div>
 </div>
 
 <section>
   <div class="container">
-    <div class="content-text">
-      <p>Je suis Yvan Dupuit, étudiant en 2ème année de BTS SIO option SISR au SEPR Lyon. Je fais mon alternance chez MP Conception à Oyonnax depuis septembre 2024.</p>
-      <p>En entreprise, je m'occupe du helpdesk et du support utilisateur, de la réaffectation de postes informatiques, du câblage réseau, de la configuration de la téléphonie IP Wildix et de la supervision des infrastructures. C'est là que j'ai pu mettre en pratique beaucoup de ce qu'on voit en cours.</p>
-    </div>
+    <h2 class="section-title">Présentation</h2>
+
+    <p class="body-text">
+      Je m'appelle Yvan Dupuit, j'ai 19 ans et je suis en 2ème année de BTS SIO option SISR au SEPR Lyon. Je fais mon alternance chez MP Conception à Oyonnax, un prestataire informatique dans l'Ain.
+    </p>
+    <p class="body-text">
+      J'ai commencé à avoir des contacts avec MP Conception dès le collège — d'abord avec un stage de 3ème, puis un autre en seconde. C'est comme ça que j'ai intégré l'entreprise en alternance pour ma 1ère et terminale bac pro, et je continue dans la même entreprise pour le BTS.
+    </p>
+    <p class="body-text">
+      En entreprise je m'occupe principalement du helpdesk et du support utilisateur, du câblage réseau, de l'administration système et de la supervision des infrastructures clients. J'interviens presque toujours avec un technicien de l'entreprise — les interventions solo c'est surtout pour de petites missions chez des particuliers.
+    </p>
 
     <div class="info-cards">
       <div class="info-card">
@@ -285,33 +273,66 @@
       <div class="info-card">
         <div class="info-card-label">Domaine</div>
         <div class="info-card-value">Réseaux &amp; Infra</div>
-        <div class="info-card-sub">Systèmes, sécurité</div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-label">Objectif</div>
-        <div class="info-card-value">Expertise SISR</div>
-        <div class="info-card-sub">Poursuite études envisagée</div>
+        <div class="info-card-sub">Option SISR</div>
       </div>
     </div>
+  </div>
+</section>
 
+<section class="alt">
+  <div class="container">
+    <h2 class="section-title">Parcours</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">2019 — 2020</div>
+        <div class="timeline-title">Stage de 3ème — MP Conception</div>
+        <div class="timeline-sub">Premier contact avec l'entreprise et avec le métier.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2020 — 2021</div>
+        <div class="timeline-title">Stage de seconde — MP Conception</div>
+        <div class="timeline-sub">Deuxième passage en entreprise, découverte plus poussée des missions terrain.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2021 — 2022</div>
+        <div class="timeline-title">Seconde Bac Pro SN — Saint-Joseph, Bourg-en-Bresse</div>
+        <div class="timeline-sub">Première année en systèmes numériques, en formation initiale.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2022 — 2024</div>
+        <div class="timeline-title">1ère &amp; Terminale Bac Pro SN — SEPR Lyon</div>
+        <div class="timeline-sub">Formation en alternance au SEPR Lyon, entreprise MP Conception à Oyonnax. Obtention du Bac Pro SN en 2024.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2024 — 2026</div>
+        <div class="timeline-title">BTS SIO option SISR — SEPR Lyon</div>
+        <div class="timeline-sub">Poursuite en alternance chez MP Conception. Administration système, réseau, sécurité, infrastructure. Fin de formation en 2026.</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <p>Yvan Dupuit — BTS SIO option SISR — SEPR Lyon</p>
-    <p><a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
-    <p>© 2026</p>
+    <p>Yvan Dupuit — BTS SIO 2ème année option SISR — SEPR Lyon</p>
+    <p>Alternance : <a href="mailto:yvandupuit@gmail.com">yvandupuit@gmail.com</a></p>
   </div>
 </footer>
 
 <script>
   const toggle = document.getElementById('navToggle');
   const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  if (toggle) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  }
 </script>
-
 <script data-pplx-inline-edit>
 (function () {
   if (window === window.top) return;
@@ -589,7 +610,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

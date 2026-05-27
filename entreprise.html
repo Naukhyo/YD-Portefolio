@@ -114,6 +114,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     padding: 16px 20px;
+    background: #fff;
   }
   .info-card .label {
     font-size: 11px;
@@ -146,7 +147,6 @@
     margin-bottom: 10px;
     padding-left: 4px;
   }
-  .mission-list li strong { color: #333333; }
 
   .tech-tags {
     display: flex;
@@ -163,6 +163,32 @@
     padding: 4px 10px;
     border-radius: 4px;
   }
+
+  .img-wrap { margin: 20px 0 0; }
+  .img-wrap img {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    max-height: 360px;
+    object-fit: cover;
+    background: #fafafa;
+  }
+  .img-caption {
+    font-size: 12px;
+    color: #888888;
+    font-style: italic;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .img-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0 0;
+    max-width: 860px;
+  }
+  .img-row .img-wrap { margin: 0; }
 
   .note-info {
     background: #eef1ff;
@@ -193,6 +219,7 @@
   @media (max-width: 600px) {
     .page-header h1 { font-size: 26px; }
     .info-grid { grid-template-columns: 1fr; }
+    .img-row { grid-template-columns: 1fr; }
     .nav-links {
       display: none;
       position: absolute;
@@ -249,7 +276,7 @@
         MP Conception SAS est un prestataire informatique basé à Oyonnax, dans l'Ain. L'entreprise existe depuis 2009 et propose des solutions informatiques globales pour les PME et PMI : infogérance, réseaux, sauvegardes, téléphonie d'entreprise et virtualisation. C'est aussi là que j'ai fait toute ma scolarité en alternance : la 1ère et la terminale bac pro SN, et maintenant le BTS SIO option SISR — toujours à la SEPR Lyon.
       </p>
       <p class="body-text">
-        En tant que prestataire informatique, MP Conception intervient directement chez ses clients pour gérer leur parc informatique et leur infrastructure. C'est un environnement varié — chaque client a sa config, ses problèmes, ses contraintes — ce qui m'a permis de toucher à pas mal de situations différentes.
+        En tant que prestataire informatique, MP Conception intervient directement chez ses clients pour gérer leur parc informatique et leur infrastructure. Chaque client a sa config, ses problèmes, ses contraintes — c'est ce qui rend le travail varié.
       </p>
 
       <div class="info-grid">
@@ -278,23 +305,61 @@
   </div>
 </section>
 
-<section>
+<section class="alt">
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Ce que fait MP Conception</h2>
+      <h2 class="section-title">Mes missions</h2>
       <p class="body-text">
-        L'entreprise s'occupe de tout l'informatique de ses clients — pas juste le dépannage, mais vraiment la gestion complète : infrastructure, réseaux, sauvegardes, téléphonie. Le but c'est que les clients n'aient pas à gérer ça eux-mêmes.
+        J'interviens sur les missions clients aux côtés des techniciens de l'entreprise. Les tâches varient beaucoup selon les clients et les semaines.
       </p>
 
       <ul class="mission-list">
-        <li><strong>Infogérance</strong> — gestion complète du parc informatique des clients, maintenance préventive et corrective</li>
-        <li><strong>Réseaux</strong> — mise en place et sécurisation des réseaux locaux, VPN, firewall, routeurs</li>
-        <li><strong>Sauvegarde</strong> — solutions de sauvegarde locale, multi-sites et datacentre, plan de reprise d'activité (PRA/PCA)</li>
-        <li><strong>Téléphonie d'entreprise</strong> — téléphonie IP, configuration des centraux et des postes</li>
-        <li><strong>Virtualisation</strong> — déploiement et gestion d'environnements virtualisés</li>
-        <li><strong>Supervision</strong> — surveillance des infrastructures clients, alertes et interventions préventives</li>
-        <li><strong>Conseil et audit</strong> — accompagnement des clients sur leurs choix techniques et leur sécurité informatique</li>
+        <li>Helpdesk et support utilisateur — dépannage des postes, résolution de problèmes logiciels et matériels, assistance aux salariés</li>
+        <li>Réaffectation de postes — remise en état de PCs, installation Windows, configuration des logiciels métier et intégration réseau</li>
+        <li>Câblage réseau — tirage de câbles, sertissage RJ45, brassage en baie</li>
+        <li>Téléphonie IP Wildix — configuration des postes téléphoniques, gestion des extensions</li>
+        <li>Administration système — Active Directory, sauvegardes, supervision d'infrastructure</li>
+        <li>Site internet — participation à la refonte du site de MP Conception</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Infrastructure interne</h2>
+      <p class="body-text">
+        L'infrastructure interne de MP Conception est hébergée sur site. Elle comprend un serveur physique TrueNAS pour le stockage, deux contrôleurs de domaine Windows Server sous Proxmox, un firewall pfSense, et plusieurs services de supervision et de gestion de parc.
+      </p>
+
+      <div class="tech-tags">
+        <span class="tag">pfSense 2.8.1</span>
+        <span class="tag">Proxmox VE</span>
+        <span class="tag">Windows Server 2022</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">TrueNAS Scale 25.04</span>
+        <span class="tag">GLPI</span>
+        <span class="tag">PRTG</span>
+        <span class="tag">Wildix VoIP</span>
+      </div>
+
+      <div class="img-row" style="margin-top:28px;">
+        <div class="img-wrap">
+          <img src="img/entreprise-baie-dellemc.jpeg" alt="Baie serveurs Dell EMC — câblage réseau MP Conception" loading="lazy" />
+          <p class="img-caption">Baie serveurs Dell EMC — câblage réseau et brassage</p>
+        </div>
+        <div class="img-wrap">
+          <img src="img/entreprise-baie-client.jpeg" alt="Baie réseau chez un client en intervention" loading="lazy" />
+          <p class="img-caption">Baie réseau chez un client — intervention sur site</p>
+        </div>
+      </div>
+
+      <div class="img-wrap" style="margin-top:16px;">
+        <img src="img/entreprise-baie-bureau.jpeg" alt="Baie réseau du bureau — panneaux de brassage CAT6A, switchs Cisco, serveur HP ProLiant" loading="lazy" />
+        <p class="img-caption">Baie réseau du bureau — panneaux de brassage CAT6/CAT6A Digitus, switchs Cisco, serveur HP ProLiant</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -302,45 +367,18 @@
 <section class="alt">
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Mes missions</h2>
+      <h2 class="section-title">Supervision avec PRTG</h2>
       <p class="body-text">
-        J'interviens sur les missions clients aux côtés des techniciens de l'entreprise. Les tâches varient beaucoup selon les clients et les semaines, c'est ce qui rend l'alternance intéressante.
+        PRTG Network Monitor est utilisé pour surveiller les infrastructures des clients en temps réel. L'outil remonte les alertes sur les équipements, les services et la connectivité. Depuis le tableau de bord, on a une vue globale sur l'état de tous les clients supervisés.
       </p>
 
-      <ul class="mission-list">
-        <li><strong>Helpdesk et support utilisateur</strong> — dépannage des postes, résolution de problèmes logiciels et matériels, assistance aux salariés au quotidien</li>
-        <li><strong>Réaffectation de postes</strong> — remise en état de PCs, installation Windows, configuration des logiciels métier et intégration au réseau</li>
-        <li><strong>Câblage réseau</strong> — tirage de câbles, sertissage RJ45, brassage en baie, organisation de l'armoire réseau</li>
-        <li><strong>Téléphonie IP Wildix</strong> — configuration des postes téléphoniques IP, gestion des extensions et paramétrage de la centrale Wildix</li>
-        <li><strong>Supervision des infrastructures</strong> — surveillance de l'état des serveurs et équipements réseau, interventions préventives</li>
-        <li><strong>Administration système</strong> — mise en place et gestion de l'infrastructure Windows Server, Active Directory, sauvegardes</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="content-wrap">
-      <h2 class="section-title">Environnement technique</h2>
-      <p class="body-text">
-        L'environnement technique chez MP Conception couvre des outils et technologies variés. J'ai eu l'occasion d'intervenir sur différents aspects de l'infrastructure au cours de mon alternance.
-      </p>
-
-      <div class="tech-tags">
-        <span class="tag">Windows Server 2022</span>
-        <span class="tag">Active Directory</span>
-        <span class="tag">Windows 10 / 11</span>
-        <span class="tag">Réseau local</span>
-        <span class="tag">Wildix (VoIP)</span>
-        <span class="tag">Sauvegardes</span>
-        <span class="tag">Support utilisateur</span>
-        <span class="tag">Câblage RJ45</span>
-        <span class="tag">Baie de brassage</span>
+      <div class="img-wrap">
+        <img src="img/entreprise-prtg-ecrans.jpeg" alt="2 écrans PRTG — dashboard supervision clients MP Conception" loading="lazy" />
+        <p class="img-caption">Poste de supervision — 2 écrans avec le dashboard PRTG, vue en temps réel des clients</p>
       </div>
 
       <div class="note-info">
-        Travailler chez un prestataire informatique comme MP Conception m'a obligé à m'adapter vite — chaque client a son infrastructure, ses outils et ses habitudes. J'ai appris à gérer des environnements variés et à documenter mes interventions correctement.
+        La supervision permet d'anticiper les problèmes avant que les clients remontent un incident. Quand une alerte se déclenche, on peut intervenir directement depuis l'interface ou en déplacement chez le client.
       </div>
     </div>
   </div>
@@ -637,7 +675,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;

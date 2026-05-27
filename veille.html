@@ -21,7 +21,6 @@
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
 
-  /* Navigation */
   nav {
     position: sticky;
     top: 0;
@@ -67,14 +66,12 @@
     color: #333;
   }
 
-  /* Layout */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
   .content-wrap { max-width: 860px; }
   section { padding: 52px 0; border-bottom: 1px solid #e0e0e0; }
   section:last-of-type { border-bottom: none; }
   section.alt { background: #f9f9f9; }
 
-  /* Page header */
   .page-header {
     padding: 56px 0 44px;
     border-bottom: 1px solid #e0e0e0;
@@ -105,7 +102,6 @@
     line-height: 1.7;
   }
 
-  /* Titres de section */
   .section-title {
     font-size: 20px;
     font-weight: 600;
@@ -134,7 +130,6 @@
     line-height: 1.7;
   }
 
-  /* Source cards */
   .source-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -179,7 +174,6 @@
   }
   .source-card a.source-link:hover { text-decoration: underline; }
 
-  /* Stat blocs */
   .stats-row {
     display: flex;
     flex-wrap: wrap;
@@ -208,7 +202,6 @@
     line-height: 1.4;
   }
 
-  /* Risk table */
   .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -229,11 +222,34 @@
     color: #444444;
   }
   .data-table tr:nth-child(even) td { background: #f9f9f9; }
-  .risk-high { color: #c0392b; font-weight: 600; }
-  .risk-med { color: #e67e22; font-weight: 600; }
-  .risk-low { color: #27ae60; font-weight: 600; }
+  .badge-green {
+    display: inline-block;
+    background: #edfaed;
+    color: #1a6e1a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .badge-orange {
+    display: inline-block;
+    background: #fff4e6;
+    color: #b35c00;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .badge-red {
+    display: inline-block;
+    background: #fff0f0;
+    color: #c0392b;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
 
-  /* Notes */
   .note {
     background: #fff8e6;
     border: 1px solid #f0c040;
@@ -245,7 +261,6 @@
     margin: 16px 0;
     line-height: 1.6;
   }
-  .note strong { color: #3a2e00; }
   .note-info {
     background: #f0f4ff;
     border: 1px solid #b0c0f0;
@@ -269,7 +284,6 @@
     line-height: 1.6;
   }
 
-  /* Bullet list */
   .bullet-list {
     list-style: none;
     padding: 0;
@@ -290,10 +304,8 @@
     font-weight: 700;
   }
 
-  /* Divider */
   .divider { margin: 32px 0 20px; border: none; border-top: 1px solid #e8e8e8; }
 
-  /* Bouton */
   .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -310,14 +322,12 @@
   }
   .btn:hover { background: #f5f5f5; }
 
-  /* Footer */
   footer { background: #f9f9f9; border-top: 1px solid #e0e0e0; padding: 36px 0 24px; }
   .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; text-align: center; }
   .footer-inner p { margin: 4px 0; font-size: 14px; color: #666666; }
   .footer-inner a { color: #3b5bdb; }
   .footer-inner a:hover { text-decoration: underline; }
 
-  /* Responsive */
   @media (max-width: 700px) {
     .source-grid { grid-template-columns: 1fr; }
     .stats-row { flex-direction: column; }
@@ -361,8 +371,8 @@
 <div class="page-header">
   <div class="container">
     <div class="page-badge">Veille technologique</div>
-    <h1>L'IA dans les métiers de l'informatique</h1>
-    <p>Dans le cadre du BTS SIO, on doit assurer une veille technologique sur un sujet en lien avec l'informatique. J'ai choisi de travailler sur l'impact de l'IA sur les métiers IT — c'est un sujet qui évolue vite en ce moment et qui touche directement notre domaine, que ce soit pour les admins sys, les réseaux ou le support.</p>
+    <h1>La téléphonie IP en entreprise</h1>
+    <p>Dans le cadre du BTS SIO, on doit assurer une veille technologique sur un sujet en lien avec l'informatique. J'ai choisi la téléphonie IP parce que c'est un domaine qui est en train de changer complètement la façon dont les entreprises communiquent — et c'est directement lié aux réseaux et à l'infrastructure qu'on apprend à gérer en SISR.</p>
   </div>
 </div>
 
@@ -372,15 +382,15 @@
       <h2 class="section-title">Pourquoi ce sujet ?</h2>
 
       <p class="body-text">
-        Depuis fin 2022 et le lancement de ChatGPT, les outils d'IA ont commencé à rentrer dans plein de domaines. Dans l'IT en particulier, ça a bougé vite : GitHub Copilot pour le code, des chatbots pour le support, des assistants pour les admins réseau... Difficile de ne pas se demander ce que ça change concrètement pour les métiers qu'on vise en BTS SIO.
+        La téléphonie IP, c'est le fait de faire passer des appels téléphoniques via un réseau IP plutôt que via les lignes téléphoniques classiques (RTC). C'est pas une nouveauté en soi, mais depuis quelques années la migration s'est accélérée — et en France en particulier, la fermeture du réseau cuivre par Orange force toutes les entreprises à changer leurs installations.
       </p>
 
       <p class="body-text">
-        Ce qui m'a motivé à choisir ce sujet c'est surtout la question de l'emploi. Est-ce que l'IA va vraiment remplacer des jobs IT ? Quels métiers sont les plus à risque ? Et au contraire, qu'est-ce qui va être en tension, où les entreprises cherchent des gens qu'elles n'arrivent pas à trouver ? J'ai voulu des chiffres concrets, pas juste des opinions.
+        Ce qui m'a amené à ce sujet c'est qu'en entreprise on utilise Wildix, qui est une solution de téléphonie IP. J'ai vu comment ça fonctionnait côté utilisateur, mais je voulais comprendre le côté technique et comprendre ce qui se passe derrière : comment la voix passe sur le réseau, ce que c'est qu'un trunk SIP, pourquoi les entreprises passent à la VoIP, et vers où ça va.
       </p>
 
       <p class="body-text">
-        J'ai donc suivi plusieurs sources spécialisées pendant plusieurs semaines pour construire ma veille : sites d'info IT, études INSEE, rapports McKinsey, articles de professionnels du secteur.
+        J'ai donc suivi plusieurs sources pendant quelques semaines : sites spécialisés télécom, publications de l'ARCEP, articles de prestataires et études de marché pour avoir une vue complète du sujet.
       </p>
     </div>
   </div>
@@ -389,37 +399,37 @@
 <section class="alt">
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Les chiffres clés en 2025–2026</h2>
+      <h2 class="section-title">Les chiffres clés</h2>
 
       <p class="body-text">
-        Avant de rentrer dans le détail, voici quelques chiffres qui donnent une idée de l'ampleur du changement. Ces données viennent de plusieurs études récentes — PwC, McKinsey, Commission française sur l'IA, et une note INSEE de mars 2026.
+        La VoIP est en croissance depuis plusieurs années et ça ne ralentit pas. Ces chiffres donnent une idée de l'ampleur du marché et de la vitesse à laquelle les entreprises basculent vers la téléphonie IP.
       </p>
 
       <div class="stats-row">
         <div class="stat-box">
-          <div class="stat-num">81,6%</div>
-          <div class="stat-label">des emplois IT ne sont PAS directement menacés par l'IA</div>
+          <div class="stat-num">169 Mds$</div>
+          <div class="stat-label">marché VoIP mondial en 2025</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">+252%</div>
-          <div class="stat-label">d'emplois IT "augmentés" par l'IA entre 2019 et 2024 (PwC)</div>
+          <div class="stat-num">+11,8%</div>
+          <div class="stat-label">croissance annuelle moyenne prévue jusqu'en 2029</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">166 000</div>
-          <div class="stat-label">offres d'emploi IA créées en France en 2024 (1er en Europe)</div>
+          <div class="stat-num">264 Mds$</div>
+          <div class="stat-label">marché VoIP projeté d'ici 2029</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">-16%</div>
-          <div class="stat-label">d'emplois chez les 22–25 ans dans les métiers IT les plus exposés aux USA depuis l'IA générative (INSEE, mars 2026)</div>
+          <div class="stat-num">-30 à 50%</div>
+          <div class="stat-label">de réduction des coûts en moyenne par rapport à la téléphonie traditionnelle</div>
         </div>
       </div>
 
       <p class="body-text">
-        Ces chiffres montrent une réalité un peu complexe : d'un côté les emplois IT dans l'ensemble ne disparaissent pas, de l'autre les profils débutants ou peu spécialisés ont du mal à entrer sur le marché. La note INSEE de mars 2026 est claire là-dessus : ce sont surtout les jeunes qui en souffrent, en France comme aux États-Unis.
+        Le marché du SIP Trunking à lui seul représentait 70,4 milliards de dollars en 2024, avec une croissance annuelle prévue de 13,75% jusqu'en 2034. Les PME sont le segment qui grandit le plus vite — c'est logique, c'est là que les économies sont les plus visibles par rapport à une installation téléphonique classique.
       </p>
 
       <div class="note-info">
-        <strong>Source principale :</strong> Note INSEE "IA et emploi salarié dans les activités informatiques" — publiée le 24 mars 2026. Disponible sur <a href="https://www.vie-publique.fr/en-bref/302720-ia-moins-demplois-dans-les-activites-informatiques" target="_blank" style="color:#3b5bdb;">vie-publique.fr</a>.
+        Sources : <a href="https://www.zoom.com/fr/blog/voip-statistics/" target="_blank" style="color:#3b5bdb;">Zoom VoIP Statistics</a> et <a href="https://cdxtelecom.com/blog/yeastar/marche-de-la-voip-taille-croissance-et-tendances/" target="_blank" style="color:#3b5bdb;">CDX Telecom — Marché de la VoIP</a>
       </div>
     </div>
   </div>
@@ -428,101 +438,120 @@
 <section>
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Quels métiers sont à risque ?</h2>
+      <h2 class="section-title">La fin du RTC en France</h2>
 
       <p class="body-text">
-        Tous les métiers IT ne sont pas logés à la même enseigne. Le site FORMIP a publié une analyse détaillée (novembre 2025) qui classe les métiers informatiques par niveau de risque d'automatisation. Ce qui ressort c'est que les tâches répétitives et à faible valeur ajoutée sont les premières touchées.
+        En France, la migration vers la téléphonie IP n'est plus vraiment une option — c'est imposé par la fermeture du réseau cuivre. Orange, qui gère l'infrastructure téléphonique historique (le RTC, Réseau Téléphonique Commuté), est en train de fermer ce réseau progressivement.
       </p>
+
+      <h3 class="section-subtitle">Le calendrier de fermeture</h3>
+
+      <ul class="bullet-list">
+        <li>Fermeture commerciale déjà en cours : depuis début 2026, il n'est plus possible d'ouvrir une nouvelle ligne RTC dans la majorité des zones</li>
+        <li>Les dernières lignes commerciales restantes sont reportées à janvier 2027</li>
+        <li>Fermeture technique progressive jusqu'en 2030, conduite par Orange</li>
+        <li>94% des locaux en France sont déjà couverts par la fibre début 2026</li>
+      </ul>
+
+      <p class="body-text">
+        Ça veut dire que toutes les entreprises qui avaient encore des lignes analogiques ou des installations PABX classiques doivent migrer. Soit vers une solution VoIP hébergée chez un opérateur (SaaS), soit en installant un IPBX en interne. Dans les deux cas, la voix passe désormais sur le réseau IP.
+      </p>
+
+      <div class="note">
+        Les entreprises qui n'ont pas anticipé la migration peuvent se retrouver avec des systèmes téléphoniques qui ne fonctionnent plus du jour au lendemain. C'est un vrai sujet pour les PME qui n'ont pas de service informatique dédié.
+      </div>
+
+      <div class="note-info">
+        Source ARCEP : <a href="https://www.arcep.fr/mes-demarches-et-services/consommateurs/fiches-pratiques/que-va-changer-la-fermeture-du-reseau-cuivre.html" target="_blank" style="color:#3b5bdb;">arcep.fr — Fermeture du réseau cuivre</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="content-wrap">
+      <h2 class="section-title">Comment ça fonctionne techniquement</h2>
+
+      <p class="body-text">
+        Derrière le mot "téléphonie IP" il y a plusieurs technologies qui fonctionnent ensemble. C'est utile de comprendre les différences pour savoir de quoi on parle quand on est en entreprise.
+      </p>
+
+      <h3 class="section-subtitle">VoIP : la voix sur IP</h3>
+
+      <p class="body-text">
+        Le principe de base : au lieu de passer par le circuit téléphonique classique (une ligne dédiée par appel), la voix est numérisée, découpée en paquets et envoyée sur le réseau IP. À l'arrivée, les paquets sont réassemblés et restitués en son. C'est le même principe qu'une vidéo YouTube, mais en temps réel et avec des contraintes de latence bien plus strictes.
+      </p>
+
+      <h3 class="section-subtitle">SIP et les trunks SIP</h3>
+
+      <p class="body-text">
+        SIP (Session Initiation Protocol) est le protocole standard pour établir, gérer et terminer les appels VoIP. Un trunk SIP, c'est une jonction logique entre le système téléphonique interne d'une entreprise (IPBX) et le réseau de l'opérateur. Ça remplace ce qu'étaient les lignes physiques. Un canal SIP = un appel simultané possible. Une entreprise qui a besoin de 10 appels en simultané prend 10 canaux SIP.
+      </p>
+
+      <h3 class="section-subtitle">IPBX vs PABX</h3>
+
+      <p class="body-text">
+        Le PABX (Private Automatic Branch eXchange) c'est le standard téléphonique classique qu'on trouvait dans les entreprises — un boîtier physique, des lignes analogiques, des postes fixes câblés. L'IPBX (IP Private Branch eXchange) fait la même chose mais sur le réseau IP. Il peut être un équipement physique en salle serveur, ou hébergé dans le cloud chez un prestataire. Wildix, qu'on utilise en entreprise, c'est ce type de solution.
+      </p>
+
+      <div class="note-info">
+        Source : <a href="https://pro.orange.fr/lemag/telephonie-ip-voip-sip-ipbx-quelles-differences-CNT00000278nUk.html" target="_blank" style="color:#3b5bdb;">Orange Pro — Téléphonie IP, VoIP, SIP, IPBX : quelles différences ?</a> et <a href="https://www.napsis.fr/telephonie-ip/trunk-sip/" target="_blank" style="color:#3b5bdb;">Napsis — Trunk SIP</a>
+      </div>
+
+      <h3 class="section-subtitle">Comparaison RTC vs VoIP</h3>
 
       <table class="data-table">
         <thead>
           <tr>
-            <th>Métier</th>
-            <th>Risque d'automatisation</th>
-            <th>Pourquoi</th>
+            <th>Critère</th>
+            <th>Téléphonie RTC (classique)</th>
+            <th>Téléphonie IP (VoIP)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Support technique N1</td>
-            <td class="risk-high">85% — Très élevé</td>
-            <td>Les chatbots IA traitent déjà 70% des tickets répétitifs (reset mot de passe, imprimante...)</td>
+            <td>Infrastructure</td>
+            <td>Lignes cuivre dédiées</td>
+            <td>Réseau IP existant (LAN/WAN)</td>
           </tr>
           <tr>
-            <td>Saisie de données / Data entry</td>
-            <td class="risk-high">90% — Très élevé</td>
-            <td>Tâche entièrement automatisable, aucune créativité requise</td>
+            <td>Coût d'installation</td>
+            <td>Élevé (câblage, PABX physique)</td>
+            <td>Réduit si réseau IP déjà en place</td>
           </tr>
           <tr>
-            <td>Testeur QA manuel (répétitif)</td>
-            <td class="risk-high">75% — Élevé</td>
-            <td>Les outils de test automatique couvrent de plus en plus les cas standard</td>
+            <td>Coût des appels</td>
+            <td>Tarification à la minute</td>
+            <td><span class="badge-green">Nettement moins cher</span>, surtout longue distance</td>
           </tr>
           <tr>
-            <td>Développeur web junior généraliste</td>
-            <td class="risk-med">60% — Moyen</td>
-            <td>GitHub Copilot génère des composants basiques en secondes</td>
+            <td>Scalabilité</td>
+            <td>Limité par le nombre de lignes physiques</td>
+            <td><span class="badge-green">Flexible</span> — ajout de canaux à la demande</td>
           </tr>
           <tr>
-            <td>Admin sys / réseau</td>
-            <td class="risk-low">Faible — en transformation</td>
-            <td>Les tâches répétitives s'automatisent mais le rôle stratégique reste humain</td>
+            <td>Mobilité</td>
+            <td>Poste fixe uniquement</td>
+            <td>Softphone PC, smartphone, téléphone IP</td>
           </tr>
           <tr>
-            <td>Expert cybersécurité</td>
-            <td class="risk-low">Très faible — en forte hausse</td>
-            <td>Les menaces augmentent, la demande explose — +35% de recrutements prévus</td>
+            <td>Qualité voix</td>
+            <td>Stable et fiable</td>
+            <td>Dépend de la qualité du réseau IP (QoS)</td>
           </tr>
           <tr>
-            <td>Ingénieur DevOps / Cloud</td>
-            <td class="risk-low">Très faible — pénurie</td>
-            <td>Profils très demandés, l'IA augmente leur productivité sans les remplacer</td>
+            <td>Disponibilité en France</td>
+            <td><span class="badge-red">Fermeture en cours</span> jusqu'en 2030</td>
+            <td><span class="badge-green">Standard actuel</span></td>
+          </tr>
+          <tr>
+            <td>Intégrations</td>
+            <td>Quasi aucune</td>
+            <td>CRM, ERP, helpdesk, messagerie unifiée</td>
           </tr>
         </tbody>
       </table>
-
-      <p class="body-text">
-        Ce tableau vient d'une synthèse de plusieurs sources : l'analyse FORMIP (2025), le rapport McKinsey sur la reconversion (375 millions de travailleurs à réorienter d'ici 2030), et une étude OpenAI publiée en octobre 2025 qui liste 44 métiers où l'IA peut avoir "le plus grand impact sur la productivité".
-      </p>
-
-      <div class="note">
-        <strong>Ce que ça veut dire pour nous en BTS SIO SISR :</strong> Le support N1 est effectivement en train de disparaître, mais c'est un métier de départ — pas une fin de carrière. Ce qui compte c'est de monter en compétences vers l'administration système, le réseau, la sécurité. Ces métiers-là résistent bien et sont en pénurie.
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="alt">
-  <div class="container">
-    <div class="content-wrap">
-      <h2 class="section-title">L'IA dans l'administration réseau</h2>
-
-      <p class="body-text">
-        C'est le domaine qui me touche directement en option SISR. La question c'est pas "est-ce que l'IA va remplacer les admins réseau ?" — la réponse est clairement non à court terme. La vraie question c'est : "comment l'IA change le travail au quotidien d'un admin réseau ?"
-      </p>
-
-      <h3 class="section-subtitle">Ce que l'IA fait déjà en administration réseau</h3>
-
-      <ul class="bullet-list">
-        <li><strong>Surveillance en temps réel :</strong> les outils IA analysent le trafic réseau en continu, détectent les anomalies et les tentatives d'intrusion bien plus rapidement qu'une surveillance manuelle. C'est pas nouveau mais ça s'est beaucoup amélioré avec le machine learning.</li>
-        <li><strong>Génération de scripts :</strong> des outils comme GitHub Copilot ou ChatGPT permettent de générer des scripts Python ou PowerShell pour automatiser des tâches d'administration. L'admin décrit ce qu'il veut faire, l'IA produit le code. Ça fait gagner du temps sur les tâches répétitives.</li>
-        <li><strong>Prédiction de pannes :</strong> en analysant les logs et les historiques de performance, l'IA peut identifier des signaux faibles avant qu'une panne se produise. Passage d'une approche réactive à une approche proactive.</li>
-        <li><strong>Déploiement automatisé :</strong> configuration automatique des équipements réseau (IP, VLAN, paramètres de sécurité) lors de l'ajout d'un nouveau switch ou routeur.</li>
-      </ul>
-
-      <p class="body-text">
-        Un exemple concret : en février 2026, NetBox Labs a officialisé un assistant IA pour les administrateurs réseau. L'outil s'appelle "Copilot" et permet d'interroger l'infrastructure en langage naturel. Un admin peut demander "Quels terminaux n'ont pas d'adresse IP ?" ou "Qui a modifié ce préfixe la semaine dernière ?" directement, sans passer par des interfaces complexes.
-      </p>
-
-      <div class="note-info">
-        <strong>Source :</strong> Le Monde Informatique, "NetBox Labs lance un assistant IA pour les administrateurs réseau", février 2026 — <a href="https://www.lemondeinformatique.fr/actualites/lire-netbox-labs-lance-un-assistant-ia-pour-les-administrateurs-reseau-99331.html" target="_blank" style="color:#3b5bdb;">lemondeinformatique.fr</a>
-      </div>
-
-      <h3 class="section-subtitle">Ce qui reste humain</h3>
-
-      <p class="body-text">
-        Même avec tous ces outils, il y a des choses que l'IA ne fait pas bien : comprendre le contexte métier, prendre des décisions critiques sous pression, assurer la responsabilité d'une architecture réseau. Un admin senior avec 5–10 ans d'expérience reste indispensable. L'IA automatise les tâches fastidieuses, elle libère du temps pour le travail à plus forte valeur ajoutée.
-      </p>
     </div>
   </div>
 </section>
@@ -530,48 +559,34 @@
 <section>
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Les nouveaux métiers créés par l'IA</h2>
+      <h2 class="section-title">La sécurité en téléphonie IP</h2>
 
       <p class="body-text">
-        L'IA ne fait pas que menacer des emplois — elle en crée aussi. Des métiers qui n'existaient pas il y a 5 ans sont aujourd'hui en forte demande. Le site DataBird (avril 2026) liste plusieurs profils émergents qui attirent des salaires élevés.
+        Faire passer la voix sur le réseau IP, c'est pratique — mais ça expose aussi à des risques qui n'existaient pas avec le RTC. C'est un point important à ne pas négliger quand on configure ou qu'on administre ce type de solution.
       </p>
 
-      <div class="source-grid">
-        <div class="source-card">
-          <div class="source-tag">Développement IA</div>
-          <h4>Ingénieur en IA générative</h4>
-          <p>Conception et déploiement de modèles IA (LLM, diffusion). Profil très recherché, souvent issu d'un background développeur avec spécialisation ML.</p>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Architecture</div>
-          <h4>Architecte IA / MLOps Engineer</h4>
-          <p>Déploiement et maintenance des modèles en production. Combine compétences DevOps et ML. Profil en pénurie en France.</p>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Sécurité</div>
-          <h4>AI Security Specialist</h4>
-          <p>Sécurisation des systèmes IA contre les attaques (adversarial attacks, prompt injection...). Domaine tout récent qui se structure.</p>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Éthique / Gouvernance</div>
-          <h4>Analyste en éthique et gouvernance IA</h4>
-          <p>Avec les nouvelles réglementations (EU AI Act), les entreprises recrutent des profils capables de gérer la conformité des systèmes IA.</p>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Réseau / Infra</div>
-          <h4>Ingénieur infrastructure IA</h4>
-          <p>Gestion des datacenters qui hébergent les modèles IA. D'ici 2030, 20 000 emplois datacenter créés en France selon les projections.</p>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Data</div>
-          <h4>Data Strategist</h4>
-          <p>Profil hybride qui combine expertise métier et compétences IA/data. Traduit les résultats des modèles en décisions business.</p>
-        </div>
+      <h3 class="section-subtitle">Les principales menaces</h3>
+
+      <ul class="bullet-list">
+        <li>Écoute clandestine : si les flux RTP (la voix) ne sont pas chiffrés, n'importe qui sur le réseau peut intercepter une conversation avec Wireshark par exemple</li>
+        <li>Détournement d'appels (toll fraud) : un attaquant qui accède au système VoIP peut passer des appels internationaux surtaxés au frais de l'entreprise — c'est un risque financier réel</li>
+        <li>Déni de service (DoS) : envoyer un grand nombre de requêtes SIP pour saturer le système et rendre la téléphonie indisponible</li>
+        <li>Usurpation d'identité SIP : se faire passer pour un poste légitime pour intercepter ou rediriger des appels</li>
+      </ul>
+
+      <h3 class="section-subtitle">Les protections habituelles</h3>
+
+      <ul class="bullet-list">
+        <li>Pare-feu avec filtrage des flux SIP et RTP — c'est la base</li>
+        <li>Chiffrement SRTP pour la voix et TLS pour la signalisation SIP</li>
+        <li>Authentification forte sur les comptes SIP (mot de passe complexe, pas de comptes par défaut)</li>
+        <li>Segmentation réseau : idéalement un VLAN dédié pour la téléphonie, séparé du reste du trafic</li>
+        <li>Supervision des logs pour détecter les comportements anormaux (appels vers des numéros inhabituels, pic d'activité la nuit...)</li>
+      </ul>
+
+      <div class="note">
+        En entreprise, le VLAN téléphonie c'est quelque chose qu'on configure sur les switchs et qu'on retrouve souvent en pratique. Sur des équipements comme pfSense, on peut aussi faire du filtrage précis des flux SIP.
       </div>
-
-      <p class="body-text">
-        Selon les estimations, ces nouveaux métiers représenteraient +500 000 emplois informatiques liés à l'IA d'ici 2030. Les développeurs qui maîtrisent GitHub Copilot sont 35–55% plus productifs que les autres — c'est devenu un critère de recrutement.
-      </p>
     </div>
   </div>
 </section>
@@ -579,32 +594,46 @@
 <section class="alt">
   <div class="container">
     <div class="content-wrap">
-      <h2 class="section-title">Ce que ça change pour nous</h2>
+      <h2 class="section-title">Tendances 2026 et après</h2>
 
       <p class="body-text">
-        En tant qu'étudiant en BTS SIO SISR, la question est directe : est-ce que ce que j'apprends aujourd'hui va encore servir dans 5 ans ? La réponse courte : oui, mais il faut adapter la façon de travailler.
+        La téléphonie IP continue d'évoluer. Ce qui change en ce moment c'est surtout comment elle s'intègre avec le reste des outils de l'entreprise, et l'arrivée de l'IA dans les systèmes téléphoniques.
       </p>
 
-      <h3 class="section-subtitle">Ce que l'IA ne remplace pas</h3>
+      <h3 class="section-subtitle">UCaaS et communications unifiées</h3>
+
+      <p class="body-text">
+        L'UCaaS (Unified Communications as a Service) c'est l'idée de regrouper appels, visioconférence, messagerie instantanée et partage de fichiers dans une seule plateforme cloud. Des solutions comme Microsoft Teams, Zoom Phone ou Wildix vont dans ce sens. Le marché UCaaS est prévu à 417,9 milliards de dollars d'ici 2030 avec une croissance annuelle de 17,4%.
+      </p>
+
+      <h3 class="section-subtitle">L'IA dans la téléphonie</h3>
 
       <ul class="bullet-list">
-        <li>La compréhension réelle de comment fonctionnent les protocoles réseau, l'AD, la sécurité — sans ça, on ne peut pas superviser ce que l'IA fait</li>
-        <li>La capacité à gérer des incidents complexes, là où tout est lié et où le contexte compte</li>
-        <li>La responsabilité : un admin qui laisse une IA prendre toutes les décisions sur l'infrastructure sans comprendre reste responsable quand ça plante</li>
-        <li>La relation avec les utilisateurs et les équipes — l'IA ne gère pas les humains</li>
+        <li>Transcription automatique des appels en temps réel — utile pour le service client ou le support</li>
+        <li>Routing intelligent : l'IA analyse le contexte de l'appel entrant pour le diriger vers le bon interlocuteur</li>
+        <li>Résumés automatiques après chaque appel, alimentés directement dans le CRM</li>
+        <li>Détection de mots-clés en temps réel pour aider les agents pendant un appel (suggestions de réponses)</li>
+        <li>Serveurs vocaux bien plus naturels qu'avant grâce aux modèles de langage</li>
       </ul>
 
-      <h3 class="section-subtitle">Ce qu'il faut développer en plus</h3>
+      <h3 class="section-subtitle">5G et mobilité</h3>
 
-      <ul class="bullet-list">
-        <li><strong>Utiliser les outils IA au quotidien :</strong> ChatGPT pour documenter, Copilot pour les scripts, des assistants pour les configs — c'est plus une option, c'est attendu</li>
-        <li><strong>Comprendre les bases du scripting :</strong> Python et PowerShell deviennent encore plus importants quand l'IA peut générer du code mais qu'il faut savoir le relire et le corriger</li>
-        <li><strong>Spécialisation :</strong> les profils généralistes débutants sont les plus exposés. Se spécialiser en cybersécurité, cloud, ou infrastructure IA est un bon investissement</li>
-        <li><strong>Veille continue :</strong> le domaine bouge trop vite pour se reposer sur ce qu'on a appris en formation — il faut maintenir une veille active</li>
-      </ul>
+      <p class="body-text">
+        Avec la montée en charge de la 5G — Ericsson estime que 60% des connexions mobiles mondiales seront en 5G en 2028 — la VoIP mobile va gagner encore en qualité. La latence plus faible et la bande passante plus importante font de la téléphonie IP sur mobile une vraie alternative au téléphone fixe, y compris dans des contextes professionnels exigeants.
+      </p>
+
+      <h3 class="section-subtitle">Intégration CRM/ERP</h3>
+
+      <p class="body-text">
+        C'est une tendance forte côté entreprise : relier le système téléphonique directement aux outils métier. Quand un client appelle, la fiche CRM s'ouvre automatiquement. Après l'appel, le compte-rendu est enregistré sans action manuelle. Ce genre d'intégration est déjà possible avec Wildix via des connecteurs API.
+      </p>
 
       <div class="note-ok">
-        <strong>Conclusion :</strong> L'IA n'est pas l'ennemie des métiers IT — c'est un outil. Ceux qui vont souffrir sont ceux qui refusent de l'adopter. Ceux qui vont bien s'en sortir sont ceux qui utilisent l'IA comme un assistant pour aller plus vite, tout en gardant les compétences techniques fondamentales.
+        La téléphonie IP n'est plus un simple remplacement du fixe. Elle devient une couche de communication intégrée à l'ensemble du SI de l'entreprise. Pour un technicien réseau, ça veut dire comprendre non seulement les protocoles VoIP mais aussi la QoS, la segmentation réseau et les API d'intégration.
+      </div>
+
+      <div class="note-info">
+        Source tendances : <a href="https://www.ringover.fr/blog/tendances-telecom" target="_blank" style="color:#3b5bdb;">Ringover — Tendances télécom 2026</a>
       </div>
     </div>
   </div>
@@ -616,57 +645,45 @@
       <h2 class="section-title">Sources de veille utilisées</h2>
 
       <p class="body-text">
-        Voici les sources que j'ai suivies pour construire cette veille. J'ai choisi des sources variées : études institutionnelles, sites spécialisés IT, médias professionnels et publications académiques.
+        Voici les sources que j'ai suivies pour construire cette veille. J'ai cherché à mélanger des sources institutionnelles, des sites spécialisés télécom et des acteurs du marché pour avoir plusieurs angles.
       </p>
 
       <div class="source-grid">
         <div class="source-card">
           <div class="source-tag">Institutionnel</div>
-          <h4>INSEE — Emploi IT et IA générative</h4>
-          <p>Note de mars 2026 sur le recul de l'emploi salarié dans l'informatique en France et aux USA depuis l'arrivée de l'IA générative. Chiffres officiels sur les 22–25 ans.</p>
-          <a href="https://www.vie-publique.fr/en-bref/302720-ia-moins-demplois-dans-les-activites-informatiques" target="_blank" class="source-link">vie-publique.fr</a>
+          <h4>ARCEP — Fermeture du réseau cuivre</h4>
+          <p>La page officielle de l'ARCEP sur la fermeture du RTC en France. Calendrier, zones concernées, droits des utilisateurs. Référence pour tout ce qui concerne la migration obligatoire.</p>
+          <a href="https://www.arcep.fr/mes-demarches-et-services/consommateurs/fiches-pratiques/que-va-changer-la-fermeture-du-reseau-cuivre.html" target="_blank" class="source-link">arcep.fr</a>
         </div>
         <div class="source-card">
-          <div class="source-tag">Spécialisé IT</div>
-          <h4>FORMIP — IA et emploi IT</h4>
-          <p>Analyse détaillée par métier avec chiffres d'automatisation. Couvre le support N1, les devs, les admins réseau. Très concret et sourcé.</p>
-          <a href="https://www.formip.com/pages/blog/ia-et-emploi-it-vraie-reponse" target="_blank" class="source-link">formip.com</a>
+          <div class="source-tag">Opérateur</div>
+          <h4>Orange Pro — VoIP, SIP, IPBX</h4>
+          <p>Article d'explication sur les différences entre VoIP, SIP et IPBX. Rédigé par Orange, c'est un bon point de départ pour comprendre les termes sans jargon trop poussé.</p>
+          <a href="https://pro.orange.fr/lemag/telephonie-ip-voip-sip-ipbx-quelles-differences-CNT00000278nUk.html" target="_blank" class="source-link">pro.orange.fr</a>
         </div>
         <div class="source-card">
-          <div class="source-tag">Actualité IT</div>
-          <h4>Le Monde Informatique — NetBox Labs IA</h4>
-          <p>Article de février 2026 sur l'assistant IA pour admins réseau de NetBox Labs. Exemple concret d'outil IA déployé en production pour l'administration réseau.</p>
-          <a href="https://www.lemondeinformatique.fr/actualites/lire-netbox-labs-lance-un-assistant-ia-pour-les-administrateurs-reseau-99331.html" target="_blank" class="source-link">lemondeinformatique.fr</a>
+          <div class="source-tag">Technique</div>
+          <h4>Napsis — Trunk SIP</h4>
+          <p>Explication détaillée du fonctionnement d'un trunk SIP, ses avantages par rapport aux lignes RNIS, et comment le configurer. Source très technique et utile pour l'aspect infrastructure.</p>
+          <a href="https://www.napsis.fr/telephonie-ip/trunk-sip/" target="_blank" class="source-link">napsis.fr</a>
         </div>
         <div class="source-card">
-          <div class="source-tag">Formation</div>
-          <h4>EduGroupe — Métiers IT en tension 2025</h4>
-          <p>Liste des profils IT les plus recherchés en 2025. Cite le rapport McKinsey sur les 375 millions de travailleurs à reconvertir d'ici 2030. Bonne vue d'ensemble.</p>
-          <a href="https://edugroupe.com/les-profils-informatiques-recherches-en-2025/" target="_blank" class="source-link">edugroupe.com</a>
+          <div class="source-tag">Marché</div>
+          <h4>CDX Telecom — Marché VoIP</h4>
+          <p>Analyse du marché VoIP mondial avec chiffres, projections et segments en croissance. Inclut le détail sur le SIP Trunking et l'UCaaS. Source pour les données chiffrées utilisées dans cette veille.</p>
+          <a href="https://cdxtelecom.com/blog/yeastar/marche-de-la-voip-taille-croissance-et-tendances/" target="_blank" class="source-link">cdxtelecom.com</a>
         </div>
         <div class="source-card">
-          <div class="source-tag">Data / IA</div>
-          <h4>DataBird — Impact IA marché du travail 2025</h4>
-          <p>Article d'avril 2026 sur les transformations du marché IT. Bons détails sur les nouveaux métiers créés et les salaires associés.</p>
-          <a href="https://www.data-bird.co/blog/impact-ia-marche-du-travail-2025" target="_blank" class="source-link">data-bird.co</a>
+          <div class="source-tag">Statistiques</div>
+          <h4>Zoom — VoIP Statistics 2025</h4>
+          <p>Compilation de statistiques VoIP issues de différentes études (Research and Markets, IDC...). Bon pour avoir les chiffres de marché et les tendances d'adoption en entreprise.</p>
+          <a href="https://www.zoom.com/fr/blog/voip-statistics/" target="_blank" class="source-link">zoom.com</a>
         </div>
         <div class="source-card">
-          <div class="source-tag">Administration réseau</div>
-          <h4>DémarreTonAvenir — IA en admin réseau</h4>
-          <p>Exemples concrets d'applications IA dans le département administration réseau : monitoring, déploiement automatisé, génération de scripts. Pertinent pour l'option SISR.</p>
-          <a href="https://www.demarretonaventure.com/ex-applications-ia/exemples-dapplications-ia-dans-le-departement-administration-reseau/" target="_blank" class="source-link">demarretonaventure.com</a>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Recherche</div>
-          <h4>OpenAI — GDPval et 44 métiers impactés</h4>
-          <p>Étude d'octobre 2025 d'OpenAI qui évalue quels métiers l'IA peut impacter sur la productivité. Développeurs logiciels et représentants service client figurent dans la liste.</p>
-          <a href="https://www.lesnumeriques.com/intelligence-artificielle/chatgpt-peut-deja-remplacer-44-metiers-selon-une-etude-d-openai-n243211.html" target="_blank" class="source-link">lesnumeriques.com</a>
-        </div>
-        <div class="source-card">
-          <div class="source-tag">Professionnel</div>
-          <h4>LinkedIn — ChatGPT et métiers informatique</h4>
-          <p>Article d'un professionnel IT sur l'impact de ChatGPT sur les développeurs. Bonne analyse du changement de nature des tâches (de la production vers la revue de code).</p>
-          <a href="https://fr.linkedin.com/pulse/chatgpt-quels-impacts-sur-les-m%C3%A9tiers-du-informatique-bellamine" target="_blank" class="source-link">linkedin.com</a>
+          <div class="source-tag">Tendances</div>
+          <h4>Ringover — Tendances télécom 2026</h4>
+          <p>Article de Ringover (éditeur de solutions téléphonie cloud) sur les grandes tendances télécom pour 2026 : 5G, IA, travail à distance, convergence UCaaS. Perspective marché et usage.</p>
+          <a href="https://www.ringover.fr/blog/tendances-telecom" target="_blank" class="source-link">ringover.fr</a>
         </div>
       </div>
 
@@ -968,7 +985,7 @@
         `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
         '<foreignObject width="100%" height="100%">' +
         `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
         html +
         "</div></div></foreignObject></svg>";
       const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
